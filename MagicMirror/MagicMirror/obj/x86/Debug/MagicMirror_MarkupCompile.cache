@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Development\mirrorProj\MagicMirror\MagicMirror\obj\x86\Debug\
+D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\
 MagicMirror
 none
 false
 DEBUG;TRACE
-E:\Development\mirrorProj\MagicMirror\MagicMirror\App.xaml
-6154939419
+D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\App.xaml
+8567586938
 3-1980465506
-23401530318
-171496269405
-MainWindow.xaml;Resources\Styles\ResLibary.xaml;Views\BusyIndicator.xaml;Views\MainButtonMenuBar.xaml;Views\ProductSlideGallery.xaml;Views\UserControl1.xaml;
+23313797995
+181719776467
+MainWindow.xaml;Resources\Styles\GroupBox.xaml;Resources\Styles\ResLibary.xaml;Resources\Styles\ScrollViewerStyle.xaml;Views\BusyIndicator.xaml;Views\MainButtonMenuBar.xaml;Views\ProductSlideGallery.xaml;Views\ProductTryingOnControl.xaml;
 
 False
 

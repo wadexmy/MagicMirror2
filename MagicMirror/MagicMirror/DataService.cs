@@ -16,7 +16,7 @@ namespace MagicMirror
             {
                 //api地址前不带“/”在服务器地址后加上
                 ApiPath = "api/product/list",
-                ServerAddress = Config.ServerAddressUrl,
+                ServerAddress = Global.ServerAddressUrl,
                 Method = Method.Post,
                 AppKey = "",
                 Param = new

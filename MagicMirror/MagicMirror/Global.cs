@@ -8,7 +8,7 @@ using MagicMirror.Models;
 
 namespace MagicMirror
 {
-    class Config
+    class Global
     {
         /// <summary>
         /// 应用程序根目录
@@ -53,6 +53,10 @@ namespace MagicMirror
             }
         }
 
+        /// <summary>
+        /// 当前选中的正在试穿的衣服
+        /// </summary>
+        public static ProductBiz tryingOnProdect;
 
         #region ===声音文件===
         

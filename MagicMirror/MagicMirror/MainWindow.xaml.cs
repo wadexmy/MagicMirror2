@@ -27,7 +27,7 @@ namespace MagicMirror
             InitializeComponent();
 
             NavigationFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
-            Config.MainFrame = NavigationFrame;
+            Global.MainFrame = NavigationFrame;
             SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             SystemEvents_DisplaySettingsChanged(this, null);
         }
@@ -40,8 +40,8 @@ namespace MagicMirror
             double ScreenHeight = SystemParameters.PrimaryScreenHeight;
             double ratio = ScreenWidth * 1.0 / ScreenHeight;
            
-            double reqRatio = Config.UserInterface == UserInterface.FittingRoom ?
-                Config.FittingRoomRatio : Config.ShoppingAssistRatio;
+            double reqRatio = Global.UserInterface == UserInterface.FittingRoom ?
+                Global.FittingRoomRatio : Global.ShoppingAssistRatio;
             if (ratio >= reqRatio)
             {
                 this.Height = ScreenHeight;

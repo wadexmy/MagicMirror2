@@ -83,7 +83,8 @@
             </Viewport3D.Children>
         </Viewport3D>
 
-        <view:MainButtonMenuBar x:Name="menuButtons" VerticalAlignment="Bottom" Visibility="Collapsed">
+        <view:MainButtonMenuBar x:Name="menuButtons" VerticalAlignment="Bottom" 
+                                Visibility="Collapsed" Height="110">
             <view:MainButtonMenuBar.RenderTransform>
                 <TranslateTransform></TranslateTransform>
             </view:MainButtonMenuBar.RenderTransform>

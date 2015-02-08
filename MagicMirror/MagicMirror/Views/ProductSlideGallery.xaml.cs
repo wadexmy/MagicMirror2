@@ -73,7 +73,7 @@ namespace MagicMirror.Views
                         ModelVisual3D modelVisual3D = new ModelVisual3D();
                         GeometryModel3D geometryModel3D = new GeometryModel3D();
                         //TODO：目前因为使用的是示例图片，图片采用1,2,3.....ScenePicturesCount.jpg的命名方式
-                        string imagepath = System.IO.Path.Combine(Config.AssemblyPath, "Resources", "Products", (index + 1) + ".jpg");
+                        string imagepath = System.IO.Path.Combine(Global.AssemblyPath, "Resources", "Products", (index + 1) + ".jpg");
                         System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(imagepath);
                         double ratio = bmp.Width * 1.0 / bmp.Height;
 
@@ -201,7 +201,7 @@ namespace MagicMirror.Views
                                 if (product != null)
                                 {
                                     //进入试衣间主面板
-                                    Config.MainFrame.Navigate(new Uri("/Views/UserControl1.xaml", UriKind.Relative));
+                                    Global.MainFrame.Navigate(new Uri("/Views/ProductTryingOnControl.xaml", UriKind.Relative));
                                 }
                             }
                             catch { }
