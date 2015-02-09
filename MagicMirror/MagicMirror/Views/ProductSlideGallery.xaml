@@ -38,6 +38,12 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        
+        <Storyboard x:Key="BusyIndicatorStoryboard">
+            <DoubleAnimation Storyboard.TargetName="tbBusyIndicator" 
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                 From="0" To="360" Duration="0:0:2" AutoReverse="False" RepeatBehavior="Forever"/>
+        </Storyboard>
     </UserControl.Resources>
     
     <Grid>
@@ -83,13 +89,18 @@
             </Viewport3D.Children>
         </Viewport3D>
 
-        <view:MainButtonMenuBar x:Name="menuButtons" VerticalAlignment="Bottom" 
+        <view:MenuButtonGroupBar x:Name="menuButtons" VerticalAlignment="Bottom" HorizontalAlignment="Center"
                                 Visibility="Collapsed" Height="110">
-            <view:MainButtonMenuBar.RenderTransform>
+            <view:MenuButtonGroupBar.RenderTransform>
                 <TranslateTransform></TranslateTransform>
-            </view:MainButtonMenuBar.RenderTransform>
-        </view:MainButtonMenuBar>
-
-        <view:BusyIndicator Visibility="Collapsed"></view:BusyIndicator>
+            </view:MenuButtonGroupBar.RenderTransform>
+        </view:MenuButtonGroupBar>
+        
+        <TextBlock x:Name="tbBusyIndicator" Text="&#xf110;" FontFamily="{StaticResource IconFont}" 
+                       FontSize="40" Foreground="YellowGreen" VerticalAlignment="Center" HorizontalAlignment="Center">
+              <TextBlock.RenderTransform>
+                <RotateTransform CenterX="0" CenterY="0" Angle="0"></RotateTransform>
+            </TextBlock.RenderTransform>
+        </TextBlock>
     </Grid>
 </UserControl>

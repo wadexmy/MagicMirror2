@@ -39,18 +39,19 @@ namespace MagicMirror.Views
         private Dictionary<int, ProductBiz> CurrentShowProducts;
         
         private bool isCompleted = false;
-
+        
         public ProductSlideGallery()
         {
             InitializeComponent();
 
             dataservice = new DataService();
             CurrentShowProducts = new Dictionary<int, ProductBiz>();
-
+            (this.Resources["BusyIndicatorStoryboard"] as Storyboard).Begin(this);
             Thread thread = new Thread(() => {
                 //TODO：这里假设了系统至少有ScenePicturesCount件产品，否则系统运行时会出问题的
                 IList<ProductBiz> ProductBizs = dataservice.GetFirstPageProducts(ScenePicturesCount);
                 PrepareProducts3DView(ProductBizs);
+               
             });
             thread.Start();
         }
@@ -146,6 +147,8 @@ namespace MagicMirror.Views
         /// </summary>
         private void StartAnimation()
         {
+            (this.Resources["BusyIndicatorStoryboard"] as Storyboard).Stop();
+            tbBusyIndicator.Visibility = Visibility.Collapsed;
             (this.Resources["LoadedStoryboard"] as Storyboard).Begin(this);
             for (int index = 0; index < ScenePicturesCount; index++)
             {

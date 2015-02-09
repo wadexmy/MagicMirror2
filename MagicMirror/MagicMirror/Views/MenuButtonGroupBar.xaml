@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="MagicMirror.Views.MenuButtonGroupBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal" Margin="10">
+        <StackPanel.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
+            </Style>
+            <Style TargetType="TextBlock" x:Key="IconTextStyle">
+                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Property="FontSize" Value="24"></Setter>
+                <Setter Property="FontFamily" Value="{StaticResource IconFont}"></Setter>
+            </Style>
+        </StackPanel.Resources>
+
+        <Button x:Name="btnBuy" Style="{StaticResource shoppingButtonStyle}" Visibility="Collapsed">
+            <Button.Content>
+                <StackPanel>
+                    <TextBlock Text="&#xf07a;" Style="{StaticResource IconTextStyle}"></TextBlock>
+                    <TextBlock Text="购买"></TextBlock>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+
+        <Button x:Name="btnCall" Style="{StaticResource shoppingButtonStyle}">
+            <Button.Content>
+                <StackPanel>
+                    <TextBlock Text="&#xf10b;" Style="{StaticResource IconTextStyle}"></TextBlock>
+                    <TextBlock Text="呼叫"></TextBlock>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+
+        <Button x:Name="btnClose" Style="{StaticResource closeButtonStyle}" Click="btnClose_Click">
+            <Button.Content>
+                <StackPanel>
+                    <TextBlock Text="&#xf00d;" Style="{StaticResource IconTextStyle}"></TextBlock>
+                    <TextBlock Text="关闭"></TextBlock>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+    </StackPanel>
+</UserControl>

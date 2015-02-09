@@ -70,17 +70,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClothingViewModel.cs" />
     <Compile Include="DataService.cs" />
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\ProductBiz.cs" />
     <Compile Include="Models\UserInterface.cs" />
     <Compile Include="Util\Image3DViewUtil.cs" />
     <Compile Include="Util\ShuffleUtil.cs" />
-    <Compile Include="Views\BusyIndicator.xaml.cs">
-      <DependentUpon>BusyIndicator.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainButtonMenuBar.xaml.cs">
       <DependentUpon>MainButtonMenuBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MenuButtonGroupBar.xaml.cs">
+      <DependentUpon>MenuButtonGroupBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductSlideGallery.xaml.cs">
       <DependentUpon>ProductSlideGallery.xaml</DependentUpon>
@@ -113,11 +114,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\BusyIndicator.xaml">
+    <Page Include="Views\MainButtonMenuBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainButtonMenuBar.xaml">
+    <Page Include="Views\MenuButtonGroupBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -166,6 +167,7 @@
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Images\QRCode.jpg" />
+    <Resource Include="Resources\Images\1.jpg" />
     <Content Include="Resources\Sound\ding.wav" />
     <Content Include="Resources\Sound\notify.wav" />
     <Content Include="Resources\Sound\switch.wav" />

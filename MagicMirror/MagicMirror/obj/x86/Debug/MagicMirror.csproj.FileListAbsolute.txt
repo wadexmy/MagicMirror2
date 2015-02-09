@@ -50,11 +50,9 @@ D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\MagicMi
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MagicMirror.csprojResolveAssemblyReference.cache
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MainWindow.baml
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Resources\Styles\ResLibary.baml
-D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\BusyIndicator.baml
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MainButtonMenuBar.baml
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\App.baml
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MainWindow.g.cs
-D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\BusyIndicator.g.cs
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MainButtonMenuBar.g.cs
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductSlideGallery.g.cs
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\App.g.cs
@@ -70,3 +68,5 @@ D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Vie
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductTryingOnControl.g.cs
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Resources\Styles\GroupBox.baml
 D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Resources\Styles\ScrollViewerStyle.baml
+D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MenuButtonGroupBar.baml
+D:\Workspace\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MenuButtonGroupBar.g.cs

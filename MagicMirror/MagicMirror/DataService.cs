@@ -21,6 +21,7 @@ namespace MagicMirror
                 AppKey = "",
                 Param = new
                 {
+                    name="针织衫",
                     isPageable = true,
                     recordsPerPage = PicturesCount
                 }

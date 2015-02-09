@@ -25,7 +25,6 @@ namespace MagicMirror.Views
 
             viewModel = new ClothingViewModel();
             this.DataContext = viewModel;
-            menuButtons.btnBuy.Visibility = Visibility.Visible;
         }
 
         ClothingViewModel viewModel;

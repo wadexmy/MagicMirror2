@@ -28,8 +28,9 @@ namespace MagicMirror
 
             NavigationFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
             Global.MainFrame = NavigationFrame;
-            SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-            SystemEvents_DisplaySettingsChanged(this, null);
+            this.WindowState = WindowState.Maximized;
+            //SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+            //SystemEvents_DisplaySettingsChanged(this, null);
         }
 
         //根据实际应用设置主屏宽高比例

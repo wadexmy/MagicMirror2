@@ -15,13 +15,18 @@ using System.Windows.Shapes;
 namespace MagicMirror.Views
 {
     /// <summary>
-    /// BusyIndicator.xaml 的交互逻辑
+    /// MenuButtonGroupBar.xaml 的交互逻辑
     /// </summary>
-    public partial class BusyIndicator : UserControl
+    public partial class MenuButtonGroupBar : UserControl
     {
-        public BusyIndicator()
+        public MenuButtonGroupBar()
         {
             InitializeComponent();
+        }
+
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Window.GetWindow(this).Close();
         }
     }
 }
