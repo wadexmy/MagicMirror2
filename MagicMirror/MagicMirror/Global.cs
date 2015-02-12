@@ -53,10 +53,19 @@ namespace MagicMirror
             }
         }
 
-        /// <summary>
-        /// 当前选中的正在试穿的衣服
-        /// </summary>
-        public static ProductBiz tryingOnProdect;
+        private static ProductViewModel _prodectViewModel;
+
+        public static ProductViewModel prodectViewModel { 
+            get{
+                if (_prodectViewModel == null)
+                {
+                    _prodectViewModel = new ProductViewModel();
+                }
+                return _prodectViewModel;
+            }
+        }
+
+        public static string tryingOnProductImage;
 
         #region ===声音文件===
         

@@ -19,6 +19,7 @@ using System.Windows.Media.Animation;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Threading;
+using System.IO;
 
 namespace MagicMirror.Views
 {
@@ -39,7 +40,9 @@ namespace MagicMirror.Views
         private Dictionary<int, ProductBiz> CurrentShowProducts;
         
         private bool isCompleted = false;
-        
+
+        List<string> demoImages;
+
         public ProductSlideGallery()
         {
             InitializeComponent();
@@ -47,6 +50,9 @@ namespace MagicMirror.Views
             dataservice = new DataService();
             CurrentShowProducts = new Dictionary<int, ProductBiz>();
             (this.Resources["BusyIndicatorStoryboard"] as Storyboard).Begin(this);
+            string imageDir = System.IO.Path.Combine(Global.AssemblyPath, "Resources", "Products");
+            demoImages = Directory.GetFiles(imageDir, "*.jpg").Concat(Directory.GetFiles(imageDir, "*.png")).ToList();
+
             Thread thread = new Thread(() => {
                 //TODO：这里假设了系统至少有ScenePicturesCount件产品，否则系统运行时会出问题的
                 IList<ProductBiz> ProductBizs = dataservice.GetFirstPageProducts(ScenePicturesCount);
@@ -67,15 +73,22 @@ namespace MagicMirror.Views
                    new double[] { -8.5, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 8.5 });
                 double[] yPositons = ShuffleUtil.Shuffle<double>(
                    new double[] { -3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3 });
+               
+                //目前使用示例图片
+                if (demoImages.Count < ScenePicturesCount)
+                {
+                    MessageBox.Show("至少在目录\"Resources\"/Products中放入" + ScenePicturesCount + "张图片哦！");
+                    Window.GetWindow(this).Close();
+                    return;
+                }
+
                 this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate()
                 {
                     for (int index = 0; index < ScenePicturesCount; index++)
                     {
                         ModelVisual3D modelVisual3D = new ModelVisual3D();
                         GeometryModel3D geometryModel3D = new GeometryModel3D();
-                        //TODO：目前因为使用的是示例图片，图片采用1,2,3.....ScenePicturesCount.jpg的命名方式
-                        string imagepath = System.IO.Path.Combine(Global.AssemblyPath, "Resources", "Products", (index + 1) + ".jpg");
-                        System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(imagepath);
+                        System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(demoImages[index]);
                         double ratio = bmp.Width * 1.0 / bmp.Height;
 
                         double zPosition; //Z轴偏移量
@@ -83,17 +96,17 @@ namespace MagicMirror.Views
                         if ((index % 2 == 0))
                         {
                             zPosition = 0.5 * (index + 1);
-                            geometryModel3D.Material = Image3DViewUtil.PrepareMaterial(imagepath, true);
-                            geometryModel3D.BackMaterial = Image3DViewUtil.PrepareMaterial(imagepath, false);
+                            geometryModel3D.Material = Image3DViewUtil.PrepareMaterial(demoImages[index], true);
+                            geometryModel3D.BackMaterial = Image3DViewUtil.PrepareMaterial(demoImages[index], false);
                         }
                         else
                         {
                             zPosition = -0.5 * (index + 1);
-                            geometryModel3D.Material = Image3DViewUtil.PrepareMaterial(imagepath, false);
-                            geometryModel3D.BackMaterial = Image3DViewUtil.PrepareMaterial(imagepath, true);
+                            geometryModel3D.Material = Image3DViewUtil.PrepareMaterial(demoImages[index], false);
+                            geometryModel3D.BackMaterial = Image3DViewUtil.PrepareMaterial(demoImages[index], true);
                         }
                         //设置空间形状
-                        geometryModel3D.Geometry = Image3DViewUtil.PrepareGeometry(imagepath, xPositons[index], yPositons[index], zPosition, ratio);
+                        geometryModel3D.Geometry = Image3DViewUtil.PrepareGeometry(demoImages[index], xPositons[index], yPositons[index], zPosition, ratio);
                         //设置局部旋转效果
                         geometryModel3D.Transform = SetRotateTransform3D(index);
                         modelVisual3D.Content = geometryModel3D;
@@ -155,8 +168,8 @@ namespace MagicMirror.Views
                 string AxisAngleRot3DName = "axisAngleRotation" + index;
                 DoubleAnimation element = new DoubleAnimation();
                 element.Duration = new Duration(TimeSpan.FromSeconds(60));
-                element.From = -20.0;
-                element.To = 20.0;
+                element.From = -10.0;
+                element.To = 10.0;
                 element.AutoReverse = true;
                 element.RepeatBehavior = RepeatBehavior.Forever;
                 Storyboard.SetTargetName(element, AxisAngleRot3DName);
@@ -199,12 +212,23 @@ namespace MagicMirror.Views
                             try
                             {
                                 string imagesource = imgBrush.ImageSource.ToString();
-                                string imageIndex = System.IO.Path.GetFileNameWithoutExtension(imagesource);
-                                ProductBiz product = CurrentShowProducts[int.Parse(imageIndex)];
+                                string imageName = System.IO.Path.GetFileName(imagesource);
+                                int selIndex = 0;
+                                for (int i = 0; i < demoImages.Count; i++)
+                                {
+                                    if (System.IO.Path.GetFileName(demoImages[i]) == imageName)
+                                    {
+                                        selIndex = i;
+                                    }
+                                }
+                                ProductBiz product = CurrentShowProducts[selIndex];
                                 if (product != null)
                                 {
                                     //进入试衣间主面板
-                                    Global.MainFrame.Navigate(new Uri("/Views/ProductTryingOnControl.xaml", UriKind.Relative));
+                                    Global.tryingOnProductImage = demoImages[selIndex];
+                                    Global.MainFrame.Navigate(new Uri("/Views/ProductTryingOnControl.xaml", UriKind.Relative), product);
+                                    Global.MainFrame.Navigated -= MainFrame_Navigated;
+                                    Global.MainFrame.Navigated += MainFrame_Navigated;
                                 }
                             }
                             catch { }
@@ -213,6 +237,14 @@ namespace MagicMirror.Views
                 }
                 return HitTestResultBehavior.Stop;
             }, pointparams);
+        }
+
+        void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            //因为ProductTryingOnControl需要添加动画，所以要预先订阅TryingOnProducts改变事件
+            Global.prodectViewModel.AddProduct(e.ExtraData as ProductBiz);
+            //导航结束后马上解除绑定事件
+            Global.MainFrame.Navigated -= MainFrame_Navigated;
         }
 
         #endregion

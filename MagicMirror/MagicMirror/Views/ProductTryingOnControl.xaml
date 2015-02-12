@@ -11,15 +11,71 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <Grid Margin="10,20">
+        <Grid Margin="10,20,10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.15*"></ColumnDefinition>
                 <ColumnDefinition Width="0.7*"></ColumnDefinition>
                 <ColumnDefinition Width="0.15*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
-            <ListBox x:Name="lbTryingOnProducts" Grid.Column="0" Margin="10"></ListBox>
-            
+            <!--用户选择-->
+            <ListBox x:Name="lbSelProducts" Background="Transparent" HorizontalAlignment="Center"  
+                     SelectionChanged="lbProducts_SelectionChanged" >
+                <ListBox.Resources>
+                    <Style TargetType="ListBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBox">
+                                    <Border CornerRadius="5" Background="{TemplateBinding ListBox.Background}">
+                                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" IsItemsHost="True"/>
+                                        </ScrollViewer>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                    <Style TargetType="ListBoxItem" >
+                        <Setter Property="Opacity" Value="0.5" />
+                        <Setter Property="MaxHeight" Value="75" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border Margin="3">
+                                        <Image Source="{Binding Color.ImagePath}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Trigger.Setters>
+                                    <Setter Property="Opacity" Value="1.0" />
+                                </Trigger.Setters>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="Mouse.MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="MaxHeight" To="90"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="Mouse.MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:1" Storyboard.TargetProperty="MaxHeight"  />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+
             <Grid Grid.Column="1" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.7*"></ColumnDefinition>
@@ -32,22 +88,24 @@
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0" >
-                        <Image Stretch="Fill" Source="pack://application:,,,/Resources/Images/1.jpg"></Image>
-                        <Image Source="pack://application:,,,/Resources/Images/QRCode.jpg"
+                        <Image x:Name="productImages" Stretch="Fill" Margin="10"></Image>
+                        <Image x:Name="productMutibarCode" Source="{Binding productUrl}" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                               Width="60" Height="60" Margin="10,0,10,10"></Image>
+                        <!--<Image Source="pack://application:,,,/Resources/Images/QRCode.jpg"
                                VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                               Width="80" Height="80" Margin="10,0,10,10"></Image>
+                               Width="80" Height="80" Margin="10,0,10,10"></Image>-->
                     </Grid>
 
                     <Grid Grid.Column="1" Width="180">
+                        <!--基本信息-->
                         <StackPanel Margin="10">
-                            <TextBlock FontSize="16" Foreground="Black" TextWrapping="Wrap">冬装新款原创设计民族风毛呢加厚棉衣女棉袄外套</TextBlock>
-                            <TextBlock FontSize="14" Foreground="#444444"  TextWrapping="Wrap">
-                                超级拉风的长款棉服，无论如何搭配，都是超酷的感觉，裁剪得体。加上优良的做工和优质的面料，值得拥有，版型宽松大气。图案印第安图腾，印第安民族是古老神秘的美洲民族，它神秘的历史和古老的文化引人研究探索，带着强烈的对艺术的热爱，把印第安文化运用到设计之中，具有文化底蕴。
-                            </TextBlock>
+                            <TextBlock x:Name="tbName" FontSize="16" Foreground="Black" TextWrapping="Wrap" Text="{Binding Id,Mode=TwoWay}"></TextBlock>
+                            <TextBlock x:Name="tbDesc" FontSize="14" Foreground="#444444"  TextWrapping="Wrap"></TextBlock>
                         </StackPanel>
                         
+                        <!--评价信息-->
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                            <Button Width="80" Height="60" Margin="10,0,0,10">
+                            <Button Width="80" Height="60" Margin="10,0,0,10" Click="Button_Click">
                                 <Button.Content>
                                     <StackPanel>
                                         <TextBlock FontSize="20" HorizontalAlignment="Center">喜欢</TextBlock>
@@ -67,7 +125,8 @@
                     </Grid>
                 </Grid>
                 
-                <Grid Grid.Column="1" Background="YellowGreen" Margin="5,0,0,0">
+                <!--用户选择-->
+                <Grid Grid.Column="1" Background="LightGray" Margin="5,0,0,0">
                     <StackPanel Margin="5">
                         <TextBlock FontSize="16" Text="颜色" HorizontalAlignment="Left"></TextBlock>
                         <Image x:Name="imgProduct" Margin="5" Width="40"  Height="40"  HorizontalAlignment="Left"
@@ -76,6 +135,7 @@
                 </Grid>
             </Grid>
 
+            <!--搭配-->
             <ListBox x:Name="lbMatchedProoducts" Grid.Column="2" Margin="10"></ListBox>
         </Grid>
 

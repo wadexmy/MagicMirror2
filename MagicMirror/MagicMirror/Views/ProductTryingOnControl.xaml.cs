@@ -23,11 +23,35 @@ namespace MagicMirror.Views
         {
             InitializeComponent();
 
-            viewModel = new ClothingViewModel();
-            this.DataContext = viewModel;
+            this.DataContext = Global.prodectViewModel.CurrentProduct;
+            lbSelProducts.ItemsSource = Global.prodectViewModel.TryingOnProducts;
+            productImages.Source = new BitmapImage(new Uri(Global.tryingOnProductImage));
             menuButtons.btnBuy.Visibility = Visibility.Visible;
+
+            Global.prodectViewModel.tryingOnProductsChanged += new ProductViewModel.TryingOnProductsChanged(prodectViewModel_tryingOnProductsChanged);
         }
 
-        ClothingViewModel viewModel;
+        void prodectViewModel_tryingOnProductsChanged(Models.ProductBiz addedProduct)
+        {
+            for (int i = 0; i < Global.prodectViewModel.TryingOnProducts.Count; i++)
+            {
+                if (Global.prodectViewModel.TryingOnProducts[i].Id == addedProduct.Id
+                    && Global.prodectViewModel.CurrentIndex != i)
+                {
+                    Global.prodectViewModel.CurrentIndex = i;
+                    this.DataContext = Global.prodectViewModel.CurrentProduct;
+                }
+            }    
+        }
+
+        private void lbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Global.MainFrame.GoBack();
+        }
     }
 }

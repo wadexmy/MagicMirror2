@@ -61,6 +61,10 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="ThoughtWorks.QRCode, Version=1.0.4489.42329, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\ThoughtWorks.QRCode.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -70,12 +74,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ClothingViewModel.cs" />
+    <Compile Include="ProductViewModel.cs" />
     <Compile Include="DataService.cs" />
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\ProductBiz.cs" />
     <Compile Include="Models\UserInterface.cs" />
     <Compile Include="Util\Image3DViewUtil.cs" />
+    <Compile Include="Util\QRCodeCreater.cs" />
     <Compile Include="Util\ShuffleUtil.cs" />
     <Compile Include="Views\MainButtonMenuBar.xaml.cs">
       <DependentUpon>MainButtonMenuBar.xaml</DependentUpon>
