@@ -11,47 +11,93 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
+using System.Windows.Media.Animation;
 
 namespace MagicMirror.Views
 {
     /// <summary>
     /// ProductTryingOnControl.xaml 的交互逻辑
     /// </summary>
-    public partial class ProductTryingOnControl : UserControl
+    public partial class ProductTryingOnControl : UserControl , INotifyPropertyChanged
     {
         public ProductTryingOnControl()
         {
             InitializeComponent();
 
             this.DataContext = Global.prodectViewModel.CurrentProduct;
-            lbSelProducts.ItemsSource = Global.prodectViewModel.TryingOnProducts;
-            productImages.Source = new BitmapImage(new Uri(Global.tryingOnProductImage));
-            menuButtons.btnBuy.Visibility = Visibility.Visible;
 
+            btnLike.DataContext = this;
+            btnDislike.DataContext = this;
+
+            lbSelProducts.ItemsSource = Global.prodectViewModel.TryingOnProducts;
+
+            menuButtons.btnBuy.Visibility = Visibility.Visible;
             Global.prodectViewModel.tryingOnProductsChanged += new ProductViewModel.TryingOnProductsChanged(prodectViewModel_tryingOnProductsChanged);
         }
 
-        void prodectViewModel_tryingOnProductsChanged(Models.ProductBiz addedProduct)
+        #region ===顾客评价===
+        
+        private int likeCount = 0;
+        public int LikeCount {
+            get {
+                return likeCount;
+            }
+            set {
+                likeCount = value;
+                OnPropertyChanged("LikeCount");
+            }
+        }
+
+        private int dislikeCount = 0;
+        public int DislikeCount {
+            get
+            {
+                return dislikeCount;
+            }
+            set
+            {
+                dislikeCount = value;
+                OnPropertyChanged("DislikeCount");
+            }
+        }
+
+        #endregion
+
+        private void prodectViewModel_tryingOnProductsChanged(Models.ProductBiz addedProduct)
         {
             for (int i = 0; i < Global.prodectViewModel.TryingOnProducts.Count; i++)
             {
-                if (Global.prodectViewModel.TryingOnProducts[i].Id == addedProduct.Id
-                    && Global.prodectViewModel.CurrentIndex != i)
+                if (Global.prodectViewModel.TryingOnProducts[i].Id == addedProduct.Id)
                 {
                     Global.prodectViewModel.CurrentIndex = i;
-                    this.DataContext = Global.prodectViewModel.CurrentProduct;
+                    lbSelProducts.SelectedIndex = i;
                 }
-            }    
+            }
         }
 
         private void lbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            this.DataContext = Global.prodectViewModel.TryingOnProducts[lbSelProducts.SelectedIndex];
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnLike_Click(object sender, RoutedEventArgs e)
         {
-            Global.MainFrame.GoBack();
+            LikeCount++;
         }
+        private void btnDislike_Click(object sender, RoutedEventArgs e)
+        {
+            DislikeCount++;
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this,new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+
+
     }
 }

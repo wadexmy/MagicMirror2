@@ -86,6 +86,9 @@ namespace MagicMirror.Views
                 {
                     for (int index = 0; index < ScenePicturesCount; index++)
                     {
+                        //TODO:临时借用了第8个自定义属性作为图片地址存储
+                        ProductBizs[index].CustomPropertyValue08Name = demoImages[index];
+
                         ModelVisual3D modelVisual3D = new ModelVisual3D();
                         GeometryModel3D geometryModel3D = new GeometryModel3D();
                         System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(demoImages[index]);
@@ -112,7 +115,7 @@ namespace MagicMirror.Views
                         modelVisual3D.Content = geometryModel3D;
                         //将产品添加到三维场景中
                         mainScene.Children.Add(modelVisual3D);
-
+                        
                         CurrentShowProducts.Add(index, ProductBizs[index]);
                     }
 

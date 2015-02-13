@@ -12,9 +12,9 @@ namespace MagicMirror.Util
 {
     class QRCodeCreater
     {
-        public Image GetQRCode(string content)
+        public BitmapImage GetQRCode(string content)
         {
-            Image img = new Image();
+            BitmapImage bi = new BitmapImage();
             try
             {
                 QRCodeEncoder qrCodeEncoder = new QRCodeEncoder();
@@ -25,21 +25,19 @@ namespace MagicMirror.Util
                 using (var stream = new MemoryStream())
                 {
                     bitmap.Save(stream, ImageFormat.Png);
-                    BitmapImage bi = new BitmapImage();
                     bi.BeginInit();
                     stream.Seek(0, SeekOrigin.Begin);
                     bi.StreamSource = stream;
                     bi.CacheOption = BitmapCacheOption.OnLoad;
                     bi.EndInit();
-                    img.Source = bi;
                 }
                 bitmap.Dispose();
                 bitmap = null;
             }
             catch {
-                img = null;
+                bi = null;
             }
-            return img;
+            return bi;
         }
     }
 }

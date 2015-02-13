@@ -3,8 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:MagicMirror.Converters"
               xmlns:view="clr-namespace:MagicMirror.Views"
              mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <converter:IntToPersonDescConverter x:Key="intToPersonDescConverter"></converter:IntToPersonDescConverter>
+        <converter:DescriptionConverter x:Key="descriptionConverter"></converter:DescriptionConverter>
+        <converter:QRCodeConverter x:Key="qrCodeConverter"></converter:QRCodeConverter>
+        <converter:IndentParentConverter x:Key="indentParentConverter"></converter:IndentParentConverter>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -19,30 +26,16 @@
             </Grid.ColumnDefinitions>
             
             <!--用户选择-->
-            <ListBox x:Name="lbSelProducts" Background="Transparent" HorizontalAlignment="Center"  
-                     SelectionChanged="lbProducts_SelectionChanged" >
+            <ListBox x:Name="lbSelProducts" Background="White" SelectionChanged="lbProducts_SelectionChanged" Margin="10">
                 <ListBox.Resources>
-                    <Style TargetType="ListBox">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListBox">
-                                    <Border CornerRadius="5" Background="{TemplateBinding ListBox.Background}">
-                                        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
-                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" IsItemsHost="True"/>
-                                        </ScrollViewer>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                    <Style TargetType="ListBoxItem" >
+                    <Style TargetType="ListBoxItem">
                         <Setter Property="Opacity" Value="0.5" />
-                        <Setter Property="MaxHeight" Value="75" />
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
-                                    <Border Margin="3">
-                                        <Image Source="{Binding Color.ImagePath}" />
+                                    <Border>
+                                        <Image x:Name="pImg" Source="{Binding Path=CustomPropertyValue08Name}" HorizontalAlignment="Center" Margin="2"
+                                   Width="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Converter={StaticResource indentParentConverter}}"/>
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -53,24 +46,11 @@
                                     <Setter Property="Opacity" Value="1.0" />
                                 </Trigger.Setters>
                             </Trigger>
-                            <EventTrigger RoutedEvent="Mouse.MouseEnter">
-                                <EventTrigger.Actions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetProperty="MaxHeight" To="90"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger.Actions>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="Mouse.MouseLeave">
-                                <EventTrigger.Actions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Duration="0:0:1" Storyboard.TargetProperty="MaxHeight"  />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger.Actions>
-                            </EventTrigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.Setters>
+                                    <Setter Property="Opacity" Value="1.0" />
+                                </Trigger.Setters>
+                            </Trigger>
                         </Style.Triggers>
                     </Style>
                 </ListBox.Resources>
@@ -87,37 +67,38 @@
                         <ColumnDefinition Width="*"></ColumnDefinition>
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
+                    
                     <Grid Grid.Column="0" >
-                        <Image x:Name="productImages" Stretch="Fill" Margin="10"></Image>
-                        <Image x:Name="productMutibarCode" Source="{Binding productUrl}" VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                               Width="60" Height="60" Margin="10,0,10,10"></Image>
-                        <!--<Image Source="pack://application:,,,/Resources/Images/QRCode.jpg"
-                               VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                               Width="80" Height="80" Margin="10,0,10,10"></Image>-->
+                        <Image Source="{Binding CustomPropertyValue08Name,Mode=TwoWay}" Stretch="Fill" Margin="10" 
+                               RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                        <Image VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,0,10,10"
+                               Width="60" Height="60" Source="{Binding Name,Converter={StaticResource qrCodeConverter}}"></Image>
                     </Grid>
 
                     <Grid Grid.Column="1" Width="180">
                         <!--基本信息-->
                         <StackPanel Margin="10">
-                            <TextBlock x:Name="tbName" FontSize="16" Foreground="Black" TextWrapping="Wrap" Text="{Binding Id,Mode=TwoWay}"></TextBlock>
-                            <TextBlock x:Name="tbDesc" FontSize="14" Foreground="#444444"  TextWrapping="Wrap"></TextBlock>
+                            <TextBlock x:Name="tbName" FontSize="16" Foreground="Black" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
+                            <TextBlock x:Name="tbDesc" FontSize="14" Foreground="#444444"  TextWrapping="Wrap" Text="{Binding Description, Converter={StaticResource descriptionConverter}}" ></TextBlock>
                         </StackPanel>
                         
                         <!--评价信息-->
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                            <Button Width="80" Height="60" Margin="10,0,0,10" Click="Button_Click">
+                            <Button x:Name="btnLike" Width="80" Height="60" Margin="10,0,0,10" Click="btnLike_Click">
                                 <Button.Content>
                                     <StackPanel>
                                         <TextBlock FontSize="20" HorizontalAlignment="Center">喜欢</TextBlock>
-                                        <TextBlock FontSize="15" HorizontalAlignment="Center">（25人）</TextBlock>
+                                        <TextBlock FontSize="15" HorizontalAlignment="Center" 
+                                                   Text="{Binding LikeCount,Converter={StaticResource intToPersonDescConverter}}"></TextBlock>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <Button Width="80" Height="60" Margin="10,0,10,10">
+                            <Button  x:Name="btnDislike" Width="80" Height="60" Margin="10,0,10,10" Click="btnDislike_Click">
                                 <Button.Content>
                                     <StackPanel>
                                         <TextBlock FontSize="20" HorizontalAlignment="Center">不喜欢</TextBlock>
-                                        <TextBlock FontSize="15" HorizontalAlignment="Center">（4人）</TextBlock>
+                                        <TextBlock FontSize="15" HorizontalAlignment="Center"  
+                                                   Text="{Binding DislikeCount,Converter={StaticResource intToPersonDescConverter}}"></TextBlock>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
@@ -128,7 +109,7 @@
                 <!--用户选择-->
                 <Grid Grid.Column="1" Background="LightGray" Margin="5,0,0,0">
                     <StackPanel Margin="5">
-                        <TextBlock FontSize="16" Text="颜色" HorizontalAlignment="Left"></TextBlock>
+                        <TextBlock FontSize="16" Text="" HorizontalAlignment="Left"></TextBlock>
                         <Image x:Name="imgProduct" Margin="5" Width="40"  Height="40"  HorizontalAlignment="Left"
                                    Stretch="Fill" ToolTip="{Binding Color.Name}" RenderOptions.BitmapScalingMode="LowQuality"></Image>
                     </StackPanel>

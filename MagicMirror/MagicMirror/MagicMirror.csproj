@@ -74,6 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\CustomConverter.cs" />
     <Compile Include="ProductViewModel.cs" />
     <Compile Include="DataService.cs" />
     <Compile Include="Models\EntityBase.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Util\Image3DViewUtil.cs" />
     <Compile Include="Util\QRCodeCreater.cs" />
     <Compile Include="Util\ShuffleUtil.cs" />
+    <Compile Include="Util\SystemIdleHelper.cs" />
     <Compile Include="Views\MainButtonMenuBar.xaml.cs">
       <DependentUpon>MainButtonMenuBar.xaml</DependentUpon>
     </Compile>

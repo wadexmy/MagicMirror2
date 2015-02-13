@@ -97,3 +97,4 @@ E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\V
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MagicMirror.g.resources
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MagicMirror.Properties.Resources.resources
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MagicMirror.csproj.GenerateResource.Cache
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MagicMirror.csprojResolveAssemblyReference.cache

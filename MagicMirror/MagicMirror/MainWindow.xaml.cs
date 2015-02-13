@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using MagicMirror.Models;
+using System.Windows.Threading;
 
 namespace MagicMirror
 {
@@ -27,10 +28,18 @@ namespace MagicMirror
             InitializeComponent();
 
             NavigationFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
+
+            //系统导航控件
             Global.MainFrame = NavigationFrame;
-           
-            SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-            SystemEvents_DisplaySettingsChanged(this, null);
+
+            //后台执行系统空闲加载时进入商品动画页面
+            RunSlideShowThread();
+
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            this.WindowState = WindowState.Maximized;
+
+            //SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+            //SystemEvents_DisplaySettingsChanged(this, null);
         }
 
         //根据实际应用设置主屏宽高比例
@@ -45,14 +54,41 @@ namespace MagicMirror
                 Global.FittingRoomRatio : Global.ShoppingAssistRatio;
             if (ratio >= reqRatio)
             {
-                this.Height = ScreenHeight;
+                this.Height = ScreenHeight*0.4;
                 this.Width = this.Height * reqRatio;
             }
             else
             {
-                this.Width = ScreenWidth;
+                this.Width = ScreenWidth * 0.4;
                 this.Height = this.Width / reqRatio;
             }
+        }
+
+        /// <summary>
+        /// 图片轮播线程
+        /// </summary>
+        private void RunSlideShowThread()
+        {
+            DispatcherTimer Timer_SlideShow = new DispatcherTimer();
+            Timer_SlideShow.Tick += new EventHandler((s, e) =>
+            {
+                try
+                {
+                    if (SystemIdleHelper.GetIdleTime() >= 5)
+                    {
+                        NavigationFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
+                    }
+                }
+                catch { }
+            });
+            Timer_SlideShow.Interval = new TimeSpan(0, 0, 1);
+            Timer_SlideShow.Start();
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            this.DragMove(); 
         }
     }
 }
