@@ -75,6 +75,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\CustomConverter.cs" />
+    <Compile Include="Models\ProductColorBiz.cs" />
+    <Compile Include="Models\ProductSizeBiz.cs" />
+    <Compile Include="Models\ProductSizeGroupBiz.cs" />
+    <Compile Include="Models\SkuBiz.cs" />
     <Compile Include="ProductViewModel.cs" />
     <Compile Include="DataService.cs" />
     <Compile Include="Models\EntityBase.cs" />

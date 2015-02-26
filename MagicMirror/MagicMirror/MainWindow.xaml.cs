@@ -35,11 +35,13 @@ namespace MagicMirror
             //后台执行系统空闲加载时进入商品动画页面
             RunSlideShowThread();
 
-            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.WindowState = WindowState.Maximized;
+            //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            //this.WindowState = WindowState.Maximized;
 
-            //SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
-            //SystemEvents_DisplaySettingsChanged(this, null);
+            SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
+            SystemEvents_DisplaySettingsChanged(this, null);
+            this.Top = 600;
+            this.Left = 800;
         }
 
         //根据实际应用设置主屏宽高比例

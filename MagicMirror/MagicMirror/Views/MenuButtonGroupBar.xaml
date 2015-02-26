@@ -16,16 +16,22 @@
                 <Setter Property="FontFamily" Value="{StaticResource IconFont}"></Setter>
             </Style>
         </StackPanel.Resources>
-
         <Button x:Name="btnBuy" Style="{StaticResource shoppingButtonStyle}" Visibility="Collapsed">
+            <Button.Content>
+                <StackPanel>
+                    <TextBlock Text="&#xf07a;" Style="{StaticResource IconTextStyle}"></TextBlock>
+                    <TextBlock Text="支持"></TextBlock>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <!--<Button x:Name="btnBuy" Style="{StaticResource shoppingButtonStyle}" Visibility="Collapsed">
             <Button.Content>
                 <StackPanel>
                     <TextBlock Text="&#xf07a;" Style="{StaticResource IconTextStyle}"></TextBlock>
                     <TextBlock Text="购买"></TextBlock>
                 </StackPanel>
             </Button.Content>
-        </Button>
-
+        </Button>-->
         <Button x:Name="btnCall" Style="{StaticResource shoppingButtonStyle}">
             <Button.Content>
                 <StackPanel>
@@ -34,6 +40,14 @@
                 </StackPanel>
             </Button.Content>
         </Button>
+        <!--<Button x:Name="btnCall" Style="{StaticResource shoppingButtonStyle}">
+            <Button.Content>
+                <StackPanel>
+                    <TextBlock Text="&#xf10b;" Style="{StaticResource IconTextStyle}"></TextBlock>
+                    <TextBlock Text="呼叫"></TextBlock>
+                </StackPanel>
+            </Button.Content>
+        </Button>-->
 
         <Button x:Name="btnClose" Style="{StaticResource closeButtonStyle}" Click="btnClose_Click">
             <Button.Content>

@@ -62,6 +62,15 @@ namespace MagicMirror.Views
             }
         }
 
+        private void btnLike_Click(object sender, RoutedEventArgs e)
+        {
+            LikeCount++;
+        }
+        private void btnDislike_Click(object sender, RoutedEventArgs e)
+        {
+            DislikeCount++;
+        }
+
         #endregion
 
         private void prodectViewModel_tryingOnProductsChanged(Models.ProductBiz addedProduct)
@@ -79,15 +88,6 @@ namespace MagicMirror.Views
         private void lbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             this.DataContext = Global.prodectViewModel.TryingOnProducts[lbSelProducts.SelectedIndex];
-        }
-
-        private void btnLike_Click(object sender, RoutedEventArgs e)
-        {
-            LikeCount++;
-        }
-        private void btnDislike_Click(object sender, RoutedEventArgs e)
-        {
-            DislikeCount++;
         }
 
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;

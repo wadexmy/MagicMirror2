@@ -65,7 +65,8 @@ namespace MagicMirror
             }
         }
 
-        public void AddProduct(ProductBiz product) {
+        public void AddProduct(ProductBiz product)
+        {
             foreach (var item in TryingOnProducts)
             {
                 if (item.Id == product.Id)

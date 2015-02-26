@@ -113,4 +113,28 @@ namespace MagicMirror.Converters
             return null;
         }
     }
+
+    /// <summary>
+    /// 图片高度和宽度比例转换器
+    /// </summary>
+    internal class HeightDependWidthConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            try
+            {
+                double width = System.Convert.ToDouble(value);
+                return width*3/4;
+            }
+            catch (Exception)
+            {
+                return 100;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
 }

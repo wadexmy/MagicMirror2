@@ -30,11 +30,11 @@ namespace MagicMirror.Models
         {
             get
             {
-                return code;
+                return name;
             }
             set
             {
-                code = value;
+                name = value;
                 OnPropertyChanged("Name");
             }
         }
@@ -606,6 +606,20 @@ namespace MagicMirror.Models
             {
                 retailPrice = value;
                 OnPropertyChanged("RetailPrice");
+            }
+        }
+
+        private string picture;
+        public string Picture
+        {
+            get
+            {
+                return picture;
+            }
+            set
+            {
+                picture = value;
+                OnPropertyChanged("Picture");
             }
         }
     }

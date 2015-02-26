@@ -37,10 +37,11 @@ namespace MagicMirror.Views
         /// <summary>
         /// 当前屏幕显示的产品
         /// </summary>
-        private Dictionary<int, ProductBiz> CurrentShowProducts;
+        private Dictionary<int, ProductBiz> HomeProductDic;
         
         private bool isCompleted = false;
 
+        //TODO:前端使用了示例图片
         List<string> demoImages;
 
         public ProductSlideGallery()
@@ -48,23 +49,24 @@ namespace MagicMirror.Views
             InitializeComponent();
 
             dataservice = new DataService();
-            CurrentShowProducts = new Dictionary<int, ProductBiz>();
+            HomeProductDic = new Dictionary<int, ProductBiz>();
+
             (this.Resources["BusyIndicatorStoryboard"] as Storyboard).Begin(this);
+            
             string imageDir = System.IO.Path.Combine(Global.AssemblyPath, "Resources", "Products");
             demoImages = Directory.GetFiles(imageDir, "*.jpg").Concat(Directory.GetFiles(imageDir, "*.png")).ToList();
 
             Thread thread = new Thread(() => {
                 //TODO：这里假设了系统至少有ScenePicturesCount件产品，否则系统运行时会出问题的
-                IList<ProductBiz> ProductBizs = dataservice.GetFirstPageProducts(ScenePicturesCount);
-                PrepareProducts3DView(ProductBizs);
-               
+                IList<ProductBiz> homeProduct = dataservice.GetFirstPageProducts(ScenePicturesCount);
+                PrepareProducts3DView(homeProduct);
             });
             thread.Start();
         }
 
         #region ===商品初始化加载===
 
-        private void PrepareProducts3DView(IList<ProductBiz> ProductBizs)
+        private void PrepareProducts3DView(IList<ProductBiz> product)
         {
             try
             {
@@ -87,7 +89,7 @@ namespace MagicMirror.Views
                     for (int index = 0; index < ScenePicturesCount; index++)
                     {
                         //TODO:临时借用了第8个自定义属性作为图片地址存储
-                        ProductBizs[index].CustomPropertyValue08Name = demoImages[index];
+                        product[index].Picture = demoImages[index];
 
                         ModelVisual3D modelVisual3D = new ModelVisual3D();
                         GeometryModel3D geometryModel3D = new GeometryModel3D();
@@ -115,8 +117,8 @@ namespace MagicMirror.Views
                         modelVisual3D.Content = geometryModel3D;
                         //将产品添加到三维场景中
                         mainScene.Children.Add(modelVisual3D);
-                        
-                        CurrentShowProducts.Add(index, ProductBizs[index]);
+
+                        HomeProductDic.Add(index, product[index]);
                     }
 
                     //启动动画
@@ -224,13 +226,12 @@ namespace MagicMirror.Views
                                         selIndex = i;
                                     }
                                 }
-                                ProductBiz product = CurrentShowProducts[selIndex];
-                                if (product != null)
+                                ProductBiz selSku = HomeProductDic[selIndex];
+                                if (selSku != null)
                                 {
                                     //进入试衣间主面板
                                     Global.tryingOnProductImage = demoImages[selIndex];
-                                    Global.MainFrame.Navigate(new Uri("/Views/ProductTryingOnControl.xaml", UriKind.Relative), product);
-                                    Global.MainFrame.Navigated -= MainFrame_Navigated;
+                                    Global.MainFrame.Navigate(new Uri("/Views/ProductTryingOnControl.xaml", UriKind.Relative), selSku);
                                     Global.MainFrame.Navigated += MainFrame_Navigated;
                                 }
                             }

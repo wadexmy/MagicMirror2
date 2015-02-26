@@ -100,7 +100,7 @@
         <TextBlock x:Name="tbBusyIndicator" Text="&#xf110;" FontFamily="{StaticResource IconFont}" 
                        FontSize="40" Foreground="YellowGreen" VerticalAlignment="Center" HorizontalAlignment="Center">
               <TextBlock.RenderTransform>
-                <RotateTransform CenterX="0" CenterY="0" Angle="0"></RotateTransform>
+                <RotateTransform  Angle="0"></RotateTransform>
             </TextBlock.RenderTransform>
         </TextBlock>
     </Grid>

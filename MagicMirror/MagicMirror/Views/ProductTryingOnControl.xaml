@@ -11,6 +11,7 @@
         <converter:DescriptionConverter x:Key="descriptionConverter"></converter:DescriptionConverter>
         <converter:QRCodeConverter x:Key="qrCodeConverter"></converter:QRCodeConverter>
         <converter:IndentParentConverter x:Key="indentParentConverter"></converter:IndentParentConverter>
+        <converter:HeightDependWidthConverter x:Key="heightDependWidthConverter"></converter:HeightDependWidthConverter>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -34,8 +35,9 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
                                     <Border>
-                                        <Image x:Name="pImg" Source="{Binding Path=CustomPropertyValue08Name}" HorizontalAlignment="Center" Margin="2"
-                                   Width="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Converter={StaticResource indentParentConverter}}"/>
+                                        <Image x:Name="pImg" Source="{Binding Path=Picture}" HorizontalAlignment="Center" Margin="2" Stretch="Fill"
+                                               Width="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Converter={StaticResource indentParentConverter}}"
+                                               Height="{Binding Width,RelativeSource={RelativeSource Self}, Converter={StaticResource heightDependWidthConverter}}"/>
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -69,7 +71,7 @@
                     </Grid.ColumnDefinitions>
                     
                     <Grid Grid.Column="0" >
-                        <Image Source="{Binding CustomPropertyValue08Name,Mode=TwoWay}" Stretch="Fill" Margin="10" 
+                        <Image Source="{Binding Picture,Mode=TwoWay}" Stretch="Fill" Margin="10" 
                                RenderOptions.BitmapScalingMode="HighQuality"></Image>
                         <Image VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,0,10,10"
                                Width="60" Height="60" Source="{Binding Name,Converter={StaticResource qrCodeConverter}}"></Image>
@@ -87,7 +89,7 @@
                             <Button x:Name="btnLike" Width="80" Height="60" Margin="10,0,0,10" Click="btnLike_Click">
                                 <Button.Content>
                                     <StackPanel>
-                                        <TextBlock FontSize="20" HorizontalAlignment="Center">喜欢</TextBlock>
+                                        <TextBlock FontSize="20" HorizontalAlignment="Center" FontFamily="{StaticResource IconFont}" Text="&#xf164;"></TextBlock>
                                         <TextBlock FontSize="15" HorizontalAlignment="Center" 
                                                    Text="{Binding LikeCount,Converter={StaticResource intToPersonDescConverter}}"></TextBlock>
                                     </StackPanel>
@@ -96,7 +98,7 @@
                             <Button  x:Name="btnDislike" Width="80" Height="60" Margin="10,0,10,10" Click="btnDislike_Click">
                                 <Button.Content>
                                     <StackPanel>
-                                        <TextBlock FontSize="20" HorizontalAlignment="Center">不喜欢</TextBlock>
+                                        <TextBlock FontSize="20" HorizontalAlignment="Center" FontFamily="{StaticResource IconFont}" Text="&#xf165;"></TextBlock>
                                         <TextBlock FontSize="15" HorizontalAlignment="Center"  
                                                    Text="{Binding DislikeCount,Converter={StaticResource intToPersonDescConverter}}"></TextBlock>
                                     </StackPanel>
