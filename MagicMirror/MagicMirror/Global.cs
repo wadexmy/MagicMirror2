@@ -5,6 +5,7 @@ using System.Text;
 using System.Configuration;
 using System.Windows.Controls;
 using MagicMirror.Models;
+using System.IO;
 
 namespace MagicMirror
 {
@@ -66,6 +67,17 @@ namespace MagicMirror
         }
 
         public static string tryingOnProductImage;
+
+        private static List<string> productDemoImages;
+        public static List<string> ProductDemoImages{
+            get {
+                if (productDemoImages == null || productDemoImages.Count == 0) {
+                    string imageDir = System.IO.Path.Combine(Global.AssemblyPath, "Resources", "Products");
+                    productDemoImages = Directory.GetFiles(imageDir, "*.jpg").Concat(Directory.GetFiles(imageDir, "*.png")).ToList();
+                }
+                return productDemoImages;
+            }
+        }
 
         #region ===声音文件===
         

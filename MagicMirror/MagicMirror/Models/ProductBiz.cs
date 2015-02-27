@@ -622,5 +622,33 @@ namespace MagicMirror.Models
                 OnPropertyChanged("Picture");
             }
         }
+
+        private int likeCount = 0;
+        public int LikeCount
+        {
+            get
+            {
+                return likeCount;
+            }
+            set
+            {
+                likeCount = value;
+                OnPropertyChanged("LikeCount");
+            }
+        }
+
+        private int dislikeCount = 0;
+        public int DislikeCount
+        {
+            get
+            {
+                return dislikeCount;
+            }
+            set
+            {
+                dislikeCount = value;
+                OnPropertyChanged("DislikeCount");
+            }
+        }
     }
 }

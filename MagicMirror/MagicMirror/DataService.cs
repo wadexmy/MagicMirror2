@@ -75,71 +75,92 @@ namespace MagicMirror
             return response.Success ? response.Context.Data : null;
         }
 
-        public IList<ProductColorBiz> GetProductColors()
-        {
+        /// <summary>
+        /// 根据商品ID得到该款号的商品的条码种数
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        public IList<SkuBiz> GetProductSkus(string productId) {
             var request = new ApiRequest()
             {
-                ApiPath = "api/productColor/list",
+                ApiPath = "api/sku/list",
                 ServerAddress = Global.ServerAddressUrl,
                 Method = Method.Post,
                 AppKey = userKey,
                 Param = new
                 {
-                    isPageable = false
+                    isPageable = false,
+                    productId = productId
                 }
             };
-            var response = ApiHelper.Execute<ListResponse<ProductColorBiz>>(request, false).Result;
+            var response = ApiHelper.Execute<ListResponse<SkuBiz>>(request, false).Result;
             return response.Success ? response.Context.Data : null;
         }
 
-        public SkuBiz GetSkuByProductId(string productId) {
+        public IList<ProductBiz> GetRelatedProducts(ProductBiz product)
+        {
             var request = new ApiRequest()
             {
-                ApiPath = string.Format("api/sku/getById/{0}", productId),
+                ApiPath = "api/product/list",
+                ServerAddress = Global.ServerAddressUrl,
+                Method = Method.Post,
+                AppKey = userKey,
+                Param = new
+                {
+                    isPageable = false,
+                    customPropertyValue04Id = product.CustomPropertyValue04Id,
+                    customPropertyValue05Id = product.CustomPropertyValue05Id,
+                    customPropertyValue06Id = product.CustomPropertyValue06Id,
+                    customPropertyValue08Id = product.CustomPropertyValue08Id
+                }
+            };
+            var response = ApiHelper.Execute<ListResponse<ProductBiz>>(request, false).Result;
+            return response.Success ? response.Context.Data : null;
+        }
+
+        public ProductColorBiz GetProductColor(string ColorId)
+        {
+            var request = new ApiRequest()
+            {
+                ApiPath = string.Format("api/productColor/getById/{0}", ColorId),
                 ServerAddress = Global.ServerAddressUrl,
                 Method = Method.Get,
                 AppKey = userKey,
             };
-            var response = ApiHelper.Execute<SkuBiz>(request, false).Result;
-            return response.Success ? response.Context: null;
+            var response = ApiHelper.Execute<ProductColorBiz>(request, false).Result;
+            return response.Success ? response.Context : null;
         }
 
+        //public ProductSizeBiz GetProductSize(string groupCode,string SizeCode)
+        //{
+        //    var request = new ApiRequest()
+        //    {
+        //        ApiPath = string.Format("api/productSize/{0}/getByCode/{1}", groupCode, SizeCode),
+        //        ServerAddress = Global.ServerAddressUrl,
+        //        Method = Method.Get,
+        //        AppKey = userKey,
+        //    };
+        //    var response = ApiHelper.Execute<ProductSizeBiz>(request, false).Result;
+        //    return response.Success ? response.Context : null;
+        //}
 
-        public IList<SkuBiz> GetProductSkus(int PicturesCount)
+        public IList<ProductSizeBiz> GetProductSize(string SizeCode)
         {
             var request = new ApiRequest()
             {
-                ApiPath = "api/sku/list",
+                ApiPath = "api/productSize/list",
                 ServerAddress = Global.ServerAddressUrl,
                 Method = Method.Post,
                 AppKey = userKey,
                 Param = new
                 {
-                    isPageable = true,
-                    recordsPerPage = PicturesCount
+                    isPageable = false,
+                    code = SizeCode
                 }
             };
-            var response = ApiHelper.Execute<ListResponse<SkuBiz>>(request, false).Result;
-            return response.Success ? response.Context.Data : null;
+            var response = ApiHelper.Execute<ListResponse<ProductSizeBiz>>(request, false).Result;
+            return response.Success ? response.Context.Data: null;
         }
-
-        public IList<SkuBiz> GetProductSkus()
-        {
-            var request = new ApiRequest()
-            {
-                ApiPath = "api/sku/list",
-                ServerAddress = Global.ServerAddressUrl,
-                Method = Method.Post,
-                AppKey = userKey,
-                Param = new
-                {
-                    isPageable = false
-                }
-            };
-            var response = ApiHelper.Execute<ListResponse<SkuBiz>>(request, false).Result;
-            return response.Success ? response.Context.Data : null;
-        }
-        
 
     }
 }

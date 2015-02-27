@@ -11,7 +11,7 @@
         <converter:DescriptionConverter x:Key="descriptionConverter"></converter:DescriptionConverter>
         <converter:QRCodeConverter x:Key="qrCodeConverter"></converter:QRCodeConverter>
         <converter:IndentParentConverter x:Key="indentParentConverter"></converter:IndentParentConverter>
-        <converter:HeightDependWidthConverter x:Key="heightDependWidthConverter"></converter:HeightDependWidthConverter>
+        <converter:HeightDependWidthConverter x:Key="heightDependWidthConverter"></converter:HeightDependWidthConverter>  
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -26,8 +26,9 @@
                 <ColumnDefinition Width="0.15*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
-            <!--用户选择-->
-            <ListBox x:Name="lbSelProducts" Background="White" SelectionChanged="lbProducts_SelectionChanged" Margin="10">
+            <!--Trying on products-->
+            <ListBox x:Name="lbSelProducts" Background="White" Margin="10" SelectionChanged="lbProducts_SelectionChanged"
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.Resources>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Opacity" Value="0.5" />
@@ -58,6 +59,7 @@
                 </ListBox.Resources>
             </ListBox>
 
+            <!--Product Information-->
             <Grid Grid.Column="1" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.7*"></ColumnDefinition>
@@ -71,36 +73,33 @@
                     </Grid.ColumnDefinitions>
                     
                     <Grid Grid.Column="0" >
-                        <Image Source="{Binding Picture,Mode=TwoWay}" Stretch="Fill" Margin="10" 
-                               RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                        <Image Source="{Binding Picture,Mode=TwoWay}" Stretch="Fill" Margin="10" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                         <Image VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,0,10,10"
                                Width="60" Height="60" Source="{Binding Name,Converter={StaticResource qrCodeConverter}}"></Image>
                     </Grid>
 
                     <Grid Grid.Column="1" Width="180">
-                        <!--基本信息-->
+                        <!--Basic information-->
                         <StackPanel Margin="10">
                             <TextBlock x:Name="tbName" FontSize="16" Foreground="Black" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
                             <TextBlock x:Name="tbDesc" FontSize="14" Foreground="#444444"  TextWrapping="Wrap" Text="{Binding Description, Converter={StaticResource descriptionConverter}}" ></TextBlock>
                         </StackPanel>
                         
-                        <!--评价信息-->
+                        <!--User Comments-->
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
                             <Button x:Name="btnLike" Width="80" Height="60" Margin="10,0,0,10" Click="btnLike_Click">
                                 <Button.Content>
                                     <StackPanel>
-                                        <TextBlock FontSize="20" HorizontalAlignment="Center" FontFamily="{StaticResource IconFont}" Text="&#xf164;"></TextBlock>
-                                        <TextBlock FontSize="15" HorizontalAlignment="Center" 
-                                                   Text="{Binding LikeCount,Converter={StaticResource intToPersonDescConverter}}"></TextBlock>
+                                        <TextBlock FontSize="20" HorizontalAlignment="Center" FontFamily="{StaticResource IconFont}" Text="&#xf164;" Foreground="YellowGreen"></TextBlock>
+                                        <TextBlock FontSize="15" HorizontalAlignment="Center" Text="{Binding LikeCount,Converter={StaticResource intToPersonDescConverter}}"></TextBlock>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
                             <Button  x:Name="btnDislike" Width="80" Height="60" Margin="10,0,10,10" Click="btnDislike_Click">
                                 <Button.Content>
                                     <StackPanel>
-                                        <TextBlock FontSize="20" HorizontalAlignment="Center" FontFamily="{StaticResource IconFont}" Text="&#xf165;"></TextBlock>
-                                        <TextBlock FontSize="15" HorizontalAlignment="Center"  
-                                                   Text="{Binding DislikeCount,Converter={StaticResource intToPersonDescConverter}}"></TextBlock>
+                                        <TextBlock FontSize="20" HorizontalAlignment="Center" FontFamily="{StaticResource IconFont}" Text="&#xf165;" Foreground="YellowGreen"></TextBlock>
+                                        <TextBlock FontSize="15" HorizontalAlignment="Center" Text="{Binding DislikeCount,Converter={StaticResource intToPersonDescConverter}}"></TextBlock>
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
@@ -108,18 +107,74 @@
                     </Grid>
                 </Grid>
                 
-                <!--用户选择-->
-                <Grid Grid.Column="1" Background="LightGray" Margin="5,0,0,0">
-                    <StackPanel Margin="5">
-                        <TextBlock FontSize="16" Text="" HorizontalAlignment="Left"></TextBlock>
-                        <Image x:Name="imgProduct" Margin="5" Width="40"  Height="40"  HorizontalAlignment="Left"
-                                   Stretch="Fill" ToolTip="{Binding Color.Name}" RenderOptions.BitmapScalingMode="LowQuality"></Image>
+                <!--User Options-->
+                <StackPanel Grid.Column="1" Background="LightGray" Margin="5,0,0,0">
+                    <!--colors-->
+                    <ListBox x:Name="lbProductColors" Margin="10,5" Height="50">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="2"  BorderThickness="1">
+                                    <TextBlock  Text="{Binding Name}" Margin="2"></TextBlock>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <!--Sizes-->
+                    <ListBox x:Name="lbProductSizes" Margin="10,5" Height="50">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"></StackPanel>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border  CornerRadius="2" BorderThickness="1">
+                                    <TextBlock  Text="{Binding Name}" Margin="2"></TextBlock>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <!--Price-->
+                    <StackPanel Orientation="Horizontal" Margin="10,5">
+                        <TextBlock x:Name="tbProductPrice" Text="{Binding RetailPrice}"></TextBlock>
                     </StackPanel>
-                </Grid>
+                    <!--Material-->
+                    <StackPanel Orientation="Horizontal" Margin="10,5">
+                        <TextBlock x:Name="tbProductMaterial" Text="{Binding CustomPropertyValue05Name}"></TextBlock>
+
+                    </StackPanel>
+                    <!--Thickness-->
+                    <StackPanel Orientation="Horizontal" Margin="10,5">
+                        <TextBlock x:Name="tbProductThickness" Text="{Binding CustomPropertyValue08Name}"></TextBlock>
+                        
+                    </StackPanel>
+                </StackPanel>
             </Grid>
 
-            <!--搭配-->
-            <ListBox x:Name="lbMatchedProoducts" Grid.Column="2" Margin="10"></ListBox>
+            <!--Product Suggestions-->
+            <ListBox x:Name="lbMatchedProoducts" Background="White" Grid.Column="2" Margin="10" 
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.Resources>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border>
+                                        <Image x:Name="pImg" Source="{Binding Path=Picture}" HorizontalAlignment="Center" Margin="2" Stretch="Fill"
+                                               Width="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Converter={StaticResource indentParentConverter}}"
+                                               Height="{Binding Width,RelativeSource={RelativeSource Self}, Converter={StaticResource heightDependWidthConverter}}"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
         </Grid>
 
         <view:MenuButtonGroupBar x:Name="menuButtons" Grid.Row="1" HorizontalAlignment="Center" Height="110">
