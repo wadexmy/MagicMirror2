@@ -82,7 +82,7 @@
                                     <AxisAngleRotation3D x:Name="angleRotation" Axis="0,-1,0" Angle="0"/>
                                 </RotateTransform3D.Rotation>
                             </RotateTransform3D>
-                            <TranslateTransform3D OffsetX="0" OffsetY="0" OffsetZ="-18"/>
+                            <TranslateTransform3D x:Name="sceneTransform3d" OffsetX="0" OffsetY="0" OffsetZ="-14"/>
                         </Transform3DGroup>
                     </ModelVisual3D.Transform>
                     <!--三维场景中实体在后台代码添加-->
@@ -90,15 +90,14 @@
             </Viewport3D.Children>
         </Viewport3D>
 
-        <view:MenuButtonGroupBar x:Name="menuButtons" VerticalAlignment="Bottom" HorizontalAlignment="Center"
-                                Visibility="Collapsed" Height="110">
+        <view:MenuButtonGroupBar x:Name="menuButtons" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Collapsed" Height="110">
             <view:MenuButtonGroupBar.RenderTransform>
                 <TranslateTransform></TranslateTransform>
             </view:MenuButtonGroupBar.RenderTransform>
         </view:MenuButtonGroupBar>
         
         <TextBlock x:Name="tbBusyIndicator" Text="&#xf110;" FontFamily="{StaticResource IconFont}" 
-                       FontSize="40" Foreground="YellowGreen" VerticalAlignment="Center" HorizontalAlignment="Center">
+                   FontSize="40" Foreground="YellowGreen" VerticalAlignment="Center" HorizontalAlignment="Center">
               <TextBlock.RenderTransform>
                 <RotateTransform  Angle="0"></RotateTransform>
             </TextBlock.RenderTransform>

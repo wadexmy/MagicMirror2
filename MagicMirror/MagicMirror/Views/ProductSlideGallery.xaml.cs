@@ -1,25 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MagicMirror.Models;
-using MagicMirror.Net;
 using System.Windows.Media.Media3D;
-using MagicMirror.Util;
 using System.Windows.Media.Animation;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Threading;
-using System.IO;
+using MagicMirror.Models;
+using MagicMirror.Util;
 
 namespace MagicMirror.Views
 {
@@ -51,25 +42,23 @@ namespace MagicMirror.Views
             (this.Resources["BusyIndicatorStoryboard"] as Storyboard).Begin(this);
            
             Thread thread = new Thread(() => {
-                //TODO：这里假设了系统至少有ScenePicturesCount件产品，否则系统运行时会出问题的
-                IList<ProductBiz> homeProduct = dataservice.GetFirstPageProducts(ScenePicturesCount);
-                PrepareProducts3DView(homeProduct);
+                IList<ProductBiz> homeProducts = dataservice.GetFirstPageProducts(ScenePicturesCount);
+                PrepareProducts3DView(homeProducts);
             });
             thread.Start();
         }
 
         #region ===商品初始化加载===
 
-        private void PrepareProducts3DView(IList<ProductBiz> product)
+        private void PrepareProducts3DView(IList<ProductBiz> products)
         {
             try
             {
-                //假设X,Y轴偏移量数组长度必须大于ScenePicturesCount
-                double[] xPositons = ShuffleUtil.Shuffle<double>(
-                   new double[] { -8.5, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 8.5 });
-                double[] yPositons = ShuffleUtil.Shuffle<double>(
-                   new double[] { -3, -2.5, -2, -1.5, -1, -0.5, 0, 0.5, 1, 1.5, 2, 2.5, 3 });
-               
+                //设置空间上的位置偏移
+                double[] xPositons = GetXPositons(ScenePicturesCount);
+                double[] yPositons = GetYPositons(ScenePicturesCount);
+                double[] zPositons = GetZPositons(ScenePicturesCount);
+
                 //目前使用示例图片
                 if (Global.ProductDemoImages.Count < ScenePicturesCount)
                 {
@@ -82,37 +71,33 @@ namespace MagicMirror.Views
                 {
                     for (int index = 0; index < ScenePicturesCount; index++)
                     {
-                        //TODO:临时借用了第8个自定义属性作为图片地址存储
-                        product[index].Picture = Global.ProductDemoImages[index];
+                        products[index].Picture = Global.ProductDemoImages[index];
 
                         ModelVisual3D modelVisual3D = new ModelVisual3D();
                         GeometryModel3D geometryModel3D = new GeometryModel3D();
                         System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(Global.ProductDemoImages[index]);
                         double ratio = bmp.Width * 1.0 / bmp.Height;
 
-                        double zPosition; //Z轴偏移量
                         //设置材质
-                        if ((index % 2 == 0))
+                        if (index % 2 == 0)
                         {
-                            zPosition = 0.5 * (index + 1);
                             geometryModel3D.Material = Image3DViewUtil.PrepareMaterial(Global.ProductDemoImages[index], true);
                             geometryModel3D.BackMaterial = Image3DViewUtil.PrepareMaterial(Global.ProductDemoImages[index], false);
                         }
                         else
                         {
-                            zPosition = -0.5 * (index + 1);
                             geometryModel3D.Material = Image3DViewUtil.PrepareMaterial(Global.ProductDemoImages[index], false);
                             geometryModel3D.BackMaterial = Image3DViewUtil.PrepareMaterial(Global.ProductDemoImages[index], true);
                         }
                         //设置空间形状
-                        geometryModel3D.Geometry = Image3DViewUtil.PrepareGeometry(Global.ProductDemoImages[index], xPositons[index], yPositons[index], zPosition, ratio);
+                        geometryModel3D.Geometry = Image3DViewUtil.PrepareGeometry(Global.ProductDemoImages[index], xPositons[index], yPositons[index], zPositons[index], ratio);
                         //设置局部旋转效果
                         geometryModel3D.Transform = SetRotateTransform3D(index);
                         modelVisual3D.Content = geometryModel3D;
                         //将产品添加到三维场景中
                         mainScene.Children.Add(modelVisual3D);
 
-                        HomeProductDic.Add(index, product[index]);
+                        HomeProductDic.Add(index, products[index]);
                     }
 
                     //启动动画
@@ -182,7 +167,73 @@ namespace MagicMirror.Views
 
         #endregion
 
-        #region ===商品选择===
+        #region ===空间位置偏移量设置===
+        
+        /// <summary>
+        /// X轴方向偏移
+        /// </summary>
+        /// <param name="ScenePicturesCount"></param>
+        /// <returns></returns>
+        private double[] GetXPositons(int ScenePicturesCount)
+        {
+            double[] xPositons = new double[ScenePicturesCount];
+            
+            for (int i = 0; i < ScenePicturesCount; i++)
+            {
+                xPositons[i] = i <= ScenePicturesCount / 2 ? -i : i - ScenePicturesCount / 2.0;
+                if (Global.UserInterface == UserInterface.ShoppingAssistant)//高大于宽时
+                {
+                    xPositons[i] = xPositons[i] / 2.0;
+                }
+            }
+            xPositons = ShuffleUtil.Shuffle<double>(xPositons);
+            return xPositons;
+        }
+
+        /// <summary>
+        /// Y轴方向偏移
+        /// </summary>
+        /// <param name="ScenePicturesCount"></param>
+        /// <returns></returns>
+        private double[] GetYPositons(int ScenePicturesCount)
+        {
+            double[] yPositons = new double[ScenePicturesCount];
+            
+            for (int i = 0; i < ScenePicturesCount; i++)
+            {
+                yPositons[i] = i <= ScenePicturesCount / 2 ? -i : i - ScenePicturesCount / 2.0;
+                if (Global.UserInterface == UserInterface.FittingRoom)//宽大于高时
+                {
+                    yPositons[i] = yPositons[i] / 2.0;
+                }
+                else {
+                    yPositons[i] = yPositons[i] * 1.5;
+                }
+            }
+            yPositons = ShuffleUtil.Shuffle<double>(yPositons);
+            return yPositons;
+        }
+
+
+        /// <summary>
+        /// Y轴方向偏移
+        /// </summary>
+        /// <param name="ScenePicturesCount"></param>
+        /// <returns></returns>
+        private double[] GetZPositons(int ScenePicturesCount)
+        {
+            double[] zPositons = new double[ScenePicturesCount];
+
+            for (int i = 0; i < ScenePicturesCount; i++)
+            {
+                zPositons[i] = i % 2 == 0 ? 0.5 * (i + 1) : -0.5 * (i + 1);
+            }
+            return zPositons;
+        }
+
+        #endregion
+
+        #region ===选择===
 
         /// <summary>
         /// 采用命中测试得到三维场景中选中的商品

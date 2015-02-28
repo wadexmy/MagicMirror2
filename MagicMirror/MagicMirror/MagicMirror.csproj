@@ -39,6 +39,10 @@
     <ApplicationIcon>MagicMirror.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
@@ -52,6 +56,10 @@
     <Reference Include="System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -75,10 +83,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\CustomConverter.cs" />
+    <Compile Include="DelegateCommand.cs" />
     <Compile Include="Models\ProductColorBiz.cs" />
     <Compile Include="Models\ProductSizeBiz.cs" />
     <Compile Include="Models\ProductSizeGroupBiz.cs" />
     <Compile Include="Models\SkuBiz.cs" />
+    <Compile Include="PageViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ProductViewModel.cs" />
     <Compile Include="DataService.cs" />
     <Compile Include="Models\EntityBase.cs" />
@@ -88,6 +100,9 @@
     <Compile Include="Util\QRCodeCreater.cs" />
     <Compile Include="Util\ShuffleUtil.cs" />
     <Compile Include="Util\SystemIdleHelper.cs" />
+    <Compile Include="Views\AllProductsControl.xaml.cs">
+      <DependentUpon>AllProductsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainButtonMenuBar.xaml.cs">
       <DependentUpon>MainButtonMenuBar.xaml</DependentUpon>
     </Compile>
@@ -99,6 +114,12 @@
     </Compile>
     <Compile Include="Views\ProductTryingOnControl.xaml.cs">
       <DependentUpon>ProductTryingOnControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TryingProductAlertWin.xaml.cs">
+      <DependentUpon>TryingProductAlertWin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -125,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\AllProductsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainButtonMenuBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -138,6 +163,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProductTryingOnControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TryingProductAlertWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -55,24 +55,62 @@ namespace MagicMirror
         /// <summary>
         /// 获取首页显示的产品
         /// </summary>
+        /// <param name="PageSize"></param>
+        /// <returns></returns>
+        public IList<ProductBiz> GetFirstPageProducts(int recordsPerPage)
+        {
+            try
+            {
+                var request = new ApiRequest()
+                {
+                    ApiPath = "api/product/list",
+                    ServerAddress = Global.ServerAddressUrl,
+                    Method = Method.Post,
+                    AppKey = userKey,
+                    Param = new
+                    {
+                        isPageable = true,
+                        recordsPerPage = recordsPerPage
+                    }
+                };
+                var response = ApiHelper.Execute<ListResponse<ProductBiz>>(request, false).Result;
+                return response.Success ? response.Context.Data : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取首页显示的产品
+        /// </summary>
         /// <param name="PicturesCount"></param>
         /// <returns></returns>
-        public IList<ProductBiz> GetFirstPageProducts(int PicturesCount)
+        public ListResponse<ProductBiz> GetCurrentPageProducts(int recordsPerPage,int currentPage)
         {
-            var request = new ApiRequest()
+            try
             {
-                ApiPath = "api/product/list",
-                ServerAddress = Global.ServerAddressUrl,
-                Method = Method.Post,
-                AppKey = userKey,
-                Param = new
+                var request = new ApiRequest()
                 {
-                    isPageable = true,
-                    recordsPerPage = PicturesCount
-                }
-            };
-            var response = ApiHelper.Execute<ListResponse<ProductBiz>>(request, false).Result;
-            return response.Success ? response.Context.Data : null;
+                    ApiPath = "api/product/list",
+                    ServerAddress = Global.ServerAddressUrl,
+                    Method = Method.Post,
+                    AppKey = userKey,
+                    Param = new
+                    {
+                        isPageable = true,
+                        recordsPerPage = recordsPerPage,
+                        currentPage = currentPage
+                    }
+                };
+                var response = ApiHelper.Execute<ListResponse<ProductBiz>>(request, false).Result;
+                return response.Success ? response.Context : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         /// <summary>

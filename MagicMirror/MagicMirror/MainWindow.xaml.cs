@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using MagicMirror.Models;
 using System.Windows.Threading;
+using MagicMirror.Views;
 
 namespace MagicMirror
 {
@@ -27,7 +28,7 @@ namespace MagicMirror
         {
             InitializeComponent();
 
-            NavigationFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
+            //NavigationFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
 
             //系统导航控件
             Global.MainFrame = NavigationFrame;
@@ -37,7 +38,10 @@ namespace MagicMirror
 
             //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //this.WindowState = WindowState.Maximized;
-
+            TryingProductAlertWin alertWin = new TryingProductAlertWin();
+            alertWin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            alertWin.Show();
+            this.WindowState = WindowState.Minimized;
             SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             SystemEvents_DisplaySettingsChanged(this, null);
             this.Top = 600;
