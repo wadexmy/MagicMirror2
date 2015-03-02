@@ -17,6 +17,15 @@
             </DoubleAnimation>
         </Storyboard>
         
+        <Storyboard x:Key="UnLoadStoryboard">
+            <DoubleAnimation Duration="0:0:0.5" From="1" To="0" Storyboard.TargetName="mainGrid"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)">
+            </DoubleAnimation>
+            <DoubleAnimation Duration="0:0:0.5" From="1" To="0" Storyboard.TargetName="mainGrid"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)">
+            </DoubleAnimation>
+        </Storyboard>
+        
         <!--工作区窗口闪动效果-->
         <Storyboard x:Key="mainClientAreaStoryboard">
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush.(SolidColorBrush.Color)" Storyboard.TargetName="mainClientArea">

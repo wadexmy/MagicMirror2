@@ -28,34 +28,34 @@ namespace MagicMirror.Views
         {
             InitializeComponent();
             dataservice = new DataService();
-            this.DataContext = Global.prodectViewModel.CurrentProduct;
+            this.DataContext = Global.productViewModel.CurrentProduct;
 
-            lbSelProducts.ItemsSource = Global.prodectViewModel.TryingOnProducts;
+            lbSelProducts.ItemsSource = Global.productViewModel.TryingOnProducts;
 
             menuButtons.btnBuy.Visibility = Visibility.Visible;
-            Global.prodectViewModel.tryingOnProductsChanged += prodectViewModel_tryingOnProductsChanged;
+            Global.productViewModel.tryingOnProductsChanged += prodectViewModel_tryingOnProductsChanged;
         }
 
         #region ===顾客评价===
 
         private void btnLike_Click(object sender, RoutedEventArgs e)
         {
-            Global.prodectViewModel.CurrentProduct.LikeCount++;
+            Global.productViewModel.CurrentProduct.LikeCount++;
         }
         private void btnDislike_Click(object sender, RoutedEventArgs e)
         {
-            Global.prodectViewModel.CurrentProduct.DislikeCount++;
+            Global.productViewModel.CurrentProduct.DislikeCount++;
         }
 
         #endregion
 
         private void prodectViewModel_tryingOnProductsChanged(ProductBiz addedProduct)
         {
-            for (int i = 0; i < Global.prodectViewModel.TryingOnProducts.Count; i++)
+            for (int i = 0; i < Global.productViewModel.TryingOnProducts.Count; i++)
             {
-                if (Global.prodectViewModel.TryingOnProducts[i].Id == addedProduct.Id)
+                if (Global.productViewModel.TryingOnProducts[i].Id == addedProduct.Id)
                 {
-                    Global.prodectViewModel.CurrentIndex = i;
+                    Global.productViewModel.CurrentIndex = i;
                     lbSelProducts.SelectedIndex = i;
                 }
             }
@@ -63,38 +63,13 @@ namespace MagicMirror.Views
 
         private void lbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ProductBiz selProduct=Global.prodectViewModel.TryingOnProducts[lbSelProducts.SelectedIndex];
+            ProductBiz selProduct=Global.productViewModel.TryingOnProducts[lbSelProducts.SelectedIndex];
             this.DataContext = selProduct;
+
             IList<SkuBiz> selProductSkus = dataservice.GetProductSkus(selProduct.Id);
             if (selProductSkus != null && selProductSkus.Count > 0) {
-                //颜色
-                List<string> colors = (from q in selProductSkus select q.ProductColorId).Distinct().ToList();
-                if (colors != null && colors.Count > 0) {
-                    List<ProductColorBiz> productColors = new List<ProductColorBiz>();
-                    for (int i = 0; i < colors.Count; i++)
-                    {
-                        productColors.Add(dataservice.GetProductColor(colors[i]));
-                    }
-                    lbProductColors.ItemsSource = productColors;
-                }
-                
-                //大小
-                List<string> sizeCodes = (from q in selProductSkus select q.ProductSizeCode).Distinct().ToList();
-                if (sizeCodes != null && sizeCodes.Count > 0)
-                {
-                    List<ProductSizeBiz> productSizes = new List<ProductSizeBiz>();
-                    for (int i = 0; i < sizeCodes.Count; i++)
-                    {
-                        IList<ProductSizeBiz> productSizeBizs = dataservice.GetProductSize(sizeCodes[i]);
-                        if (productSizeBizs != null)
-                        {
-                            productSizes.Add(productSizeBizs[0]);
-                        }
-                    }
-                    lbProductSizes.ItemsSource = productSizes;
-                }
-               
-                //推荐
+                lbProductColors.ItemsSource = dataservice.GetProductColors(selProductSkus);
+                lbProductSizes.ItemsSource = dataservice.GetProductSizes(selProductSkus);
                 IList<ProductBiz> relatedProducts = dataservice.GetRelatedProducts(selProduct);
                 if (relatedProducts != null && relatedProducts.Count > 0)
                 {

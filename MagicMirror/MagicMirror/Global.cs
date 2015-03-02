@@ -56,7 +56,7 @@ namespace MagicMirror
 
         private static ProductViewModel _prodectViewModel;
 
-        public static ProductViewModel prodectViewModel { 
+        public static ProductViewModel productViewModel { 
             get{
                 if (_prodectViewModel == null)
                 {

@@ -106,8 +106,8 @@
     <Compile Include="Views\MainButtonMenuBar.xaml.cs">
       <DependentUpon>MainButtonMenuBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MenuButtonGroupBar.xaml.cs">
-      <DependentUpon>MenuButtonGroupBar.xaml</DependentUpon>
+    <Compile Include="Views\ProductDetailControl.xaml.cs">
+      <DependentUpon>ProductDetailControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProductSlideGallery.xaml.cs">
       <DependentUpon>ProductSlideGallery.xaml</DependentUpon>
@@ -154,7 +154,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MenuButtonGroupBar.xaml">
+    <Page Include="Views\ProductDetailControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

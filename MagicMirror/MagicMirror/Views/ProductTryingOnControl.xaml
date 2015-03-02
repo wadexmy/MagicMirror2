@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converter="clr-namespace:MagicMirror.Converters"
-              xmlns:view="clr-namespace:MagicMirror.Views"
+             xmlns:view="clr-namespace:MagicMirror.Views"
              mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1000">
     <UserControl.Resources>
         <converter:IntToPersonDescConverter x:Key="intToPersonDescConverter"></converter:IntToPersonDescConverter>
@@ -13,6 +13,7 @@
         <converter:IndentParentConverter x:Key="indentParentConverter"></converter:IndentParentConverter>
         <converter:HeightDependWidthConverter x:Key="heightDependWidthConverter"></converter:HeightDependWidthConverter>  
     </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -177,10 +178,10 @@
             </ListBox>
         </Grid>
 
-        <view:MenuButtonGroupBar x:Name="menuButtons" Grid.Row="1" HorizontalAlignment="Center" Height="110">
-            <view:MenuButtonGroupBar.RenderTransform>
+        <view:MainButtonMenuBar x:Name="menuButtons" Grid.Row="1" HorizontalAlignment="Center" Height="110">
+            <view:MainButtonMenuBar.RenderTransform>
                 <TranslateTransform></TranslateTransform>
-            </view:MenuButtonGroupBar.RenderTransform>
-        </view:MenuButtonGroupBar>
+            </view:MainButtonMenuBar.RenderTransform>
+        </view:MainButtonMenuBar>
     </Grid>
 </UserControl>

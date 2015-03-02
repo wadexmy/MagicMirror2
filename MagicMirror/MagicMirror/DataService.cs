@@ -135,6 +135,46 @@ namespace MagicMirror
             return response.Success ? response.Context.Data : null;
         }
 
+        public List<ProductColorBiz> GetProductColors(IList<SkuBiz> pruductSkus)
+        {
+            List<ProductColorBiz> productColors = new List<ProductColorBiz>();
+            if (pruductSkus != null && pruductSkus.Count > 0)
+            {
+                List<string> colors = (from q in pruductSkus select q.ProductColorId).Distinct().ToList();
+                if (colors != null && colors.Count > 0)
+                {
+                   
+                    for (int i = 0; i < colors.Count; i++)
+                    {
+                        productColors.Add(GetProductColor(colors[i]));
+                    }
+                }
+            }
+            return productColors;
+        }
+
+        public List<ProductSizeBiz> GetProductSizes(IList<SkuBiz> pruductSkus)
+        {
+            List<ProductSizeBiz> productSizes = new List<ProductSizeBiz>();
+            if (pruductSkus != null && pruductSkus.Count > 0)
+            {
+                List<string> sizeCodes = (from q in pruductSkus select q.ProductSizeCode).Distinct().ToList();
+                if (sizeCodes != null && sizeCodes.Count > 0)
+                {
+                    for (int i = 0; i < sizeCodes.Count; i++)
+                    {
+                        IList<ProductSizeBiz> productSizeBizs = GetProductSize(sizeCodes[i]);
+                        if (productSizeBizs != null)
+                        {
+                            productSizes.Add(productSizeBizs[0]);
+                        }
+                    }
+                }
+            }
+            return productSizes;
+        }
+
+
         public IList<ProductBiz> GetRelatedProducts(ProductBiz product)
         {
             var request = new ApiRequest()

@@ -21,7 +21,6 @@ namespace MagicMirror.Views
         public Window1()
         {
             InitializeComponent();
-            MessageBox.Show("");
         }
     }
 }

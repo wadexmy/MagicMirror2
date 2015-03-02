@@ -80,11 +80,9 @@ E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\R
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Resources\Styles\ResLibary.baml
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Resources\Styles\ScrollViewerStyle.baml
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MainButtonMenuBar.baml
-E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MenuButtonGroupBar.baml
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\App.baml
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MainWindow.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MainButtonMenuBar.g.cs
-E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MenuButtonGroupBar.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductSlideGallery.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductTryingOnControl.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\App.g.cs
@@ -104,3 +102,5 @@ E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\V
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\TryingProductAlertWin.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\Window1.baml
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\Window1.g.cs
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductDetailControl.g.cs
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductDetailControl.baml

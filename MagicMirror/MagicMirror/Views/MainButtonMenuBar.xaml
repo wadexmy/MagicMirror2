@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
+    
     <StackPanel Orientation="Horizontal" Margin="10">
         <StackPanel.Resources>
             <Style TargetType="TextBlock">
@@ -17,16 +18,7 @@
             </Style>
         </StackPanel.Resources>
         
-        <Button Style="{StaticResource shoppingButtonStyle}">
-            <Button.Content>
-                <StackPanel>
-                    <TextBlock Text="&#xf002;" Style="{StaticResource IconTextStyle}"></TextBlock>
-                    <TextBlock Text="商品查询"></TextBlock>
-                </StackPanel>
-            </Button.Content>
-        </Button>
-        
-        <Button x:Name="btnAllProducts" Style="{StaticResource shoppingButtonStyle}">
+        <Button x:Name="btnAllProducts" Style="{StaticResource shoppingButtonStyle}" Click="btnAllProducts_Click">
             <Button.Content>
                 <StackPanel>
                     <TextBlock Text="&#xf009;" Style="{StaticResource IconTextStyle}"></TextBlock>
@@ -35,7 +27,16 @@
             </Button.Content>
         </Button>
         
-        <Button Style="{StaticResource shoppingButtonStyle}">
+        <Button x:Name="btnUserLogin" Style="{StaticResource shoppingButtonStyle}">
+            <Button.Content>
+                <StackPanel>
+                    <TextBlock Text="&#xf007;" Style="{StaticResource IconTextStyle}"></TextBlock>
+                    <TextBlock Text="会员"></TextBlock>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        
+        <Button x:Name="btnTrying" Style="{StaticResource shoppingButtonStyle}" Click="btnTrying_Click">
             <Button.Content>
                 <StackPanel>
                     <TextBlock Text="&#xf182;" Style="{StaticResource IconTextStyle}"></TextBlock>
@@ -44,7 +45,25 @@
             </Button.Content>
         </Button>
         
-        <Button Style="{StaticResource shoppingButtonStyle}">
+        <Button x:Name="btnBuy" Style="{StaticResource shoppingButtonStyle}">
+            <Button.Content>
+                <StackPanel>
+                    <TextBlock Text="&#xf07a;" Style="{StaticResource IconTextStyle}"></TextBlock>
+                    <TextBlock Text="购买"></TextBlock>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        
+        <!--<Button x:Name="btnFocus" Style="{StaticResource shoppingButtonStyle}">
+            <Button.Content>
+                <StackPanel>
+                    <TextBlock Text="&#xf07a;" Style="{StaticResource IconTextStyle}"></TextBlock>
+                    <TextBlock Text="关注公众号"></TextBlock>
+                </StackPanel>
+            </Button.Content>
+        </Button>-->
+        
+        <Button x:Name="btnCall" Style="{StaticResource shoppingButtonStyle}">
             <Button.Content>
                 <StackPanel>
                     <TextBlock Text="&#xf10b;" Style="{StaticResource IconTextStyle}"></TextBlock>

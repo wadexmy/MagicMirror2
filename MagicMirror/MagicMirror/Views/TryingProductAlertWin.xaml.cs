@@ -31,13 +31,19 @@ namespace MagicMirror.Views
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Storyboard unLoadStoryboard = this.Resources["UnLoadStoryboard"] as Storyboard;
+            unLoadStoryboard.Completed += (se, ee) =>
+            {
+                this.Close();
+            };
+            unLoadStoryboard.Begin();
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             Point point=e.GetPosition(mainClientArea);
-            if (point.X > 0 && point.X < mainClientArea.Width && point.Y > 0 && point.Y < mainClientArea.Height)
+            if (point.X > 0 && point.X < mainClientArea.Width 
+                && point.Y > 0 && point.Y < mainClientArea.Height)
                 return;
             (this.Resources["mainClientAreaStoryboard"] as Storyboard).Begin();
         }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\App.xaml
-1131763233
+11-2127428136
 3-1980465506
-37804292200
+37-384178479
 21460537333
-MainWindow.xaml;Resources\Styles\GroupBox.xaml;Resources\Styles\ResLibary.xaml;Resources\Styles\ScrollViewerStyle.xaml;Views\AllProductsControl.xaml;Views\MainButtonMenuBar.xaml;Views\MenuButtonGroupBar.xaml;Views\ProductSlideGallery.xaml;Views\ProductTryingOnControl.xaml;Views\TryingProductAlertWin.xaml;Views\Window1.xaml;
+MainWindow.xaml;Resources\Styles\GroupBox.xaml;Resources\Styles\ResLibary.xaml;Resources\Styles\ScrollViewerStyle.xaml;Views\AllProductsControl.xaml;Views\MainButtonMenuBar.xaml;Views\ProductDetailControl.xaml;Views\ProductSlideGallery.xaml;Views\ProductTryingOnControl.xaml;Views\TryingProductAlertWin.xaml;Views\Window1.xaml;
 
 False
 

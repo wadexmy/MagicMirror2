@@ -1,34 +1,37 @@
-﻿<Window x:Class="MagicMirror.Views.AllProductsControl"
+﻿<UserControl x:Class="MagicMirror.Views.AllProductsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converter="clr-namespace:MagicMirror.Converters"
-             mc:Ignorable="d" Width="600" Height="900">
-    <Window.Resources>
+              xmlns:view="clr-namespace:MagicMirror.Views"
+             mc:Ignorable="d">
+    <UserControl.Resources>
         <ItemsPanelTemplate x:Key="ItemsPanelTemplate">
             <UniformGrid Columns="{Binding PageCol}" Rows="{Binding PageRow}" HorizontalAlignment="Center" Margin="10"/>
         </ItemsPanelTemplate>
 
         <DataTemplate x:Key="ItemDataTemplate">
             <StackPanel>
-                <Image Source="{Binding Path=Picture}" HorizontalAlignment="Center" Width="150" Height="180" Margin="10" Stretch="Fill" />
+                <Image Source="{Binding Path=Picture}" HorizontalAlignment="Center" Width="50" Height="50" Margin="10" Stretch="Fill" />
                 <TextBlock Text="{Binding Path=Name}" HorizontalAlignment="Center" Margin="10,0"/>
             </StackPanel>
         </DataTemplate>
 
         <converter:IndexToNumConverter x:Key="IndexToNumConverter"></converter:IndexToNumConverter>
-    </Window.Resources>
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListBox Margin="10" ItemsPanel="{DynamicResource ItemsPanelTemplate}" 
+        <ListBox x:Name="lbProducts" Margin="10" ItemsPanel="{DynamicResource ItemsPanelTemplate}" 
                  ItemTemplate="{DynamicResource ItemDataTemplate}"
-                 ItemsSource="{Binding ProductBizList}"/>
+                 ItemsSource="{Binding ProductBizList}"
+                 SelectionChanged="ListBox_SelectionChanged"/>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="right" Margin="10" VerticalAlignment="Center">
             <StackPanel.Resources>
@@ -59,5 +62,12 @@
             <Button Content="a" ToolTip="下一页" Command="{Binding NextPageCommand}"></Button>
 
         </StackPanel>
+
+        <view:MainButtonMenuBar x:Name="menuButtons" Grid.Row="2" HorizontalAlignment="Center" 
+                                Height="110" VerticalAlignment="Bottom">
+            <view:MainButtonMenuBar.RenderTransform>
+                <TranslateTransform></TranslateTransform>
+            </view:MainButtonMenuBar.RenderTransform>
+        </view:MainButtonMenuBar>
     </Grid>
-</Window>
+</UserControl>

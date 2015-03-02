@@ -20,6 +20,7 @@ namespace MagicMirror.Views
     public partial class ProductSlideGallery : UserControl
     {
         private const int ScenePicturesCount = 10;
+
         /// <summary>
         /// 数据服务对象
         /// </summary>
@@ -39,8 +40,10 @@ namespace MagicMirror.Views
             dataservice = new DataService();
             HomeProductDic = new Dictionary<int, ProductBiz>();
 
+            menuButtons.btnTrying.Visibility = Visibility.Collapsed;
+            menuButtons.btnBuy.Visibility = Visibility.Collapsed;
             (this.Resources["BusyIndicatorStoryboard"] as Storyboard).Begin(this);
-           
+
             Thread thread = new Thread(() => {
                 IList<ProductBiz> homeProducts = dataservice.GetFirstPageProducts(ScenePicturesCount);
                 PrepareProducts3DView(homeProducts);
@@ -274,9 +277,14 @@ namespace MagicMirror.Views
                                 ProductBiz selSku = HomeProductDic[selIndex];
                                 if (selSku != null)
                                 {
-                                    //进入试衣间主面板
                                     Global.tryingOnProductImage = Global.ProductDemoImages[selIndex];
-                                    Global.MainFrame.Navigate(new Uri("/Views/ProductTryingOnControl.xaml", UriKind.Relative), selSku);
+                                    if (Global.UserInterface == UserInterface.FittingRoom)
+                                    {
+                                        Global.MainFrame.Navigate(new Uri("/Views/ProductTryingOnControl.xaml", UriKind.Relative), selSku);
+                                    }
+                                    else {
+                                        Global.MainFrame.Navigate(new Uri("/Views/ProductDetailControl.xaml", UriKind.Relative), selSku);
+                                    }
                                     Global.MainFrame.Navigated += MainFrame_Navigated;
                                 }
                             }
@@ -291,7 +299,7 @@ namespace MagicMirror.Views
         void MainFrame_Navigated(object sender, NavigationEventArgs e)
         {
             //因为ProductTryingOnControl需要添加动画，所以要预先订阅TryingOnProducts改变事件
-            Global.prodectViewModel.AddProduct(e.ExtraData as ProductBiz);
+            Global.productViewModel.AddProduct(e.ExtraData as ProductBiz);
             //导航结束后马上解除绑定事件
             Global.MainFrame.Navigated -= MainFrame_Navigated;
         }

@@ -11,18 +11,35 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MagicMirror.Models;
 
 namespace MagicMirror.Views
 {
     /// <summary>
     /// AllProductsControl.xaml 的交互逻辑
     /// </summary>
-    public partial class AllProductsControl : Window
+    public partial class AllProductsControl : UserControl
     {
+        PageViewModel viewModel;
         public AllProductsControl()
         {
             InitializeComponent();
-            this.DataContext = new PageViewModel();
+
+            viewModel = new PageViewModel();
+            this.DataContext = viewModel;
+        }
+        
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ProductBiz selProduct=viewModel.ProductBizList[lbProducts.SelectedIndex];
+            Global.MainFrame.Navigate(new Uri("/Views/ProductDetailControl.xaml", UriKind.Relative), selProduct);
+            Global.MainFrame.Navigated += MainFrame_Navigated;
+        }
+
+        void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            Global.productViewModel.AddProduct(e.ExtraData as ProductBiz);
+            Global.MainFrame.Navigated -= MainFrame_Navigated;
         }
     }
 }

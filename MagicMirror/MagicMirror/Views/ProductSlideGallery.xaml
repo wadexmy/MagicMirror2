@@ -90,11 +90,11 @@
             </Viewport3D.Children>
         </Viewport3D>
 
-        <view:MenuButtonGroupBar x:Name="menuButtons" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Collapsed" Height="110">
-            <view:MenuButtonGroupBar.RenderTransform>
+        <view:MainButtonMenuBar x:Name="menuButtons" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Collapsed" Height="110">
+            <view:MainButtonMenuBar.RenderTransform>
                 <TranslateTransform></TranslateTransform>
-            </view:MenuButtonGroupBar.RenderTransform>
-        </view:MenuButtonGroupBar>
+            </view:MainButtonMenuBar.RenderTransform>
+        </view:MainButtonMenuBar>
         
         <TextBlock x:Name="tbBusyIndicator" Text="&#xf110;" FontFamily="{StaticResource IconFont}" 
                    FontSize="40" Foreground="YellowGreen" VerticalAlignment="Center" HorizontalAlignment="Center">
