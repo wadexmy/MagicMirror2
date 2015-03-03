@@ -29,7 +29,7 @@ namespace MagicMirror.Views
             menuButtons.btnTrying.Visibility = Visibility.Visible;
             menuButtons.btnBuy.Visibility = Visibility.Visible;
 
-            Global.productViewModel.tryingOnProductsChanged += prodectViewModel_tryingOnProductsChanged;
+            Global.productViewModel.tryingOnProductsAdded += prodectViewModel_tryingOnProductsChanged;
         }
 
         private void prodectViewModel_tryingOnProductsChanged(ProductBiz addedProduct)

@@ -11,10 +11,11 @@ namespace MagicMirror
 {
     public class ProductViewModel : INotifyPropertyChanged
     {
-        public delegate void TryingOnProductsChanged(ProductBiz addedProduct);
+        public delegate void TryingOnProductsAdded(ProductBiz addedProduct);
+        public delegate void TryingOnProductsRemoveded();
 
-        public event TryingOnProductsChanged tryingOnProductsChanged;
-
+        public event TryingOnProductsAdded tryingOnProductsAdded;
+        public event TryingOnProductsRemoveded tryingOnProductsRemoved;
         public ProductViewModel()
         {
             TryingOnProducts = new ObservableCollection<ProductBiz>();
@@ -48,6 +49,9 @@ namespace MagicMirror
                 {
                     CurrentProduct = TryingOnProducts[CurrentIndex];
                 }
+                else {
+                    CurrentProduct = null;
+                }
                 OnPropertyChanged("CurrentIndex");
             }
         }
@@ -75,8 +79,37 @@ namespace MagicMirror
                 }
             }
             TryingOnProducts.Add(product);
-            if (tryingOnProductsChanged != null) {
-                tryingOnProductsChanged(product);
+            if (tryingOnProductsAdded != null) {
+                tryingOnProductsAdded(product);
+            }
+        }
+
+        public void RemoveProduct(string Id) {
+            int selIndex = 0;
+            foreach (var item in TryingOnProducts)
+            {
+                if (item.Id == Id)
+                {
+                    TryingOnProducts.Remove(item);
+                    break;
+                }
+                selIndex++;
+            }
+            //当前删除的也是被选择的
+            if(currentIndex==selIndex){
+                if (TryingOnProducts.Count > selIndex)
+                    currentIndex = selIndex;
+                else
+                    currentIndex = selIndex - 1;
+            }
+            else{
+                if(selIndex<currentIndex){
+                    currentIndex = currentIndex - 1;
+                }
+            }
+            if (tryingOnProductsRemoved != null)
+            {
+                tryingOnProductsRemoved();
             }
         }
 

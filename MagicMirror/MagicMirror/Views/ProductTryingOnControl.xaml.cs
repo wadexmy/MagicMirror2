@@ -33,7 +33,25 @@ namespace MagicMirror.Views
             lbSelProducts.ItemsSource = Global.productViewModel.TryingOnProducts;
             menuButtons.btnBuy.Visibility = Visibility.Visible;
 
-            Global.productViewModel.tryingOnProductsChanged += prodectViewModel_tryingOnProductsChanged;
+            Global.productViewModel.tryingOnProductsAdded += prodectViewModel_tryingOnProductsChanged;
+            Global.productViewModel.tryingOnProductsRemoved += productViewModel_tryingOnProductsRemoved;
+        }
+
+        private void btnRemoveProduct_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Global.productViewModel.RemoveProduct((sender as Button).Tag.ToString());
+        }
+
+        private void productViewModel_tryingOnProductsRemoved()
+        {
+            lbSelProducts.ItemsSource = Global.productViewModel.TryingOnProducts;
+            lbSelProducts.SelectedIndex = Global.productViewModel.CurrentIndex;
+            
+            if (Global.productViewModel.TryingOnProducts.Count == 0)
+            {
+                Global.MainFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));   
+            }
         }
 
         #region ===顾客评价===
@@ -45,14 +63,15 @@ namespace MagicMirror.Views
 
         #endregion
 
-        private void prodectViewModel_tryingOnProductsChanged(ProductBiz addedProduct)
+        private void prodectViewModel_tryingOnProductsChanged(ProductBiz product)
         {
             for (int i = 0; i < Global.productViewModel.TryingOnProducts.Count; i++)
             {
-                if (Global.productViewModel.TryingOnProducts[i].Id == addedProduct.Id)
+                if (Global.productViewModel.TryingOnProducts[i].Id == product.Id)
                 {
                     Global.productViewModel.CurrentIndex = i;
                     lbSelProducts.SelectedIndex = i;
+                    lbSelProducts.ScrollIntoView(lbSelProducts.SelectedItem);
                 }
             }
         }
@@ -65,6 +84,13 @@ namespace MagicMirror.Views
 
         private void lbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (lbSelProducts.SelectedIndex == -1) {
+                this.DataContext = null;
+                lbProductColors.ItemsSource = null;
+                lbProductSizes.ItemsSource = null;
+                lbMatchedProoducts.ItemsSource = null;
+                return;
+            }
             ProductBiz selProduct=Global.productViewModel.TryingOnProducts[lbSelProducts.SelectedIndex];
             this.DataContext = selProduct;
 
@@ -102,7 +128,25 @@ namespace MagicMirror.Views
         private void lbMatchedProoducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int selIndex = lbMatchedProoducts.SelectedIndex;
+            if (selIndex < 0) return;
             ProductBiz selProduct = relShowProducts[selIndex];
+
+            MessageBoxResult msgResult=WPFMessageBox.Show("是否将所选商品添加到试穿列表中?","确认消息",MessageBoxButton.YesNo);
+
+            if (msgResult == MessageBoxResult.Yes) {
+                Global.productViewModel.AddProduct(selProduct);
+            }
         }
+
+
+        private void lbProductColorSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbProductColors.SelectedIndex != -1 && lbProductSizes.SelectedIndex != -1) {
+                TryingProductAlertWin tryingWin = new TryingProductAlertWin();
+                tryingWin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                tryingWin.Show();
+            }
+        }
+
     }
 }

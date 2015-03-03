@@ -102,7 +102,7 @@
                         </Button.Template>
                     </Button>
                     <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="新宋体" FontSize="28"
-                       MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" Foreground="GreenYellow">Click Me!</TextBlock>
+                       MouseLeftButtonDown="TextBlock_MouseLeftButtonDown" Foreground="GreenYellow">是否把换颜色尺码后的衣服送过来？</TextBlock>
                 </Grid>
             </Border>
         </Grid>
