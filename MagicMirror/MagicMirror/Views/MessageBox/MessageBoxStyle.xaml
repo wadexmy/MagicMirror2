@@ -1,0 +1,110 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:MagicMirror.Views">
+    
+    <Style x:Key="btnOpStyle" TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Height" Value="25"></Setter>
+        <Setter Property="Width" Value="60"></Setter>
+        <Setter Property="Margin" Value="5"></Setter>
+        <Setter Property="FontFamily" Value="微软雅黑"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="btnGrid">
+                        <Rectangle x:Name="rectangle" Fill="#5b7dd2" Stroke="#5b7dd2"/>
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" TargetName="btnGrid" Value="Hand"/>
+                            <Setter Property="Fill" TargetName="rectangle" Value="#FF4881E7"/>
+                            <Setter Property="Stroke" TargetName="rectangle" Value="#FF4881E7"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="HeaderCloseButton" TargetType="Button">
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontFamily" Value="Webdings"/>
+        <Setter Property="Margin" Value="5,0,0,0"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Foreground" Value="#FDFDFD" />
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="btnGrid">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#FFF9EE90"/>
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="White" Direction="0" ShadowDepth="0" BlurRadius="20"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="{x:Type local:MessageBoxWindow}" >
+        <!--<Setter Property="Effect" Value="{StaticResource ShadowEffect}"></Setter>-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:MessageBoxWindow}">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40" />
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Background="#4264bb" Grid.Row="0"  Height="40" CornerRadius="5,5,0,0" BorderBrush="#e0e0e0" BorderThickness="1,1,1,0">
+                            <Grid>
+                                <TextBlock x:Name="PART_Title" Text="{Binding Title}" Foreground="#eef4fb" Padding="10"
+                                           HorizontalAlignment="Stretch" VerticalAlignment="Top"  TextAlignment="Left" FontSize="15" />
+                                <StackPanel Orientation="Horizontal" Margin="0,5,5,0" HorizontalAlignment="Right" VerticalAlignment="Top" >
+                                    <Button Name="CloseButton" Style="{StaticResource HeaderCloseButton}" Content="r" Command="{Binding CloseCommand}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <Border CornerRadius="0,0,5,5" Grid.Row="1" BorderBrush="#e0e0e0" BorderThickness="2,0,2,2" Background="White" Effect="{TemplateBinding Effect}">
+                            <Grid FlowDirection="{Binding ContentFlowDirection}" Grid.Row="1" Margin="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Orientation="Horizontal" Background="White" VerticalAlignment="Center" Margin="10,20">
+                                    <Image Source="{Binding MessageImageSource}" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="None"/>
+                                    <TextBlock Text="{Binding Message}" TextWrapping="Wrap" TextAlignment="Left" HorizontalAlignment="{Binding ContentTextAlignment}" 
+                                               VerticalAlignment="Top" Margin="10,0" Width="280"/>
+                                </StackPanel>
+
+                                <Border Grid.Row="1" Background="#FFE6E6E6" BorderThickness="0 1 0 0" BorderBrush="#FFDFDFDF">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 5 0" >
+                                        <Button Content="是" Visibility="{Binding YesNoVisibility}" Command="{Binding YesCommand}" IsDefault="{Binding IsYesDefault}" Style="{StaticResource btnOpStyle}" />
+                                        <Button Content="否" Visibility="{Binding YesNoVisibility}" Command="{Binding NoCommand}" IsDefault="{Binding IsNoDefault}" Style="{StaticResource btnOpStyle}" />
+                                        <Button Content="确定" Visibility="{Binding OkVisibility}" Command="{Binding OkCommand}" IsDefault="{Binding IsOkDefault}" Style="{StaticResource btnOpStyle}"/>
+                                        <Button Content="取消" Visibility="{Binding CancelVisibility}" Command="{Binding CancelCommand}" IsDefault="{Binding IsCancelDefault}" Style="{StaticResource btnOpStyle}"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

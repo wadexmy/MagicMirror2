@@ -54,14 +54,14 @@
             </Button.Content>
         </Button>
         
-        <!--<Button x:Name="btnFocus" Style="{StaticResource shoppingButtonStyle}">
+        <Button x:Name="btnFocus" Style="{StaticResource shoppingButtonStyle}">
             <Button.Content>
                 <StackPanel>
                     <TextBlock Text="&#xf07a;" Style="{StaticResource IconTextStyle}"></TextBlock>
                     <TextBlock Text="关注公众号"></TextBlock>
                 </StackPanel>
             </Button.Content>
-        </Button>-->
+        </Button>
         
         <Button x:Name="btnCall" Style="{StaticResource shoppingButtonStyle}">
             <Button.Content>

@@ -14,6 +14,8 @@ namespace MagicMirror.Util
     {
         public BitmapImage GetQRCode(string content)
         {
+            if (string.IsNullOrEmpty(content))
+                content = "商品地址位置";
             BitmapImage bi = new BitmapImage();
             try
             {

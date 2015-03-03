@@ -104,3 +104,6 @@ E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\V
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\Window1.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductDetailControl.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductDetailControl.baml
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\LoadingWait.baml
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\LoadingWait.g.cs
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MessageBox\MessageBoxStyle.baml

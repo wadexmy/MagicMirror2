@@ -99,6 +99,96 @@ namespace MagicMirror.Models
             }
         }
 
+        private bool? isHot;
+        [JsonProperty("isHot", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsHot
+        {
+            get
+            {
+                return isHot;
+            }
+            set
+            {
+                isHot = value;
+                OnPropertyChanged("IsHot");
+            }
+        }
+
+        private bool? isPromote;
+        [JsonProperty("isPromote", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? IsPromote
+        {
+            get
+            {
+                return isPromote;
+            }
+            set
+            {
+                isPromote = value;
+                OnPropertyChanged("IsPromote");
+            }
+        }
+
+        private int? likeCount;
+        [JsonProperty("likeCount", NullValueHandling = NullValueHandling.Ignore)]
+        public int? LikeCount
+        {
+            get
+            {
+                return likeCount;
+            }
+            set
+            {
+                likeCount = value;
+                OnPropertyChanged("LikeCount");
+            }
+        }
+
+        private string onlineSalesUrl01;
+        [JsonProperty("onlineSalesUrl01", NullValueHandling = NullValueHandling.Ignore)]
+        public string OnlineSalesUrl01
+        {
+            get
+            {
+                return onlineSalesUrl01;
+            }
+            set
+            {
+                onlineSalesUrl01 = value;
+                OnPropertyChanged("OnlineSalesUrl01");
+            }
+        }
+
+        private string onlineSalesUrl02;
+        [JsonProperty("onlineSalesUrl02", NullValueHandling = NullValueHandling.Ignore)]
+        public string OnlineSalesUrl02
+        {
+            get
+            {
+                return onlineSalesUrl02;
+            }
+            set
+            {
+                onlineSalesUrl02 = value;
+                OnPropertyChanged("OnlineSalesUrl02");
+            }
+        }
+
+        private string imageUrl;
+        [JsonProperty("imageUrl", NullValueHandling = NullValueHandling.Ignore)]
+        public string ImageUrl
+        {
+            get
+            {
+                return imageUrl;
+            }
+            set
+            {
+                imageUrl = value;
+                OnPropertyChanged("ImageUrl");
+            }
+        }
+
         private string customPropertyValue01Id;
         [JsonProperty("customPropertyValue01Id", NullValueHandling = NullValueHandling.Ignore)]
         public string CustomPropertyValue01Id
@@ -606,34 +696,6 @@ namespace MagicMirror.Models
             {
                 retailPrice = value;
                 OnPropertyChanged("RetailPrice");
-            }
-        }
-
-        private string picture;
-        public string Picture
-        {
-            get
-            {
-                return picture;
-            }
-            set
-            {
-                picture = value;
-                OnPropertyChanged("Picture");
-            }
-        }
-
-        private int likeCount = 0;
-        public int LikeCount
-        {
-            get
-            {
-                return likeCount;
-            }
-            set
-            {
-                likeCount = value;
-                OnPropertyChanged("LikeCount");
             }
         }
 

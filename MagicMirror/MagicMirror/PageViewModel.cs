@@ -105,7 +105,7 @@ namespace MagicMirror
                 productBizList = value;
                 for (int i = 0; i < productBizList.Count; i++)
                 {
-                    productBizList[i].Picture=Global.ProductDemoImages[i];
+                    productBizList[i].ImageUrl = Global.ProductDemoImages[i];
                 }
                 OnPropertyChanged("ProductBizList");
             }

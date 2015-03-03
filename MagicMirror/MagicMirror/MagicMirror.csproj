@@ -103,9 +103,15 @@
     <Compile Include="Views\AllProductsControl.xaml.cs">
       <DependentUpon>AllProductsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LoadingWait.xaml.cs">
+      <DependentUpon>LoadingWait.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainButtonMenuBar.xaml.cs">
       <DependentUpon>MainButtonMenuBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MessageBox\MessageBoxViewModel.cs" />
+    <Compile Include="Views\MessageBox\MessageBoxWindow.cs" />
+    <Compile Include="Views\MessageBox\WPFMessageBox.cs" />
     <Compile Include="Views\ProductDetailControl.xaml.cs">
       <DependentUpon>ProductDetailControl.xaml</DependentUpon>
     </Compile>
@@ -150,9 +156,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\LoadingWait.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainButtonMenuBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MessageBox\MessageBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ProductDetailControl.xaml">
       <SubType>Designer</SubType>
@@ -212,6 +226,7 @@
   <ItemGroup>
     <Resource Include="Resources\Images\QRCode.jpg" />
     <Resource Include="Resources\Images\1.jpg" />
+    <Resource Include="Resources\Images\uploading.gif" />
     <Content Include="Resources\Sound\ding.wav" />
     <Content Include="Resources\Sound\notify.wav" />
     <Content Include="Resources\Sound\switch.wav" />

@@ -53,7 +53,7 @@ namespace MagicMirror.Views
                             IList<ProductBiz> relShowProduct = relatedProducts.Skip(relatedProducts.Count - Global.ProductDemoImages.Count).ToList();
                             for (int j = 0; j < relShowProduct.Count; j++)
                             {
-                                relShowProduct[j].Picture = Global.ProductDemoImages[j];
+                                relShowProduct[j].ImageUrl = Global.ProductDemoImages[j];
                                 lbMatchedProoducts.ItemsSource = relShowProduct;
                             }
                         }

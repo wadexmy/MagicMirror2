@@ -42,7 +42,6 @@ namespace MagicMirror.Views
 
             menuButtons.btnTrying.Visibility = Visibility.Collapsed;
             menuButtons.btnBuy.Visibility = Visibility.Collapsed;
-            (this.Resources["BusyIndicatorStoryboard"] as Storyboard).Begin(this);
 
             Thread thread = new Thread(() => {
                 IList<ProductBiz> homeProducts = dataservice.GetFirstPageProducts(ScenePicturesCount);
@@ -74,7 +73,7 @@ namespace MagicMirror.Views
                 {
                     for (int index = 0; index < ScenePicturesCount; index++)
                     {
-                        products[index].Picture = Global.ProductDemoImages[index];
+                        products[index].ImageUrl = Global.ProductDemoImages[index];
 
                         ModelVisual3D modelVisual3D = new ModelVisual3D();
                         GeometryModel3D geometryModel3D = new GeometryModel3D();
@@ -147,8 +146,8 @@ namespace MagicMirror.Views
         /// </summary>
         private void StartAnimation()
         {
-            (this.Resources["BusyIndicatorStoryboard"] as Storyboard).Stop();
-            tbBusyIndicator.Visibility = Visibility.Collapsed;
+            busyGrid.Visibility = Visibility.Collapsed;
+            viewLoading.Visibility = Visibility.Collapsed;
             (this.Resources["LoadedStoryboard"] as Storyboard).Begin(this);
             for (int index = 0; index < ScenePicturesCount; index++)
             {

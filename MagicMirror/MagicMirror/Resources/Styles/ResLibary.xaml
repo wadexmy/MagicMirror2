@@ -12,6 +12,8 @@
 
     <ImageBrush x:Key="cloudBackground" ImageSource="pack://application:,,,/Resources/Images/Background.jpg" 
                 Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"></ImageBrush>
+
+    <DropShadowEffect x:Key="ShadowEffect" Color="Black" BlurRadius="16" ShadowDepth="0" Opacity="0.5"></DropShadowEffect>
     
     <!--图片显示模式-->
     <Style TargetType="Image">

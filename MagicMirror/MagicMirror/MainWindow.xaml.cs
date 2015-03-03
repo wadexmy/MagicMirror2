@@ -40,8 +40,8 @@ namespace MagicMirror
             //this.WindowState = WindowState.Maximized;
             SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             SystemEvents_DisplaySettingsChanged(this, null);
-            this.Top = 600;
-            this.Left = 700;
+            this.Top = 650;
+            this.Left = 650;
         }
 
         //根据实际应用设置主屏宽高比例
@@ -56,12 +56,12 @@ namespace MagicMirror
                 Global.FittingRoomRatio : Global.ShoppingAssistRatio;
             if (ratio >= reqRatio)
             {
-                this.Height = ScreenHeight*0.6;
+                this.Height = ScreenHeight*0.4;
                 this.Width = this.Height * reqRatio;
             }
             else
             {
-                this.Width = ScreenWidth * 0.6;
+                this.Width = ScreenWidth * 0.4;
                 this.Height = this.Width / reqRatio;
             }
         }
@@ -76,7 +76,7 @@ namespace MagicMirror
             {
                 try
                 {
-                    if (SystemIdleHelper.GetIdleTime() >= 5)
+                    if (SystemIdleHelper.GetIdleTime() >= 30)
                     {
                         NavigationFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
                     }

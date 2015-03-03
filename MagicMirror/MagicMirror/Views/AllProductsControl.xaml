@@ -13,7 +13,7 @@
 
         <DataTemplate x:Key="ItemDataTemplate">
             <StackPanel>
-                <Image Source="{Binding Path=Picture}" HorizontalAlignment="Center" Width="50" Height="50" Margin="10" Stretch="Fill" />
+                <Image Source="{Binding Path=ImageUrl}" HorizontalAlignment="Center" Width="50" Height="50" Margin="10" Stretch="Fill" />
                 <TextBlock Text="{Binding Path=Name}" HorizontalAlignment="Center" Margin="10,0"/>
             </StackPanel>
         </DataTemplate>

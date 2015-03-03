@@ -31,8 +31,8 @@ namespace MagicMirror.Views
             this.DataContext = Global.productViewModel.CurrentProduct;
 
             lbSelProducts.ItemsSource = Global.productViewModel.TryingOnProducts;
-
             menuButtons.btnBuy.Visibility = Visibility.Visible;
+
             Global.productViewModel.tryingOnProductsChanged += prodectViewModel_tryingOnProductsChanged;
         }
 
@@ -41,10 +41,6 @@ namespace MagicMirror.Views
         private void btnLike_Click(object sender, RoutedEventArgs e)
         {
             Global.productViewModel.CurrentProduct.LikeCount++;
-        }
-        private void btnDislike_Click(object sender, RoutedEventArgs e)
-        {
-            Global.productViewModel.CurrentProduct.DislikeCount++;
         }
 
         #endregion
@@ -61,26 +57,52 @@ namespace MagicMirror.Views
             }
         }
 
+        private List<ProductColorBiz> productColors = new List<ProductColorBiz>();
+
+        private List<ProductSizeBiz> productSizes = new List<ProductSizeBiz>();
+
+        private IList<ProductBiz> relShowProducts = new List<ProductBiz>();
+
         private void lbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ProductBiz selProduct=Global.productViewModel.TryingOnProducts[lbSelProducts.SelectedIndex];
             this.DataContext = selProduct;
 
-            IList<SkuBiz> selProductSkus = dataservice.GetProductSkus(selProduct.Id);
-            if (selProductSkus != null && selProductSkus.Count > 0) {
-                lbProductColors.ItemsSource = dataservice.GetProductColors(selProductSkus);
-                lbProductSizes.ItemsSource = dataservice.GetProductSizes(selProductSkus);
-                IList<ProductBiz> relatedProducts = dataservice.GetRelatedProducts(selProduct);
-                if (relatedProducts != null && relatedProducts.Count > 0)
+            BackgroundWorker bgw = new BackgroundWorker();
+            bgw.WorkerSupportsCancellation = true;
+            bgw.WorkerReportsProgress = true;
+            bgw.DoWork += new DoWorkEventHandler((s1, e1) =>
+            {
+                IList<SkuBiz> selProductSkus = dataservice.GetProductSkus(selProduct.Id);
+                if (selProductSkus != null && selProductSkus.Count > 0)
                 {
-                    IList<ProductBiz> relShowProduct = relatedProducts.Skip(relatedProducts.Count - Global.ProductDemoImages.Count).ToList();
-                    for (int i = 0; i < relShowProduct.Count; i++)
+                    productColors = dataservice.GetProductColors(selProductSkus);
+                    productSizes = dataservice.GetProductSizes(selProductSkus);
+                    IList<ProductBiz> relatedProducts = dataservice.GetRelatedProducts(selProduct);
+                    if (relatedProducts != null && relatedProducts.Count > 0)
                     {
-                        relShowProduct[i].Picture = Global.ProductDemoImages[i];
-                        lbMatchedProoducts.ItemsSource = relShowProduct;
+                        IList<ProductBiz> relShowProduct = relatedProducts.Skip(relatedProducts.Count - Global.ProductDemoImages.Count).ToList();
+                        for (int i = 0; i < relShowProduct.Count; i++)
+                        {
+                            relShowProduct[i].ImageUrl = Global.ProductDemoImages[i];
+                            relShowProducts = relShowProduct;
+                        }
                     }
                 }
-            }
+            });
+            bgw.RunWorkerCompleted += new RunWorkerCompletedEventHandler((s2, e2) =>
+            {
+                lbProductColors.ItemsSource = productColors;
+                lbProductSizes.ItemsSource = productSizes;
+                lbMatchedProoducts.ItemsSource = relShowProducts;
+            });
+            bgw.RunWorkerAsync();
+        }
+
+        private void lbMatchedProoducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int selIndex = lbMatchedProoducts.SelectedIndex;
+            ProductBiz selProduct = relShowProducts[selIndex];
         }
     }
 }

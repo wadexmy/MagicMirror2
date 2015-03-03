@@ -67,5 +67,20 @@ namespace MagicMirror.Models
                 OnPropertyChanged("Disable");
             }
         }
+        private string rgb;
+        [JsonProperty("rgb", NullValueHandling = NullValueHandling.Ignore)]
+        public string Rgb
+        {
+            get
+            {
+                return rgb;
+            }
+            set
+            {
+                rgb = value;
+                OnPropertyChanged("Rgb");
+            }
+        }
+        
     }
 }

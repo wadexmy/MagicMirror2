@@ -40,8 +40,8 @@
                         <RowDefinition Height="0.4*"></RowDefinition>
                         <RowDefinition Height="80"></RowDefinition>
                     </Grid.RowDefinitions>
-                    
-                    <Image Source="{Binding Picture,Mode=TwoWay}" Stretch="Fill" Margin="10" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+
+                    <Image Source="{Binding ImageUrl,Mode=TwoWay}" Stretch="Fill" Margin="10" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                     
                     <StackPanel Margin="10" Grid.Row="1">
                         <TextBlock x:Name="tbName" FontSize="16" Foreground="Black" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
@@ -122,7 +122,7 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
                                     <Border>
-                                        <Image x:Name="pImg" Source="{Binding Path=Picture}" HorizontalAlignment="Center" Margin="2" Stretch="Fill"
+                                        <Image x:Name="pImg" Source="{Binding Path=ImageUrl}" HorizontalAlignment="Center" Margin="2" Stretch="Fill"
                                                Width="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Converter={StaticResource indentParentConverter}}"
                                                Height="{Binding Width,RelativeSource={RelativeSource Self}, Converter={StaticResource heightDependWidthConverter}}"/>
                                     </Border>

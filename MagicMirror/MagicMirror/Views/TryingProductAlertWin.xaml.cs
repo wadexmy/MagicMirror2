@@ -22,7 +22,7 @@ namespace MagicMirror.Views
         public TryingProductAlertWin()
         {
             InitializeComponent();
-
+            
             mainGridScaleTransform.CenterX = SystemParameters.PrimaryScreenWidth / 2;
             mainGridScaleTransform.CenterY = SystemParameters.PrimaryScreenHeight / 2;
 

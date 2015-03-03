@@ -28,7 +28,7 @@ namespace MagicMirror.Views
                 btnAllProducts.Visibility = Visibility.Collapsed;
                 btnUserLogin.Visibility = Visibility.Collapsed;
                 btnTrying.Visibility = Visibility.Collapsed;
-                //btnFocus.Visibility = Visibility.Collapsed;
+                btnFocus.Visibility = Visibility.Collapsed;
             }
         }
 
