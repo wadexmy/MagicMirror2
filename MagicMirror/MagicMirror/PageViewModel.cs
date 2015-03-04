@@ -10,6 +10,10 @@ namespace MagicMirror
     public class PageViewModel : INotifyPropertyChanged
     {
         DataService dataservie;
+        public delegate void CurrentPageChanged(int CurrentPage);
+
+        public event CurrentPageChanged currentPageChanged;
+
         public PageViewModel() {
             dataservie = new DataService();
 
@@ -18,7 +22,7 @@ namespace MagicMirror
 
             ProductBizList = CurrentPageResult.Data.ToList();
         }
-
+        
         private int pageCol = 3;
         /// <summary>
         /// 每一页显示的列数
@@ -74,6 +78,9 @@ namespace MagicMirror
             {
                 currentPage = value;
                 OnPropertyChanged("CurrentPage");
+                if (currentPageChanged != null) {
+                    currentPageChanged(currentPage);
+                }
             }
         }
 
@@ -169,10 +176,11 @@ namespace MagicMirror
             get
             {
                 if (gotoPageCommand == null)
-                    gotoPageCommand = new DelegateCommand<string>(
+                    gotoPageCommand = new DelegateCommand<object>(
                         (pram) =>
                         {
-                            int page = int.Parse(pram);
+                            if (pram == null || pram.ToString()=="...") return;
+                            int page = int.Parse(pram.ToString());
                             if (page - 1 != CurrentPage && page >= 1 && page <= PageCount)
                             {
                                 CurrentPage = page - 1;

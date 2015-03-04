@@ -4,21 +4,60 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converter="clr-namespace:MagicMirror.Converters"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
               xmlns:view="clr-namespace:MagicMirror.Views"
              mc:Ignorable="d">
     <UserControl.Resources>
+        <converter:IndexToNumConverter x:Key="IndexToNumConverter"></converter:IndexToNumConverter>
+        <converter:GridCellSizeConverter x:Key="gridCellSizeConverter"></converter:GridCellSizeConverter>
+        <converter:HeightDependWidthConverter x:Key="heightDependWidthConverter"></converter:HeightDependWidthConverter>
+        
         <ItemsPanelTemplate x:Key="ItemsPanelTemplate">
             <UniformGrid Columns="{Binding PageCol}" Rows="{Binding PageRow}" HorizontalAlignment="Center" Margin="10"/>
         </ItemsPanelTemplate>
 
         <DataTemplate x:Key="ItemDataTemplate">
-            <StackPanel>
-                <Image Source="{Binding Path=ImageUrl}" HorizontalAlignment="Center" Width="50" Height="50" Margin="10" Stretch="Fill" />
-                <TextBlock Text="{Binding Path=Name}" HorizontalAlignment="Center" Margin="10,0"/>
-            </StackPanel>
+            <Border x:Name="cellBorder" BorderBrush="Transparent" BorderThickness="1" Margin="2">
+                <Grid Width ="{Binding ActualWidth,ElementName=gridAllProducts,ConverterParameter=3, Converter={StaticResource gridCellSizeConverter}}"
+                 Height ="{Binding ActualHeight,ElementName=gridAllProducts,ConverterParameter=4, Converter={StaticResource gridCellSizeConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Source="{Binding Path=ImageUrl}" HorizontalAlignment="Center" Stretch="Fill" />
+                    <TextBlock Grid.Row="1" Text="{Binding Path=Name}" HorizontalAlignment="Center" Margin="0,5,0,0" TextTrimming="CharacterEllipsis "/>
+                </Grid>
+            </Border>
+            
+            <DataTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.Setters>
+                        <Setter Property="Opacity" Value="0.8"/>
+                        <Setter Property="BorderBrush" Value="#389CFF" TargetName="cellBorder"/>
+                    </Trigger.Setters>
+                </Trigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
 
-        <converter:IndexToNumConverter x:Key="IndexToNumConverter"></converter:IndexToNumConverter>
+        <ItemsPanelTemplate x:Key="PageItemsPanelTemplate">
+            <StackPanel Orientation="Horizontal"></StackPanel>
+        </ItemsPanelTemplate>
+
+        <DataTemplate x:Key="PageItemDataTemplate">
+            <Border x:Name="cellBorder" BorderBrush="Transparent" BorderThickness="1" Margin="2">
+                <ContentPresenter />
+            </Border>
+
+            <DataTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Trigger.Setters>
+                        <Setter Property="Opacity" Value="0.8"/>
+                        <Setter Property="BorderBrush" Value="#389CFF" TargetName="cellBorder"/>
+                    </Trigger.Setters>
+                </Trigger>
+            </DataTemplate.Triggers>
+        </DataTemplate>
+        
     </UserControl.Resources>
 
     <Grid>
@@ -28,13 +67,20 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListBox x:Name="lbProducts" Margin="10" ItemsPanel="{DynamicResource ItemsPanelTemplate}" 
+        <Grid x:Name="gridAllProducts" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <ListBox x:Name="lbProducts" Margin="10" ItemsPanel="{DynamicResource ItemsPanelTemplate}" 
                  ItemTemplate="{DynamicResource ItemDataTemplate}"
                  ItemsSource="{Binding ProductBizList}"
                  SelectionChanged="ListBox_SelectionChanged"/>
+        </Grid>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="right" Margin="10" VerticalAlignment="Center">
-            <StackPanel.Resources>
+        <Grid x:Name="gridPageSwitch" Grid.Row="1" HorizontalAlignment="right" Margin="10" VerticalAlignment="Center" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
                 <Style TargetType="Button">
                     <Setter Property="Height" Value="30"></Setter>
                     <Setter Property="Width" Value="35"></Setter>
@@ -45,11 +91,48 @@
                     <Setter Property="Background" Value="White"></Setter>
                     <Setter Property="FontFamily" Value="Wingdings 3"></Setter>
                 </Style>
-            </StackPanel.Resources>
+            </Grid.Resources>
+            
+            <Button Content="\" ToolTip="上一页" Grid.Column="0" Command="{Binding PrePageCommand}"></Button>
 
-            <Button Content="\" ToolTip="上一页" Command="{Binding PrePageCommand}"></Button>
-
-            <TextBox Name="tbPageNum" VerticalAlignment="Center" Height="27" Margin="5" Width="30"
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch">
+                <ListBox x:Name="lbPages" ItemsPanel="{DynamicResource PageItemsPanelTemplate}" Background="Transparent" BorderThickness="0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding GotoPageCommand}" CommandParameter="{Binding SelectedValue, ElementName=lbPages}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    
+                    <ListBox.Resources>
+                        <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
+                            <Setter Property="Foreground" Value="White"></Setter>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border x:Name="Border" Margin="4" BorderThickness="1" BorderBrush="#CCC"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="30">
+                                            <ContentPresenter  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Trigger.Setters>
+                                        <Setter Property="Foreground" Value="#389CFF" />
+                                    </Trigger.Setters>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.Setters>
+                                        <Setter Property="Foreground" Value="#389CFF" />
+                                    </Trigger.Setters>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.Resources>
+                </ListBox>
+            </Grid>
+            
+            <!--<TextBox Name="tbPageNum" VerticalAlignment="Center" Height="27" Margin="5" Width="30"
                      Text="{Binding CurrentPage, Mode=OneWay, Converter={StaticResource IndexToNumConverter}}"/>
 
             <TextBlock Foreground="YellowGreen" Text="/" VerticalAlignment="Center"/>
@@ -57,11 +140,10 @@
             <TextBlock Foreground="YellowGreen" Text="{Binding PageCount}" VerticalAlignment="Center" Margin="5"/>
 
             <Button Content=";" ToolTip="跳转" Command="{Binding GotoPageCommand}" 
-                    CommandParameter="{Binding Text,ElementName=tbPageNum}"></Button>
-
-            <Button Content="a" ToolTip="下一页" Command="{Binding NextPageCommand}"></Button>
-
-        </StackPanel>
+                    CommandParameter="{Binding Text,ElementName=tbPageNum}">
+            </Button>-->
+            <Button Content="a" ToolTip="下一页" Command="{Binding NextPageCommand}"  Grid.Column="2"></Button>
+        </Grid>
 
         <view:MainButtonMenuBar x:Name="menuButtons" Grid.Row="2" HorizontalAlignment="Center" 
                                 Height="110" VerticalAlignment="Bottom">

@@ -39,7 +39,6 @@ namespace MagicMirror.Views
 
         private void btnRemoveProduct_Click(object sender, RoutedEventArgs e)
         {
-            
             Global.productViewModel.RemoveProduct((sender as Button).Tag.ToString());
         }
 
@@ -58,7 +57,10 @@ namespace MagicMirror.Views
 
         private void btnLike_Click(object sender, RoutedEventArgs e)
         {
-            Global.productViewModel.CurrentProduct.LikeCount++;
+            bool result = dataservice.LikeProduct(Global.productViewModel.CurrentProduct.Code);
+            if (result) {
+                Global.productViewModel.CurrentProduct.LikeCount++;
+            }
         }
 
         #endregion
@@ -76,6 +78,8 @@ namespace MagicMirror.Views
             }
         }
 
+        private ProductBiz selProduct;
+
         private List<ProductColorBiz> productColors = new List<ProductColorBiz>();
 
         private List<ProductSizeBiz> productSizes = new List<ProductSizeBiz>();
@@ -91,7 +95,7 @@ namespace MagicMirror.Views
                 lbMatchedProoducts.ItemsSource = null;
                 return;
             }
-            ProductBiz selProduct=Global.productViewModel.TryingOnProducts[lbSelProducts.SelectedIndex];
+            selProduct=Global.productViewModel.TryingOnProducts[lbSelProducts.SelectedIndex];
             this.DataContext = selProduct;
 
             BackgroundWorker bgw = new BackgroundWorker();

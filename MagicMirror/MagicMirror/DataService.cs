@@ -118,7 +118,8 @@ namespace MagicMirror
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
-        public IList<SkuBiz> GetProductSkus(string productId) {
+        public IList<SkuBiz> GetProductSkus(string productId) 
+        {
             var request = new ApiRequest()
             {
                 ApiPath = "api/sku/list",
@@ -173,7 +174,6 @@ namespace MagicMirror
             }
             return productSizes;
         }
-
 
         public IList<ProductBiz> GetRelatedProducts(ProductBiz product)
         {
@@ -240,5 +240,17 @@ namespace MagicMirror
             return response.Success ? response.Context.Data: null;
         }
 
+        public bool LikeProduct(string productCode)
+        {
+            var request = new ApiRequest()
+            {
+                ApiPath = string.Format("api/product/{0}/like", productCode),
+                ServerAddress = Global.ServerAddressUrl,
+                Method = Method.Post,
+                AppKey = userKey,
+            };
+            var response = ApiHelper.Execute(request, false).Result;
+            return response.Success;
+        }
     }
 }

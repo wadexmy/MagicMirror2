@@ -69,9 +69,11 @@ namespace MagicMirror
         public static string tryingOnProductImage;
 
         private static List<string> productDemoImages;
-        public static List<string> ProductDemoImages{
+        public static List<string> ProductDemoImages
+        {
             get {
-                if (productDemoImages == null || productDemoImages.Count == 0) {
+                if (productDemoImages == null || productDemoImages.Count == 0) 
+                {
                     string imageDir = System.IO.Path.Combine(Global.AssemblyPath, "Resources", "Products");
                     productDemoImages = Directory.GetFiles(imageDir, "*.jpg").Concat(Directory.GetFiles(imageDir, "*.png")).ToList();
                 }

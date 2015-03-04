@@ -48,5 +48,13 @@ namespace MagicMirror.Views
             tryingWin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             tryingWin.Show();
         }
+
+        private void btnCall_Click(object sender, RoutedEventArgs e)
+        {
+            CallAlertWin callAlertWin = new CallAlertWin();
+            callAlertWin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            callAlertWin.Show();
+            
+        }
     }
 }

@@ -103,7 +103,7 @@
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     
-                    <Grid Grid.Column="0" >
+                    <Grid Grid.Column="0">
                         <Image Source="{Binding ImageUrl,Mode=TwoWay}" Stretch="Fill" Margin="10" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                     </Grid>
 
@@ -120,7 +120,7 @@
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Border BorderThickness="1" Background="White" Opacity="0.8" BorderBrush="#000" Cursor="Hand">
-                                            <StackPanel Margin="10">
+                                            <StackPanel Margin="10"  VerticalAlignment="Center">
                                                 <TextBlock FontSize="20" HorizontalAlignment="Center" FontFamily="{StaticResource IconFont}" Text="&#xf164;" Foreground="YellowGreen"></TextBlock>
                                                 <TextBlock FontSize="15" HorizontalAlignment="Center" Text="{Binding LikeCount,Converter={StaticResource intToPersonDescConverter}}" Foreground="YellowGreen"></TextBlock>
                                             </StackPanel>

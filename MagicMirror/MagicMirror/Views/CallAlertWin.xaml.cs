@@ -17,9 +17,9 @@ namespace MagicMirror.Views
     /// <summary>
     /// TryingProductAlertWin.xaml 的交互逻辑
     /// </summary>
-    public partial class TryingProductAlertWin : Window
+    public partial class CallAlertWin : Window
     {
-        public TryingProductAlertWin()
+        public CallAlertWin()
         {
             InitializeComponent();
             
@@ -49,11 +49,6 @@ namespace MagicMirror.Views
                 && point.Y > 0 && point.Y < mainClientArea.Height)
                 return;
             (this.Resources["mainClientAreaStoryboard"] as Storyboard).Begin();
-        }
-
-        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
         }
     }
 }

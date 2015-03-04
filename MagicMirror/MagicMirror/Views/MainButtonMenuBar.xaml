@@ -63,7 +63,7 @@
             </Button.Content>
         </Button>
         
-        <Button x:Name="btnCall" Style="{StaticResource shoppingButtonStyle}">
+        <Button x:Name="btnCall" Style="{StaticResource shoppingButtonStyle}" Click="btnCall_Click">
             <Button.Content>
                 <StackPanel>
                     <TextBlock Text="&#xf10b;" Style="{StaticResource IconTextStyle}"></TextBlock>

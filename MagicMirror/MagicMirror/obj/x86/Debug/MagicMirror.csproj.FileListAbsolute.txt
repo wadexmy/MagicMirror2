@@ -100,8 +100,6 @@ E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\V
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\AllProductsControl.baml
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\TryingProductAlertWin.baml
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\TryingProductAlertWin.g.cs
-E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\Window1.baml
-E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\Window1.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductDetailControl.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductDetailControl.baml
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\LoadingWait.baml
@@ -144,3 +142,5 @@ C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\D
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MagicMirror.g.resources
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MagicMirror.Properties.Resources.resources
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MagicMirror.csproj.GenerateResource.Cache
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\CallAlertWin.g.cs
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\CallAlertWin.baml

@@ -15,33 +15,33 @@
         <Grid x:Name="LayoutRoot"  Background="Transparent" ToolTip="Please wait...."  HorizontalAlignment="Center" VerticalAlignment="Center">
             <!--<TextBlock Text="Loading..."  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" Foreground="#FFE3953D" FontWeight="Bold" />-->
             <Canvas RenderTransformOrigin="0.5,0.5"  Width="120" Height="120"
-                    HorizontalAlignment="Center" VerticalAlignment="Center"  
-                    Loaded="HandleLoaded" Unloaded="HandleUnloaded"  >
-                <Ellipse x:Name="C0" Width="15" Height="15"  
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Loaded="HandleLoaded" Unloaded="HandleUnloaded">
+                <Ellipse x:Name="C0" Width="15" Height="15"
                          Canvas.Left="0" Canvas.Top="0" Stretch="Fill"  
                          Fill="{StaticResource CirclesColor}" Opacity="1.0"/>
-                <Ellipse x:Name="C1" Width="15" Height="15"  
+                <Ellipse x:Name="C1" Width="15" Height="15"
                          Canvas.Left="0" Canvas.Top="0" Stretch="Fill"  
                          Fill="{StaticResource CirclesColor}" Opacity="0.9"/>
-                <Ellipse x:Name="C2" Width="15" Height="15"  
+                <Ellipse x:Name="C2" Width="15" Height="15"
                          Canvas.Left="0" Canvas.Top="0" Stretch="Fill"  
                          Fill="{StaticResource CirclesColor}" Opacity="0.8"/>
-                <Ellipse x:Name="C3" Width="15" Height="15"  
+                <Ellipse x:Name="C3" Width="15" Height="15"
                          Canvas.Left="0" Canvas.Top="0" Stretch="Fill"
                          Fill="{StaticResource CirclesColor}" Opacity="0.7"/>
-                <Ellipse x:Name="C4" Width="15" Height="15"  
+                <Ellipse x:Name="C4" Width="15" Height="15"
                          Canvas.Left="0"  Canvas.Top="0" Stretch="Fill"  
                          Fill="{StaticResource CirclesColor}" Opacity="0.6"/>
-                <Ellipse x:Name="C5" Width="15" Height="15"  
+                <Ellipse x:Name="C5" Width="15" Height="15"
                          Canvas.Left="0" Canvas.Top="0" Stretch="Fill"  
                          Fill="{StaticResource CirclesColor}" Opacity="0.5"/>
-                <Ellipse x:Name="C6" Width="15" Height="15"  
+                <Ellipse x:Name="C6" Width="15" Height="15"
                          Canvas.Left="0"  Canvas.Top="0" Stretch="Fill"  
                          Fill="{StaticResource CirclesColor}" Opacity="0.4"/>
-                <Ellipse x:Name="C7" Width="15" Height="15"  
+                <Ellipse x:Name="C7" Width="15" Height="15"
                          Canvas.Left="0" Canvas.Top="0" Stretch="Fill"  
                          Fill="{StaticResource CirclesColor}" Opacity="0.3"/>
-                <Ellipse x:Name="C8" Width="15" Height="15"  
+                <Ellipse x:Name="C8" Width="15" Height="15"
                          Canvas.Left="0"  Canvas.Top="0" Stretch="Fill"  
                          Fill="{StaticResource CirclesColor}" Opacity="0.2"/>
                 <Canvas.RenderTransform>

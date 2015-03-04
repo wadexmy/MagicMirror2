@@ -64,6 +64,10 @@ namespace MagicMirror.Net
             return Task<ApiResponse<TRsponse>>.Factory.StartNew(() => DoExecute<TRsponse>(apiRequest, throwableException));
         }
 
+        public static Task<ApiResponse> Execute(ApiRequest apiRequest, bool throwableException = true) {
+            return Task<ApiResponse>.Factory.StartNew(() => DoExecute(apiRequest, throwableException));
+        }
+
         /// <summary>
         /// 执行请求
         /// </summary>

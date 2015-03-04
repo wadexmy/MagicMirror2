@@ -100,7 +100,13 @@ namespace MagicMirror.Converters
             try
             {
                 double parentWidth = System.Convert.ToDouble(value);
-                return parentWidth - 10;
+                if (parameter == null)
+                {
+                    return parentWidth - 10;
+                }
+                else {
+                    return parentWidth - int.Parse(parameter.ToString());
+                }
             }
             catch (Exception)
             {
@@ -159,6 +165,20 @@ namespace MagicMirror.Converters
             }
             return n - 1;
         }
+    }
 
+    public class GridCellSizeConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            double length = double.Parse(value.ToString());
+            int part = int.Parse(parameter.ToString());
+            return length / part - 25;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return null;
+        }
     }
 }
