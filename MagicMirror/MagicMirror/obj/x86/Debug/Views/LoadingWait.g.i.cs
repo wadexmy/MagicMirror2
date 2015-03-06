@@ -9,6 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using MagicMirror.Views;
 using System;
 using System.Diagnostics;
 using System.Windows;

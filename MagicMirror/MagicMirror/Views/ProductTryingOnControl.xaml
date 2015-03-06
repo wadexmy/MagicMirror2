@@ -103,8 +103,8 @@
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     
-                    <Grid Grid.Column="0">
-                        <Image Source="{Binding ImageUrl,Mode=TwoWay}" Stretch="Fill" Margin="10" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Image Source="{Binding ImageUrl,Mode=TwoWay}" Margin="10" RenderOptions.BitmapScalingMode="HighQuality"></Image>
                     </Grid>
 
                     <Grid Grid.Column="1" Width="180">
@@ -119,7 +119,7 @@
                             <Button x:Name="btnLike" Width="80" Height="80" Margin="10,0,0,10" Click="btnLike_Click">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Border BorderThickness="1" Background="White" Opacity="0.8" BorderBrush="#000" Cursor="Hand">
+                                        <Border BorderThickness="1" Background="#F8FFEB" BorderBrush="#CCC" Cursor="Hand" CornerRadius="2">
                                             <StackPanel Margin="10"  VerticalAlignment="Center">
                                                 <TextBlock FontSize="20" HorizontalAlignment="Center" FontFamily="{StaticResource IconFont}" Text="&#xf164;" Foreground="YellowGreen"></TextBlock>
                                                 <TextBlock FontSize="15" HorizontalAlignment="Center" Text="{Binding LikeCount,Converter={StaticResource intToPersonDescConverter}}" Foreground="YellowGreen"></TextBlock>
@@ -128,6 +128,7 @@
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
+                            
                             <Image VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,0,10,10"
                                Width="80" Height="80" Source="{Binding Name,Converter={StaticResource qrCodeConverter}}"></Image>
                         </StackPanel>
@@ -149,7 +150,7 @@
                             </ListBox.ItemsPanel>
                             <ListBox.Resources>
                                 <Style TargetType="ListBoxItem">
-                                    <Setter Property="Width" Value="40"></Setter>
+                                    <Setter Property="Width" Value="50"></Setter>
                                     <Setter Property="Height" Value="40"></Setter>
                                     <Setter Property="BorderThickness" Value="1"></Setter>
                                     <Setter Property="BorderBrush" Value="#CCCCCC"></Setter>
@@ -196,7 +197,7 @@
 
                             <ListBox.Resources>
                                 <Style TargetType="ListBoxItem">
-                                    <Setter Property="Width" Value="40"></Setter>
+                                    <Setter Property="Width" Value="50"></Setter>
                                     <Setter Property="Height" Value="40"></Setter>
                                     <Setter Property="BorderThickness" Value="1"></Setter>
                                     <Setter Property="BorderBrush" Value="#CCCCCC"></Setter>

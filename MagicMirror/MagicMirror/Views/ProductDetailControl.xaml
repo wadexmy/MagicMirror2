@@ -81,7 +81,7 @@
                             </ListBox.ItemsPanel>
                             <ListBox.Resources>
                                 <Style TargetType="ListBoxItem">
-                                    <Setter Property="Width" Value="40"></Setter>
+                                    <Setter Property="Width" Value="50"></Setter>
                                     <Setter Property="Height" Value="40"></Setter>
                                     <Setter Property="BorderThickness" Value="1"></Setter>
                                     <Setter Property="BorderBrush" Value="#CCCCCC"></Setter>
@@ -128,7 +128,7 @@
 
                             <ListBox.Resources>
                                 <Style TargetType="ListBoxItem">
-                                    <Setter Property="Width" Value="40"></Setter>
+                                    <Setter Property="Width" Value="50"></Setter>
                                     <Setter Property="Height" Value="40"></Setter>
                                     <Setter Property="BorderThickness" Value="1"></Setter>
                                     <Setter Property="BorderBrush" Value="#CCCCCC"></Setter>

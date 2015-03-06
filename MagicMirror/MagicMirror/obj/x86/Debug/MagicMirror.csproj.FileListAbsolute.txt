@@ -144,3 +144,6 @@ C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\D
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MagicMirror.csproj.GenerateResource.Cache
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\CallAlertWin.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\CallAlertWin.baml
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MemberLoginWin.g.cs
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MemberLoginWin.baml
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\BusyIndicator\Themes\Generic.baml

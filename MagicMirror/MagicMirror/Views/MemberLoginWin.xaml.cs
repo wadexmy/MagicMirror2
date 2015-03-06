@@ -17,9 +17,9 @@ namespace MagicMirror.Views
     /// <summary>
     /// TryingProductAlertWin.xaml 的交互逻辑
     /// </summary>
-    public partial class TryingProductAlertWin : Window
+    public partial class MemberLoginWin : Window
     {
-        public TryingProductAlertWin()
+        public MemberLoginWin()
         {
             InitializeComponent();
             

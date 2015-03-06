@@ -107,6 +107,7 @@ namespace MagicMirror.Views
                     selIndex = 4;
                 }
             }
+
             lbPages.ItemsSource = switchPageIndexs;
         }
     }

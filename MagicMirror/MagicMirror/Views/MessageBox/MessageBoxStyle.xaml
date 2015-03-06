@@ -13,14 +13,13 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid x:Name="btnGrid">
-                        <Rectangle x:Name="rectangle" Fill="#5b7dd2" Stroke="#5b7dd2"/>
+                        <Rectangle x:Name="rectangle" Fill="Gold" Stroke="#AACCCCCC"/>
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Cursor" TargetName="btnGrid" Value="Hand"/>
-                            <Setter Property="Fill" TargetName="rectangle" Value="#FF4881E7"/>
-                            <Setter Property="Stroke" TargetName="rectangle" Value="#FF4881E7"/>
+                            <Setter Property="Fill" TargetName="rectangle" Value="Goldenrod"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -35,7 +34,7 @@
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="Foreground" Value="#FDFDFD" />
-        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Focusable" Value="False"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -68,7 +67,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Border Background="#4264bb" Grid.Row="0"  Height="40" CornerRadius="5,5,0,0" BorderBrush="#e0e0e0" BorderThickness="1,1,1,0">
+                        <Border Background="Gold" Grid.Row="0"  Height="40" CornerRadius="5,5,0,0" BorderBrush="#e0e0e0" BorderThickness="1,1,1,0">
                             <Grid>
                                 <TextBlock x:Name="PART_Title" Text="{Binding Title}" Foreground="#eef4fb" Padding="10"
                                            HorizontalAlignment="Stretch" VerticalAlignment="Top"  TextAlignment="Left" FontSize="15" />

@@ -1,4 +1,4 @@
-﻿<Window x:Class="MagicMirror.Views.TryingProductAlertWin"
+﻿<Window x:Class="MagicMirror.Views.MemberLoginWin"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="TryingProductAlertWin" Background="Transparent"
@@ -60,7 +60,7 @@
                 <ei:MouseDragElementBehavior/>
             </i:Interaction.Behaviors>
             
-            <Border x:Name="mainClientArea" VerticalAlignment="Center" HorizontalAlignment="Center" Height="300" Width="400"
+            <Border x:Name="mainClientArea" VerticalAlignment="Center" HorizontalAlignment="Center" Height="280" Width="350"
                 CornerRadius="5" BorderBrush="#DEDEDE" BorderThickness="1" Background="#F3F6FA">
                 <Grid>
                     <Button VerticalAlignment="Top" HorizontalAlignment="Right" Width="35" Height="30" Click="btnClose_Click">
@@ -104,52 +104,22 @@
                             </ControlTemplate>
                         </Button.Template>
                     </Button>
-                    
-                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="新宋体" FontSize="28" TextWrapping="Wrap"
-                       Width="{Binding Width,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}, Converter={StaticResource indentParentConverter}}"
-                       Foreground="Gold">是否把换颜色尺码后的衣服送过来？</TextBlock>
+
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock  FontFamily="新宋体" FontSize="28" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"  Foreground="Gold"
+                            Width="{Binding Width,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Border}, Converter={StaticResource indentParentConverter}}">
+                            请出示会员卡或输入会员号以收藏此衣服？
+                        </TextBlock>
+                        
+                        <TextBox x:Name="tbUserName" Width="250" Height="40" Margin="20" BorderBrush="#CCC" BorderThickness="1"> </TextBox>
+                    </StackPanel>
 
                     <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,20" Orientation="Horizontal">
-
                         <Button Width="60" Height="35" Click="btnClose_Click">
                             <Button.Template>
                                 <ControlTemplate>
                                     <Border x:Name="btnBorder" CornerRadius="2" Background="Gold">
-                                        <TextBlock x:Name="btnText"  VerticalAlignment="Center" HorizontalAlignment="Center" Text="是" Foreground="#9E9EAB" FontSize="15">
-                                        </TextBlock>
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <EventTrigger RoutedEvent="Mouse.MouseEnter">
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Background.(SolidColorBrush.Color)" Storyboard.TargetName="btnBorder">
-                                                        <SplineColorKeyFrame KeyTime="00:00:00" Value="Gold"></SplineColorKeyFrame>
-                                                        <SplineColorKeyFrame KeyTime="00:00:0.25" Value="Goldenrod"></SplineColorKeyFrame>
-                                                    </ColorAnimationUsingKeyFrames>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </EventTrigger>
-
-                                        <EventTrigger RoutedEvent="Mouse.MouseLeave">
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Background.(SolidColorBrush.Color)" Storyboard.TargetName="btnBorder">
-                                                        <SplineColorKeyFrame KeyTime="00:00:00" Value="Goldenrod"></SplineColorKeyFrame>
-                                                        <SplineColorKeyFrame KeyTime="00:00:0.25" Value="Gold"></SplineColorKeyFrame>
-                                                    </ColorAnimationUsingKeyFrames>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </EventTrigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                        
-                        <Button Width="60" Height="35" Click="btnClose_Click" Margin="20,0">
-                            <Button.Template>
-                                <ControlTemplate>
-                                    <Border x:Name="btnBorder" CornerRadius="2" Background="Gold">
-                                        <TextBlock x:Name="btnText"  VerticalAlignment="Center" HorizontalAlignment="Center" Text="否" Foreground="#9E9EAB" FontSize="15">
+                                        <TextBlock x:Name="btnText"  VerticalAlignment="Center" HorizontalAlignment="Center" Text="确定" Foreground="#9E9EAB" FontSize="15">
                                         </TextBlock>
                                     </Border>
                                     <ControlTemplate.Triggers>

@@ -36,6 +36,7 @@ namespace MagicMirror
             //this.WindowState = WindowState.Maximized;
             SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             SystemEvents_DisplaySettingsChanged(this, null);
+
             this.Top = 650;
             this.Left = 650;
         }
@@ -51,12 +52,12 @@ namespace MagicMirror
                 Global.FittingRoomRatio : Global.ShoppingAssistRatio;
             if (ratio >= reqRatio)
             {
-                this.Height = ScreenHeight;
+                this.Height = ScreenHeight * 0.4;
                 this.Width = this.Height * reqRatio;
             }
             else
             {
-                this.Width = ScreenWidth;
+                this.Width = ScreenWidth * 0.4;
                 this.Height = this.Width / reqRatio;
             }
         }

@@ -54,7 +54,13 @@ namespace MagicMirror.Views
             CallAlertWin callAlertWin = new CallAlertWin();
             callAlertWin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             callAlertWin.Show();
-            
+        }
+
+        private void btnUserLogin_Click(object sender, RoutedEventArgs e)
+        {
+            MemberLoginWin loginWin = new MemberLoginWin();
+            loginWin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            loginWin.Show();
         }
     }
 }

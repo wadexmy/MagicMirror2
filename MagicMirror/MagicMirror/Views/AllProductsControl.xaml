@@ -74,29 +74,48 @@
                  SelectionChanged="ListBox_SelectionChanged"/>
         </Grid>
 
-        <Grid x:Name="gridPageSwitch" Grid.Row="1" HorizontalAlignment="right" Margin="10" VerticalAlignment="Center" >
+        <Grid x:Name="gridPageSwitch" Grid.Row="1" HorizontalAlignment="right" Margin="10" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            
             <Grid.Resources>
                 <Style TargetType="Button">
-                    <Setter Property="Height" Value="30"></Setter>
+                    <Setter Property="Height" Value="32"></Setter>
                     <Setter Property="Width" Value="35"></Setter>
                     <Setter Property="BorderThickness" Value="0"></Setter>
-                    <Setter Property="Margin" Value="5"></Setter>
-                    <Setter Property="FontSize" Value="18"></Setter>
+                    <Setter Property="Margin" Value="0"></Setter>
+                    <Setter Property="FontSize" Value="16"></Setter>
+                    <Setter Property="Cursor" Value="Hand"></Setter>
                     <Setter Property="Foreground" Value="YellowGreen"></Setter>
-                    <Setter Property="Background" Value="White"></Setter>
-                    <Setter Property="FontFamily" Value="Wingdings 3"></Setter>
+                    <!--<Setter Property="FontFamily" Value="Wingdings 3"></Setter>-->
                 </Style>
             </Grid.Resources>
-            
-            <Button Content="\" ToolTip="上一页" Grid.Column="0" Command="{Binding PrePageCommand}"></Button>
 
-            <Grid Grid.Column="1" HorizontalAlignment="Stretch">
-                <ListBox x:Name="lbPages" ItemsPanel="{DynamicResource PageItemsPanelTemplate}" Background="Transparent" BorderThickness="0">
+            <Button ToolTip="上一页" Grid.Column="0" Command="{Binding PrePageCommand}" VerticalAlignment="Center">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border BorderThickness="1" CornerRadius="5,0,0,5">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#F9F9F9" Offset="0"></GradientStop>
+                                    <GradientStop Color="#F2F2F2" Offset="1"></GradientStop>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <TextBlock Padding="2"  FontFamily="Webdings" Text="7"
+                                       Foreground="{TemplateBinding Foreground}" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Center">
+                            </TextBlock>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="#F2F2F2" Height="30">
+                <ListBox x:Name="lbPages" ItemsPanel="{DynamicResource PageItemsPanelTemplate}" Background="Transparent" 
+                         BorderThickness="0"  ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding GotoPageCommand}" CommandParameter="{Binding SelectedValue, ElementName=lbPages}"/>
@@ -105,25 +124,29 @@
                     
                     <ListBox.Resources>
                         <Style x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
-                            <Setter Property="Foreground" Value="White"></Setter>
+                            <Setter Property="Foreground" Value="YellowGreen"></Setter>
+                            <Setter Property="FontSize" Value="15"></Setter>
+                            <Setter Property="BorderBrush" Value="#CCC"></Setter>
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="ListBoxItem">
-                                        <Border x:Name="Border" Margin="4" BorderThickness="1" BorderBrush="#CCC"  VerticalAlignment="Center" HorizontalAlignment="Center" Width="30">
+                                        <Border x:Name="Border" Margin="4" BorderThickness="1"  BorderBrush="{TemplateBinding BorderBrush}" 
+                                                VerticalAlignment="Center" HorizontalAlignment="Center" Width="30">
                                             <ContentPresenter  VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                         </Border>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
                             <Style.Triggers>
-                                <Trigger Property="IsSelected" Value="True">
+                                <!--<Trigger Property="IsSelected" Value="True">
                                     <Trigger.Setters>
-                                        <Setter Property="Foreground" Value="#389CFF" />
+                                        <Setter Property="Foreground" Value="#389CFF"/>
                                     </Trigger.Setters>
-                                </Trigger>
+                                </Trigger>-->
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Trigger.Setters>
                                         <Setter Property="Foreground" Value="#389CFF" />
+                                        <Setter Property="BorderBrush" Value="#389CFF" />
                                     </Trigger.Setters>
                                 </Trigger>
                             </Style.Triggers>
@@ -142,7 +165,26 @@
             <Button Content=";" ToolTip="跳转" Command="{Binding GotoPageCommand}" 
                     CommandParameter="{Binding Text,ElementName=tbPageNum}">
             </Button>-->
-            <Button Content="a" ToolTip="下一页" Command="{Binding NextPageCommand}"  Grid.Column="2"></Button>
+            
+            <Button ToolTip="下一页" Command="{Binding NextPageCommand}"  VerticalAlignment="Center" 
+                    Grid.Column="2" FontFamily="Webdings">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border BorderThickness="1" CornerRadius="0,5,5,0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                    <GradientStop Color="#F2F2F2" Offset="0"></GradientStop>
+                                    <GradientStop Color="#F9F9F9" Offset="1"></GradientStop>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <TextBlock Padding="2"  FontFamily="Webdings" Text="8"
+                                       Foreground="{TemplateBinding Foreground}" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Center">
+                            </TextBlock>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
 
         <view:MainButtonMenuBar x:Name="menuButtons" Grid.Row="2" HorizontalAlignment="Center" 
