@@ -118,7 +118,6 @@ C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\D
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\LoadingWait.baml
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MainButtonMenuBar.baml
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\TryingProductAlertWin.baml
-C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\Window1.baml
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\App.baml
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MainWindow.g.cs
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\AllProductsControl.g.cs
@@ -128,7 +127,6 @@ C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\D
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductSlideGallery.g.cs
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\ProductTryingOnControl.g.cs
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\TryingProductAlertWin.g.cs
-C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\Window1.g.cs
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\App.g.cs
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\MagicMirror_Content.g.cs
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
@@ -147,3 +145,15 @@ E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\V
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MemberLoginWin.g.cs
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MemberLoginWin.baml
 E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\BusyIndicator\Themes\Generic.baml
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\CallAlertWin.g.cs
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MemberLoginWin.g.cs
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\BusyIndicator\Themes\Generic.baml
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\CallAlertWin.baml
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\obj\x86\Debug\Views\MemberLoginWin.baml
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\rfidLink.dll
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\Symbol.RFID3.Host.dll
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\Impinj.OctaneSdk.dll
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\LLRP.dll
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\LLRP.Impinj.dll
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\Symbol.RFID3.Host.xml
+C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\Resources\ReaderSettings2.json

@@ -1,0 +1,23 @@
+{
+  "Reader": {
+    "id": "546c1eee-4605-4c8b-bd08-3949fd021ff6",
+    "version": 5,
+    "created": "2015-01-13T10:17:13.843",
+    "modified": "2015-01-13T11:01:17.929",
+    "model": "R500",
+    "code": "004",
+    "name": "asfsafsa",
+    "ip": "",
+    "port": null,
+    "readMode": "Hybrid",
+    "searchMode": "TagFocus",
+    "useTxFrequenciesInMhz": true,
+    "txFrequenciesInMhz": "920.875,922.375",
+    "serialPort": null,
+    "handle": null,
+    "deviceId": "3ed920c3-11da-4262-b47a-27e385e018ea",
+    "deviceCode": "001",
+    "deviceName": "001"
+  },
+  "ReaderAntennaList": []
+}

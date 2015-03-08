@@ -22,6 +22,21 @@ namespace MagicMirror
         public static string ServerAddressUrl = GetAppConfig("ServerAddress");
 
         /// <summary>
+        /// 默认的用户名称
+        /// </summary>
+        public static string UserName = GetAppConfig("UserName");
+
+        /// <summary>
+        /// 默认的用户密码
+        /// </summary>
+        public static string Password = GetAppConfig("Password");
+
+        /// <summary>
+        /// 默认背景图片
+        /// </summary>
+        public static string BackgroundImage = Path.Combine(AssemblyPath, GetAppConfig("BackgroundImage"));
+
+        /// <summary>
         /// 系统导航主界面
         /// </summary>
         public static Frame MainFrame;
@@ -45,6 +60,9 @@ namespace MagicMirror
         /// 导购屏宽高比例
         /// </summary>
         public static double ShoppingAssistRatio = 9 * 1.0 / 16;
+
+
+        public static string readerConfigPath = Path.Combine(AssemblyPath,GetAppConfig("ReaderSettings"));
 
         public static UserInterface UserInterface
         {

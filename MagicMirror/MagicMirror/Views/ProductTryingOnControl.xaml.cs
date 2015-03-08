@@ -34,8 +34,10 @@ namespace MagicMirror.Views
             menuButtons.btnBuy.Visibility = Visibility.Visible;
 
             Global.productViewModel.tryingOnProductsAdded += prodectViewModel_tryingOnProductsChanged;
+            Global.productViewModel.tryingOnMutiProductsAdded += productViewModel_tryingOnMutiProductsAdded;
             Global.productViewModel.tryingOnProductsRemoved += productViewModel_tryingOnProductsRemoved;
         }
+
 
         private void btnRemoveProduct_Click(object sender, RoutedEventArgs e)
         {
@@ -76,6 +78,11 @@ namespace MagicMirror.Views
                     lbSelProducts.ScrollIntoView(lbSelProducts.SelectedItem);
                 }
             }
+        }
+
+        private void productViewModel_tryingOnMutiProductsAdded(List<ProductBiz> addedProducts)
+        {
+            lbSelProducts.SelectedIndex = 0;
         }
 
         private ProductBiz selProduct;

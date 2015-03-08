@@ -14,7 +14,10 @@ namespace MagicMirror
         public delegate void TryingOnProductsAdded(ProductBiz addedProduct);
         public delegate void TryingOnProductsRemoveded();
 
+        public delegate void TryingOnMutiProductsAdded(List<ProductBiz> addedProducts);
+
         public event TryingOnProductsAdded tryingOnProductsAdded;
+        public event TryingOnMutiProductsAdded tryingOnMutiProductsAdded;
         public event TryingOnProductsRemoveded tryingOnProductsRemoved;
         public ProductViewModel()
         {
@@ -81,6 +84,24 @@ namespace MagicMirror
             TryingOnProducts.Add(product);
             if (tryingOnProductsAdded != null) {
                 tryingOnProductsAdded(product);
+            }
+        }
+
+        public void AddProducts(List<ProductBiz> products)
+        {
+            if(products==null) return;
+            List<ProductBiz> vildProducts=new List<ProductBiz>();
+            foreach (var product in products)
+            {
+                ProductBiz hasProduct = TryingOnProducts.SingleOrDefault(p=>p.Id==product.Id);
+                if (hasProduct == null) {
+                    vildProducts.Add(product);
+                    TryingOnProducts.Add(product);
+                }
+            }
+            if (tryingOnMutiProductsAdded != null)
+            {
+                tryingOnMutiProductsAdded(vildProducts);
             }
         }
 

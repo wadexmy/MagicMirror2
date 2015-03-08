@@ -39,6 +39,14 @@
     <ApplicationIcon>MagicMirror.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Com.IotLead.Hardware.Device.PcX86.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Com.IotLead.Hardware.Device.PcX86.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Com.IotLead.Hardware.Device.PcX86.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Com.IotLead.Hardware.Device.PcX86.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Microsoft.Expression.Interactions.dll</HintPath>
@@ -88,6 +96,8 @@
     <Compile Include="Models\ProductSizeBiz.cs" />
     <Compile Include="Models\ProductSizeGroupBiz.cs" />
     <Compile Include="Models\SkuBiz.cs" />
+    <Compile Include="Models\SkuInfoBiz.cs" />
+    <Compile Include="Models\SkuTagBiz.cs" />
     <Compile Include="Net\SocketTCPServer.cs" />
     <Compile Include="Net\SocketEntity.cs" />
     <Compile Include="PageViewModel.cs">
@@ -98,6 +108,7 @@
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\ProductBiz.cs" />
     <Compile Include="Models\UserInterface.cs" />
+    <Compile Include="Util\EpcReader.cs" />
     <Compile Include="Util\Image3DViewUtil.cs" />
     <Compile Include="Util\QRCodeCreater.cs" />
     <Compile Include="Util\ShuffleUtil.cs" />
@@ -232,11 +243,15 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Resources\ReaderSettings2.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Resources\ReaderSettings_0.json" />
     <Resource Include="Resources\Fonts\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup />
@@ -244,11 +259,11 @@
     <Resource Include="Resources\Images\QRCode.jpg" />
     <Resource Include="Resources\Images\1.jpg" />
     <Resource Include="Resources\Images\uploading.gif" />
+    <Resource Include="Resources\Images\Background0.jpg" />
     <Content Include="Resources\Sound\ding.wav" />
     <Content Include="Resources\Sound\notify.wav" />
     <Content Include="Resources\Sound\switch.wav" />
     <Resource Include="MagicMirror.ico" />
-    <Resource Include="Resources\Images\Background.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

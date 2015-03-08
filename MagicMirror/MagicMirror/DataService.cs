@@ -9,7 +9,8 @@ namespace MagicMirror
 {
     public class DataService
     {
-        public DataService(): this("mirrordev", "mirrordev")
+        public DataService()
+            : this(Global.UserName, Global.Password)
         { 
 
         }
@@ -21,11 +22,11 @@ namespace MagicMirror
             userKey = GetUserKey(userName, password);
         }
 
-        private string userName = "mirrordev";
+        private string userName = "";
 
-        private string password = "mirrordev";
+        private string password = "";
 
-        private string userKey = "0623c7dd-b414-4a6e-b34e-2e1f1623348c";
+        private string userKey = "";
 
         public string GetUserKey(string username, string password)
         {
@@ -112,6 +113,19 @@ namespace MagicMirror
                 return null;
             }
         }
+
+        public ProductBiz GetProductBizById(string productId) {
+            var request = new ApiRequest()
+            {
+                ApiPath = string.Format("api/product/getById/{0}", productId),
+                ServerAddress = Global.ServerAddressUrl,
+                Method = Method.Get,
+                AppKey = userKey,
+            };
+            var response = ApiHelper.Execute<ProductBiz>(request, false).Result;
+            return response.Success ? response.Context : null;
+        }
+
 
         /// <summary>
         /// 根据商品ID得到该款号的商品的条码种数
@@ -251,6 +265,44 @@ namespace MagicMirror
             };
             var response = ApiHelper.Execute(request, false).Result;
             return response.Success;
+        }
+
+        public SkuBiz GetProductByEpc(string epc)
+        {
+            var request = new ApiRequest()
+            {
+                ApiPath = string.Format("api/skuTag/getByEPC/{0}", epc),
+                ServerAddress = Global.ServerAddressUrl,
+                Method = Method.Get,
+                AppKey = userKey,
+            };
+            var response = ApiHelper.Execute<SkuBiz>(request, false).Result;
+            return response.Success ? response.Context : null;
+        }
+
+        public IList<SkuInfoBiz> GetSkusByEpcList(List<string> epcs)
+        {
+            try
+            {
+                var request = new ApiRequest()
+                {
+                    ApiPath = "api/skuTag/getSkuInfosByEPCList",
+                    ServerAddress = Global.ServerAddressUrl,
+                    Method = Method.Post,
+                    AppKey = userKey,
+                    Param = new
+                    {
+                        isPageable = false,
+                        epcs = epcs
+                    }
+                };
+                var response = ApiHelper.Execute<ListResponse<SkuInfoBiz>>(request, false).Result;
+                return response.Success ? response.Context.Data : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

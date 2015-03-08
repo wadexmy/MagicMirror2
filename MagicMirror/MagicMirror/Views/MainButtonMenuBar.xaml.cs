@@ -62,5 +62,15 @@ namespace MagicMirror.Views
             loginWin.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             loginWin.Show();
         }
+
+        /// <summary>
+        /// 通过感应器获取EPC并且加载商品信息
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSearchProducts_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

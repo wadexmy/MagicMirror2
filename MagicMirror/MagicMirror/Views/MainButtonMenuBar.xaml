@@ -26,6 +26,15 @@
                 </StackPanel>
             </Button.Content>
         </Button>
+
+        <Button x:Name="btnSearchProducts" Style="{StaticResource shoppingButtonStyle}" Click="btnSearchProducts_Click">
+            <Button.Content>
+                <StackPanel>
+                    <TextBlock Text="&#xf002;" Style="{StaticResource IconTextStyle}"></TextBlock>
+                    <TextBlock Text="查询商品"></TextBlock>
+                </StackPanel>
+            </Button.Content>
+        </Button>
         
         <Button x:Name="btnUserLogin" Style="{StaticResource shoppingButtonStyle}" Click="btnUserLogin_Click">
             <Button.Content>

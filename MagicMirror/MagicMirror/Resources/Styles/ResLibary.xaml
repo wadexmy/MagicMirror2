@@ -10,9 +10,11 @@
 
     <FontFamily x:Key="IconFont">pack://application:,,,/Resources/Fonts/#FontAwesome</FontFamily>
 
-    <ImageBrush x:Key="cloudBackground" ImageSource="pack://application:,,,/Resources/Images/Background.jpg" 
+    <!--<ImageBrush x:Key="cloudBackground0" ImageSource="pack://application:,,,/Resources/Images/Background.jpg" 
+                Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"></ImageBrush>-->
+    <ImageBrush x:Key="cloudBackground" ImageSource="pack://application:,,,/Resources/Images/Background0.jpg" 
                 Stretch="Fill" RenderOptions.BitmapScalingMode="NearestNeighbor"></ImageBrush>
-
+    
     <DropShadowEffect x:Key="ShadowEffect" Color="Black" BlurRadius="16" ShadowDepth="0" Opacity="0.5"></DropShadowEffect>
     
     <!--图片显示模式-->
@@ -25,7 +27,8 @@
         <Setter Property="ResizeMode" Value="NoResize"></Setter>
         <Setter Property="WindowStyle" Value="None"></Setter>
         <Setter Property="AllowsTransparency" Value="True"></Setter>
-        <Setter Property="Background" Value="{StaticResource BlackBackground}"></Setter>
+        <!--背景图片由系统后台代码读取配置文件设置-->
+        <!--<Setter Property="Background" Value="{StaticResource BlackBackground}"></Setter>-->
     </Style>
 
     <Style x:Key="shoppingButtonStyle" TargetType="Button">

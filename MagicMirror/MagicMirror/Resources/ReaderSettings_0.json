@@ -1,0 +1,46 @@
+﻿{
+"Reader": {
+"id": "c39d0da3-be69-46a0-8803-be746f782266",
+"version": 5,
+"created": "2015-02-26T19:14:18.969",
+"modified": "2015-03-02T13:32:50.644",
+"model": "MC31902",
+"code": "MOTO_Handset",
+"name": "摩托手持机读写器",
+"ip": "192.168.8.226",
+"port": "5084",
+"readMode": null,
+"searchMode": null,
+"useTxFrequenciesInMhz": false,
+"txFrequenciesInMhz": null,
+"serialPort": null,
+"handle": null,
+"deviceId": "eb195c36-12af-4469-8e29-0318b1756f9b",
+"deviceCode": "004",
+"deviceName": "004"
+},
+"ReaderAntennaList": [
+{
+"id": "d5e56c0c-6845-4325-8846-6ba732bfaf91",
+"version": "4",
+"created": "2015-02-26T19:14:35.403",
+"modified": "2015-03-02T13:32:33.84",
+"txPowerInDbm": 10.00000,
+"rxSensitivityInDbm": 0.00000,
+"maxTransmitPower": false,
+"maxRxSensitivity": false,
+"antennaIndex": 1,
+"antennaName": "1",
+"readerId": "c39d0da3-be69-46a0-8803-be746f782266",
+"readerCode": "MOTO_Handset",
+"readerName": "摩托手持机读写器",
+"readerModel": null,
+"readerReadMode": null,
+"readerSearchMode": null,
+"deviceId": "eb195c36-12af-4469-8e29-0318b1756f9b",
+"deviceCode": "004",
+"deviceName": "004"
+}
+]
+}
+

@@ -83,7 +83,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("UseProductColor");
             }
         }
-
+       
         private bool? useProductSize;
         [JsonProperty("useProductSize", NullValueHandling = NullValueHandling.Ignore)]
         public bool? UseProductSize
@@ -98,7 +98,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("UseProductSize");
             }
         }
-
+        
         private bool? isHot;
         [JsonProperty("isHot", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsHot
@@ -113,7 +113,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("IsHot");
             }
         }
-
+       
         private bool? isPromote;
         [JsonProperty("isPromote", NullValueHandling = NullValueHandling.Ignore)]
         public bool? IsPromote
@@ -128,7 +128,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("IsPromote");
             }
         }
-
+        
         private int? likeCount;
         [JsonProperty("likeCount", NullValueHandling = NullValueHandling.Ignore)]
         public int? LikeCount
@@ -143,7 +143,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("LikeCount");
             }
         }
-
+        
         private string onlineSalesUrl01;
         [JsonProperty("onlineSalesUrl01", NullValueHandling = NullValueHandling.Ignore)]
         public string OnlineSalesUrl01
@@ -158,7 +158,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("OnlineSalesUrl01");
             }
         }
-
+       
         private string onlineSalesUrl02;
         [JsonProperty("onlineSalesUrl02", NullValueHandling = NullValueHandling.Ignore)]
         public string OnlineSalesUrl02
@@ -173,7 +173,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("OnlineSalesUrl02");
             }
         }
-
+       
         private string imageUrl;
         [JsonProperty("imageUrl", NullValueHandling = NullValueHandling.Ignore)]
         public string ImageUrl
@@ -188,7 +188,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("ImageUrl");
             }
         }
-
+        
         private string customPropertyValue01Id;
         [JsonProperty("customPropertyValue01Id", NullValueHandling = NullValueHandling.Ignore)]
         public string CustomPropertyValue01Id
@@ -638,7 +638,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("CustomPropertyValue10Name");
             }
         }
-
+        
         private string productSizeGroupId;
         [JsonProperty("productSizeGroupId", NullValueHandling = NullValueHandling.Ignore)]
         public string ProductSizeGroupId
@@ -653,7 +653,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("ProductSizeGroupId");
             }
         }
-
+       
         private string productSizeGroupCode;
         [JsonProperty("productSizeGroupCode", NullValueHandling = NullValueHandling.Ignore)]
         public string ProductSizeGroupCode
@@ -668,7 +668,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("ProductSizeGroupCode");
             }
         }
-
+        
         private string productSizeGroupName;
         [JsonProperty("productSizeGroupName", NullValueHandling = NullValueHandling.Ignore)]
         public string ProductSizeGroupName
@@ -683,7 +683,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("ProductSizeGroupName");
             }
         }
-
+        
         private decimal retailPrice;
         [JsonProperty("retailPrice", NullValueHandling = NullValueHandling.Ignore)]
         public decimal RetailPrice
@@ -699,18 +699,27 @@ namespace MagicMirror.Models
             }
         }
 
-        private int dislikeCount = 0;
-        public int DislikeCount
-        {
-            get
+        public static ProductBiz GetProductBySkuInfo(SkuInfoBiz skuInfo) {
+            if (skuInfo == null || string.IsNullOrEmpty(skuInfo.ProductId)) return null;
+           
+            return new ProductBiz()
             {
-                return dislikeCount;
-            }
-            set
-            {
-                dislikeCount = value;
-                OnPropertyChanged("DislikeCount");
-            }
+                Id=skuInfo.ProductId,
+                Code = skuInfo.ProductCode,
+                Name = skuInfo.ProductName,
+                Disable = skuInfo.ProductDisable,
+                UseProductColor=skuInfo.UseProductColor,
+                UseProductSize=skuInfo.UseProductColor,
+                isHot=skuInfo.IsHot,
+                isPromote=skuInfo.IsPromote,
+                LikeCount=skuInfo.LikeCount,
+                OnlineSalesUrl01=skuInfo.OnlineSalesUrl01,
+                OnlineSalesUrl02=skuInfo.OnlineSalesUrl02,
+                ImageUrl=skuInfo.ImagePath,
+                ProductSizeGroupId=skuInfo.ProductSizeGroupId,
+                ProductSizeGroupCode=skuInfo.ProductSizeGroupCode,
+                RetailPrice=skuInfo.ProductRetailPrice
+            };
         }
     }
 }

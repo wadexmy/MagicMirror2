@@ -5,9 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:view="clr-namespace:MagicMirror.Views"
              xmlns:util="clr-namespace:MagicMirror.Util"
-             mc:Ignorable="d" Background="{StaticResource cloudBackground}"
-             d:DesignHeight="600" d:DesignWidth="1000"
-             MouseDown="UserControl_MouseDown">
+             mc:Ignorable="d" MouseDown="RootGrid_MouseLeftButtonDown"
+             d:DesignHeight="600" d:DesignWidth="1000">
     <!--Background="{StaticResource cloudBackground}"-->
     <UserControl.Resources>
         <Storyboard x:Key="LoadedStoryboard">
@@ -41,8 +40,8 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    
-    <Grid>
+
+    <Grid x:Name="RootGrid" >
         <Viewport3D x:Name="viewport3D" ClipToBounds="False" MouseLeftButtonDown="viewport3D_MouseLeftButtonDown"
                 Width="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}},Path=ActualWidth}"
                 Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}},Path=ActualHeight}">
@@ -85,7 +84,7 @@
             </Viewport3D.Children>
         </Viewport3D>
 
-        <view:MainButtonMenuBar x:Name="menuButtons" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Collapsed" Height="110">
+        <view:MainButtonMenuBar x:Name="menuButtons" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Visible" Height="110">
             <view:MainButtonMenuBar.RenderTransform>
                 <TranslateTransform></TranslateTransform>
             </view:MainButtonMenuBar.RenderTransform>

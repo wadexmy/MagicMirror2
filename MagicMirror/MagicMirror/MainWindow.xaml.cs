@@ -27,18 +27,28 @@ namespace MagicMirror
         public MainWindow()
         {
             InitializeComponent();
+            try
+            {
+                ImageBrush imgBrush = new ImageBrush();
+                imgBrush.ImageSource = new BitmapImage(new Uri(Global.BackgroundImage));
+                this.Background = imgBrush;
+            }
+            catch (Exception)
+            {
+                this.Background = TryFindResource("cloudBackground") as ImageBrush;
+            }
+
             NavigationFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
+
             //系统导航控件
             Global.MainFrame = NavigationFrame;
             //后台执行系统空闲加载时进入商品动画页面
             RunSlideShowThread();
             //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //this.WindowState = WindowState.Maximized;
+            this.WindowState = WindowState.Maximized;
             SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             SystemEvents_DisplaySettingsChanged(this, null);
 
-            this.Top = 650;
-            this.Left = 650;
         }
 
         //根据实际应用设置主屏宽高比例
@@ -52,12 +62,12 @@ namespace MagicMirror
                 Global.FittingRoomRatio : Global.ShoppingAssistRatio;
             if (ratio >= reqRatio)
             {
-                this.Height = ScreenHeight * 0.4;
+                this.Height = ScreenHeight;
                 this.Width = this.Height * reqRatio;
             }
             else
             {
-                this.Width = ScreenWidth * 0.4;
+                this.Width = ScreenWidth;
                 this.Height = this.Width / reqRatio;
             }
         }
@@ -72,7 +82,7 @@ namespace MagicMirror
             {
                 try
                 {
-                    if (SystemIdleHelper.GetIdleTime() >= 30)
+                    if (SystemIdleHelper.GetIdleTime() >= 10)
                     {
                         NavigationFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
                     }
