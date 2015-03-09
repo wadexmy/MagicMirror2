@@ -91,7 +91,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\CustomConverter.cs" />
-    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="Models\ProductColorBiz.cs" />
     <Compile Include="Models\ProductSizeBiz.cs" />
     <Compile Include="Models\ProductSizeGroupBiz.cs" />
@@ -100,10 +100,10 @@
     <Compile Include="Models\SkuTagBiz.cs" />
     <Compile Include="Net\SocketTCPServer.cs" />
     <Compile Include="Net\SocketEntity.cs" />
-    <Compile Include="PageViewModel.cs">
+    <Compile Include="ViewModels\PageViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ProductViewModel.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="DataService.cs" />
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\ProductBiz.cs" />
@@ -256,9 +256,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\Images\QRCode.jpg" />
-    <Resource Include="Resources\Images\1.jpg" />
-    <Resource Include="Resources\Images\uploading.gif" />
     <Resource Include="Resources\Images\Background0.jpg" />
     <Content Include="Resources\Sound\ding.wav" />
     <Content Include="Resources\Sound\notify.wav" />

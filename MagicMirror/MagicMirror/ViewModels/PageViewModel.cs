@@ -9,17 +9,13 @@ namespace MagicMirror
 {
     public class PageViewModel : INotifyPropertyChanged
     {
-        DataService dataservie;
         public delegate void CurrentPageChanged(int CurrentPage);
 
         public event CurrentPageChanged currentPageChanged;
 
         public PageViewModel() {
-            dataservie = new DataService();
-
-            ListResponse<ProductBiz> CurrentPageResult = dataservie.GetCurrentPageProducts(PageSize, CurrentPage+1);
+            ListResponse<ProductBiz> CurrentPageResult = Global.dataservice.GetCurrentPageProducts(PageSize, CurrentPage + 1);
             PageCount = CurrentPageResult.TotalPages;
-
             ProductBizList = CurrentPageResult.Data.ToList();
         }
         
@@ -132,7 +128,7 @@ namespace MagicMirror
                         () =>
                         {
                             CurrentPage--;
-                            ProductBizList = dataservie.GetCurrentPageProducts(PageSize, CurrentPage + 1).Data.ToList();
+                            ProductBizList = Global.dataservice.GetCurrentPageProducts(PageSize, CurrentPage + 1).Data.ToList();
                         },
                         () =>
                         {
@@ -156,7 +152,7 @@ namespace MagicMirror
                         () =>
                         {
                             CurrentPage++;
-                            ProductBizList = dataservie.GetCurrentPageProducts(PageSize, CurrentPage + 1).Data.ToList();
+                            ProductBizList = Global.dataservice.GetCurrentPageProducts(PageSize, CurrentPage + 1).Data.ToList();
                         },
                         () =>
                         {
@@ -184,7 +180,7 @@ namespace MagicMirror
                             if (page - 1 != CurrentPage && page >= 1 && page <= PageCount)
                             {
                                 CurrentPage = page - 1;
-                                ProductBizList = dataservie.GetCurrentPageProducts(PageSize, CurrentPage + 1).Data.ToList();
+                                ProductBizList = Global.dataservice.GetCurrentPageProducts(PageSize, CurrentPage + 1).Data.ToList();
                             }
                         },
                         (pram) =>

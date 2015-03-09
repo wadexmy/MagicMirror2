@@ -5,15 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:view="clr-namespace:MagicMirror.Views"
              xmlns:util="clr-namespace:MagicMirror.Util"
-             mc:Ignorable="d" MouseDown="RootGrid_MouseLeftButtonDown"
-             d:DesignHeight="600" d:DesignWidth="1000">
-    <!--Background="{StaticResource cloudBackground}"-->
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1000"
+             MouseDown="UserControl_MouseDown">
+    
     <UserControl.Resources>
-        <Storyboard x:Key="LoadedStoryboard">
-            <DoubleAnimation Storyboard.TargetName="angleRotation" Storyboard.TargetProperty="Angle"
-                 From="0" To="360" Duration="0:0:30" AutoReverse="False" RepeatBehavior="Forever"/>
-        </Storyboard>
-
         <Storyboard x:Key="buttonMenuInStoryboard">
             <DoubleAnimation Duration="0:0:0.5" From="100" To="0" Storyboard.TargetName="menuButtons"
                              Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
@@ -41,7 +36,7 @@
         </Storyboard>
     </UserControl.Resources>
 
-    <Grid x:Name="RootGrid" >
+    <Grid x:Name="RootGrid">
         <Viewport3D x:Name="viewport3D" ClipToBounds="False" MouseLeftButtonDown="viewport3D_MouseLeftButtonDown"
                 Width="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}},Path=ActualWidth}"
                 Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}},Path=ActualHeight}">
@@ -84,7 +79,7 @@
             </Viewport3D.Children>
         </Viewport3D>
 
-        <view:MainButtonMenuBar x:Name="menuButtons" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Visible" Height="110">
+        <view:MainButtonMenuBar x:Name="menuButtons" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Collapsed" Height="110">
             <view:MainButtonMenuBar.RenderTransform>
                 <TranslateTransform></TranslateTransform>
             </view:MainButtonMenuBar.RenderTransform>

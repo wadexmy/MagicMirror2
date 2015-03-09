@@ -28,7 +28,7 @@
         <Setter Property="WindowStyle" Value="None"></Setter>
         <Setter Property="AllowsTransparency" Value="True"></Setter>
         <!--背景图片由系统后台代码读取配置文件设置-->
-        <!--<Setter Property="Background" Value="{StaticResource BlackBackground}"></Setter>-->
+        <Setter Property="Background" Value="Black"></Setter>
     </Style>
 
     <Style x:Key="shoppingButtonStyle" TargetType="Button">

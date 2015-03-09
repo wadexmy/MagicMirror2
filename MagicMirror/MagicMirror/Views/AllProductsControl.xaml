@@ -24,7 +24,7 @@
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Image Grid.Row="0" Source="{Binding Path=ImageUrl}" HorizontalAlignment="Center" Stretch="Fill" />
+                    <Image Grid.Row="0" Source="{Binding Path=ImageUrl}" Stretch="Uniform" />
                     <TextBlock Grid.Row="1" Text="{Binding Path=Name}" HorizontalAlignment="Center" Margin="0,5,0,0" TextTrimming="CharacterEllipsis "/>
                 </Grid>
             </Border>
@@ -33,7 +33,7 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Trigger.Setters>
                         <Setter Property="Opacity" Value="0.8"/>
-                        <Setter Property="BorderBrush" Value="#389CFF" TargetName="cellBorder"/>
+                        <Setter Property="BorderBrush" Value="Goldenrod" TargetName="cellBorder"/>
                     </Trigger.Setters>
                 </Trigger>
             </DataTemplate.Triggers>

@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MagicMirror.Models;
 
 namespace MagicMirror.Views
@@ -25,6 +15,7 @@ namespace MagicMirror.Views
             InitializeComponent();
 
             if (Global.UserInterface == UserInterface.FittingRoom) {
+                btnSearchProducts.Visibility = Visibility.Collapsed;
                 btnAllProducts.Visibility = Visibility.Collapsed;
                 btnUserLogin.Visibility = Visibility.Collapsed;
                 btnTrying.Visibility = Visibility.Collapsed;
@@ -34,7 +25,8 @@ namespace MagicMirror.Views
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).Close();
+            Global.productViewModel.TryingOnProducts.Clear();
+            Global.MainFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
         }
 
         private void btnAllProducts_Click(object sender, RoutedEventArgs e)

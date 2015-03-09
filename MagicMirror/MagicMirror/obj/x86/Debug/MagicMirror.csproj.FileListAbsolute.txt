@@ -157,3 +157,10 @@ C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\LLRP.Impinj.dll
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\Symbol.RFID3.Host.xml
 C:\Users\wadexmy\Documents\GitHub\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\Resources\ReaderSettings2.json
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\Resources\ReaderSettings2.json
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\rfidLink.dll
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\Symbol.RFID3.Host.dll
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\Impinj.OctaneSdk.dll
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\LLRP.dll
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\LLRP.Impinj.dll
+E:\Development\MagicMirror2\MagicMirror2\MagicMirror\MagicMirror\bin\Debug\Symbol.RFID3.Host.xml

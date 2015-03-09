@@ -1,8 +1,8 @@
 ﻿<Window x:Class="MagicMirror.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" 
-        Icon="MagicMirror.ico" MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Title="MainWindow"  Icon="MagicMirror.ico" 
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         Style="{StaticResource MainWinStyle}">
     <!--系统界面跳转基于导航实现-->
     <Frame x:Name="NavigationFrame" BorderThickness="0" NavigationUIVisibility="Hidden"></Frame>

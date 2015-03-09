@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MagicMirror.Models;
 using System.ComponentModel;
 
@@ -21,12 +12,9 @@ namespace MagicMirror.Views
     /// </summary>
     public partial class ProductDetailControl : UserControl
     {
-        private DataService dataservice;
-
         public ProductDetailControl()
         {
             InitializeComponent();
-            dataservice = new DataService();
             menuButtons.btnTrying.Visibility = Visibility.Visible;
             menuButtons.btnBuy.Visibility = Visibility.Visible;
 
@@ -55,12 +43,12 @@ namespace MagicMirror.Views
                     bgw.WorkerReportsProgress = true;
                     bgw.DoWork += new DoWorkEventHandler((s1, e1) =>
                     {
-                        IList<SkuBiz> selProductSkus = dataservice.GetProductSkus(selProduct.Id);
+                        IList<SkuBiz> selProductSkus = Global.dataservice.GetProductSkus(selProduct.Id);
                         if (selProductSkus != null && selProductSkus.Count > 0)
                         {
-                            productColors = dataservice.GetProductColors(selProductSkus);
-                            productSizes = dataservice.GetProductSizes(selProductSkus);
-                            IList<ProductBiz> relatedProducts = dataservice.GetRelatedProducts(selProduct);
+                            productColors = Global.dataservice.GetProductColors(selProductSkus);
+                            productSizes = Global.dataservice.GetProductSizes(selProductSkus);
+                            IList<ProductBiz> relatedProducts = Global.dataservice.GetRelatedProducts(selProduct);
                             if (relatedProducts != null && relatedProducts.Count > 0)
                             {
                                 IList<ProductBiz> relShowProduct = relatedProducts.Skip(relatedProducts.Count - Global.ProductDemoImages.Count).ToList();
@@ -95,7 +83,7 @@ namespace MagicMirror.Views
 
         private void btnLike_Click(object sender, RoutedEventArgs e)
         {
-            bool result = dataservice.LikeProduct(Global.productViewModel.CurrentProduct.Code);
+            bool result = Global.dataservice.LikeProduct(Global.productViewModel.CurrentProduct.Code);
             if (result)
             {
                 Global.productViewModel.CurrentProduct.LikeCount++;

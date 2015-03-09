@@ -30,27 +30,34 @@ namespace MagicMirror
 
         public string GetUserKey(string username, string password)
         {
-            string userKey = this.userKey;
-            var request = new ApiRequest()
+            try
             {
-                //api地址前不带“/”在服务器地址后加上
-                ApiPath = "api/security/login",
-                ServerAddress = Global.ServerAddressUrl,
-                Method = Method.Post,
-                Param = new
+                string userKey = this.userKey;
+                var request = new ApiRequest()
                 {
-                    businessModuleCode = "HDW",
-                    accountType = "EMPLOYEE",
-                    username = username,
-                    password = password,
+                    //api地址前不带“/”在服务器地址后加上
+                    ApiPath = "api/security/login",
+                    ServerAddress = Global.ServerAddressUrl,
+                    Method = Method.Post,
+                    Param = new
+                    {
+                        businessModuleCode = "HDW",
+                        accountType = "EMPLOYEE",
+                        username = username,
+                        password = password,
+                    }
+                };
+                var response = ApiHelper.Execute<string>(request, false).Result;
+                if (response.Success)
+                {
+                    userKey = response.Context;
                 }
-            };
-            var response = ApiHelper.Execute<string>(request, false).Result;
-            if (response.Success)
-            {
-                userKey = response.Context;
+                return userKey;
             }
-            return userKey;
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -210,6 +217,27 @@ namespace MagicMirror
             return response.Success ? response.Context.Data : null;
         }
 
+        public IList<ProductBiz> GetRecommendProducts(ProductBiz product)
+        {
+            var request = new ApiRequest()
+            {
+                ApiPath = "api/product/list",
+                ServerAddress = Global.ServerAddressUrl,
+                Method = Method.Post,
+                AppKey = userKey,
+                Param = new
+                {
+                    isPageable = false,
+                    customPropertyValue04Id = product.CustomPropertyValue04Id,
+                    customPropertyValue05Id = product.CustomPropertyValue05Id,
+                    customPropertyValue06Id = product.CustomPropertyValue06Id,
+                    customPropertyValue08Id = product.CustomPropertyValue08Id
+                }
+            };
+            var response = ApiHelper.Execute<ListResponse<ProductBiz>>(request, false).Result;
+            return response.Success ? response.Context.Data : null;
+        }
+
         public ProductColorBiz GetProductColor(string ColorId)
         {
             var request = new ApiRequest()
@@ -222,19 +250,6 @@ namespace MagicMirror
             var response = ApiHelper.Execute<ProductColorBiz>(request, false).Result;
             return response.Success ? response.Context : null;
         }
-
-        //public ProductSizeBiz GetProductSize(string groupCode,string SizeCode)
-        //{
-        //    var request = new ApiRequest()
-        //    {
-        //        ApiPath = string.Format("api/productSize/{0}/getByCode/{1}", groupCode, SizeCode),
-        //        ServerAddress = Global.ServerAddressUrl,
-        //        Method = Method.Get,
-        //        AppKey = userKey,
-        //    };
-        //    var response = ApiHelper.Execute<ProductSizeBiz>(request, false).Result;
-        //    return response.Success ? response.Context : null;
-        //}
 
         public IList<ProductSizeBiz> GetProductSize(string SizeCode)
         {
@@ -267,6 +282,8 @@ namespace MagicMirror
             return response.Success;
         }
 
+        #region ===感应输入API调用===
+        
         public SkuBiz GetProductByEpc(string epc)
         {
             var request = new ApiRequest()
@@ -304,5 +321,8 @@ namespace MagicMirror
                 return null;
             }
         }
+
+        #endregion
+
     }
 }

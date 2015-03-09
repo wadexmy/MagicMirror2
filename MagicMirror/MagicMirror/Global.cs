@@ -61,19 +61,59 @@ namespace MagicMirror
         /// </summary>
         public static double ShoppingAssistRatio = 9 * 1.0 / 16;
 
-
+        /// <summary>
+        /// 感应输入
+        /// </summary>
         public static string readerConfigPath = Path.Combine(AssemblyPath,GetAppConfig("ReaderSettings"));
 
+        /// <summary>
+        /// 系统空闲自动进入动画屏时间间隔
+        /// </summary>
+        public static int IdleDuration = int.Parse(GetAppConfig("IdleDuration"));
+
+        /// <summary>
+        /// 首页动画屏播放图片数
+        /// </summary>
+        public static int HomeAnimatePictureCount =int.Parse(GetAppConfig("HomeAnimatePictureCount"));
+
+        /// <summary>
+        /// 图片旋转一周所需时间
+        /// </summary>
+        public static int AnimateCircleDuration = int.Parse(GetAppConfig("AnimateCircleDuration"));
+
+        public static DataService _dataservice;
+        /// <summary>
+        /// API服务调用对象
+        /// </summary>
+        public static DataService dataservice{
+            get {
+                if (_dataservice == null)
+                {
+                    _dataservice = new DataService();
+                }
+                return _dataservice;
+            }
+            set {
+                _dataservice = value;
+            }
+        }
+
+        /// <summary>
+        /// 主应用程序名称
+        /// </summary>
         public static UserInterface UserInterface
         {
             get
             {
-                return GetAppConfig("HomeUI") == "FittingRoom" ? UserInterface.FittingRoom : UserInterface.ShoppingAssistant;;
+                return GetAppConfig("HomeUI") == "FittingRoom" ? 
+                        UserInterface.FittingRoom : UserInterface.ShoppingAssistant;
             }
         }
 
         private static ProductViewModel _prodectViewModel;
-
+        /// <summary>
+        /// View Model
+        /// </summary>
         public static ProductViewModel productViewModel { 
             get{
                 if (_prodectViewModel == null)
@@ -84,18 +124,16 @@ namespace MagicMirror
             }
         }
 
-        public static string tryingOnProductImage;
-
-        private static List<string> productDemoImages;
+        private static List<string> _productDemoImages;
         public static List<string> ProductDemoImages
         {
             get {
-                if (productDemoImages == null || productDemoImages.Count == 0) 
+                if (_productDemoImages == null || _productDemoImages.Count == 0) 
                 {
                     string imageDir = System.IO.Path.Combine(Global.AssemblyPath, "Resources", "Products");
-                    productDemoImages = Directory.GetFiles(imageDir, "*.jpg").Concat(Directory.GetFiles(imageDir, "*.png")).ToList();
+                    _productDemoImages = Directory.GetFiles(imageDir, "*.jpg").Concat(Directory.GetFiles(imageDir, "*.png")).ToList();
                 }
-                return productDemoImages;
+                return _productDemoImages;
             }
         }
 

@@ -1,24 +1,26 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Navigation;
-using System.Windows.Media.Media3D;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
+using System.Windows.Navigation;
 using System.Windows.Threading;
-using System.Threading;
+using Com.IotLead.Hardware.Device.PcX86.Common.Device.Controll.Impls;
+using Com.IotLead.Hardware.Device.PcX86.Common.Device.Controll.Inter;
+using Com.IotLead.Hardware.Device.PcX86.Common.Device.DataTransferObjects.Reader;
+using Com.IotLead.Hardware.Device.PcX86.Common.Device.Impls.RFIDReader;
+using Com.IotLead.Hardware.Device.PcX86.Common.Device.Inter.Reader;
+using Com.IotLead.Hardware.Device.PcX86.Domain.DataTransferObjects;
 using MagicMirror.Models;
 using MagicMirror.Util;
-using Com.IotLead.Hardware.Device.PcX86.Common.Device.Inter.Reader;
-using Com.IotLead.Hardware.Device.PcX86.Common.Device.Controll.Inter;
 using Newtonsoft.Json;
-using Com.IotLead.Hardware.Device.PcX86.Domain.DataTransferObjects;
-using Com.IotLead.Hardware.Device.PcX86.Common.Device.Impls.RFIDReader;
-using Com.IotLead.Hardware.Device.PcX86.Common.Device.DataTransferObjects.Reader;
-using Com.IotLead.Hardware.Device.PcX86.Common.Device.Controll.Impls;
+
 
 namespace MagicMirror.Views
 {
@@ -27,12 +29,6 @@ namespace MagicMirror.Views
     /// </summary>
     public partial class ProductSlideGallery : UserControl
     {
-        private const int ScenePicturesCount = 10;
-
-        /// <summary>
-        /// 数据服务对象
-        /// </summary>
-        private DataService dataservice;
 
         /// <summary>
         /// 当前屏幕显示的产品
@@ -55,21 +51,31 @@ namespace MagicMirror.Views
         {
             InitializeComponent();
 
-            dataservice = new DataService();
             HomeProductDic = new Dictionary<int, ProductBiz>();
 
             menuButtons.btnTrying.Visibility = Visibility.Collapsed;
             menuButtons.btnBuy.Visibility = Visibility.Collapsed;
-            this.Loaded += new RoutedEventHandler(ProductSlideGallery_Loaded);
-           
-            Thread thread = new Thread(() => {
-                IList<ProductBiz> homeProducts = dataservice.GetFirstPageProducts(ScenePicturesCount);
+
+            Thread thread = new Thread(() => 
+            {
+                IList<ProductBiz> homeProducts = Global.dataservice.GetFirstPageProducts(Global.HomeAnimatePictureCount);
                 PrepareProducts3DView(homeProducts);
             });
             thread.Start();
+            try
+            {
+                ImageBrush imgBrush = new ImageBrush();
+                imgBrush.ImageSource = new BitmapImage(new Uri(Global.BackgroundImage));
+                this.Background = imgBrush;
+            }
+            catch (Exception)
+            {
+                this.Background = TryFindResource("cloudBackground") as ImageBrush;
+            }
+            this.Loaded += new RoutedEventHandler(ProductSlideGallery_Loaded);
         }
 
-        void ProductSlideGallery_Loaded(object sender, RoutedEventArgs e)
+        private void ProductSlideGallery_Loaded(object sender, RoutedEventArgs e)
         {
             if (!System.IO.File.Exists(readerConfigPath)) throw new Exception("找不到读写器配置文件！");
             var file = System.IO.File.ReadAllText(readerConfigPath);
@@ -79,7 +85,7 @@ namespace MagicMirror.Views
             if (localReaderSettings.Reader.Model == "R500")
             {
                 _readerControllerImpler = new ImpinjR500ReaderControllerImpl();
-                _readerControllerImpler.ReaderTagsHandle += _readerControllerImpler_ReaderTagsHandle;
+                _readerControllerImpler.ReaderTagsHandle += readerControllerImpler_ReaderTagsHandle;
                 try
                 {
                     if (Global.UserInterface == UserInterface.FittingRoom)
@@ -94,7 +100,7 @@ namespace MagicMirror.Views
                 }
                 catch (Exception ex)
                 {
-                    WPFMessageBox.Show("连接设备失败！" + ex.Message);
+                    //WPFMessageBox.Show("连接设备失败！" + ex.Message);
                 }
             }
             else
@@ -116,21 +122,21 @@ namespace MagicMirror.Views
                     }).ToList()
                 };
                 _readerController = new MotorolaRfidReaderControllerImpl(reader);
-                _readerController.ReaderTagsHandle += _readerControllerImpler_ReaderTagsHandle;
+                _readerController.ReaderTagsHandle += readerControllerImpler_ReaderTagsHandle;
                 try
                 {
                     _readerController.ConnectAndStart();
                 }
                 catch (Exception ex)
                 {
-                    WPFMessageBox.Show("连接设备失败！" + ex.Message);
+                    //WPFMessageBox.Show("连接设备失败！" + ex.Message);
                 }
             }
         }
 
         List<string> epcs = new List<string>();
 
-        private void _readerControllerImpler_ReaderTagsHandle(object sender, RfidReaderEventArgs e)
+        private void readerControllerImpler_ReaderTagsHandle(object sender, RfidReaderEventArgs e)
         {
             List<ProductBiz> epcProducts = new List<ProductBiz>();
             
@@ -139,7 +145,7 @@ namespace MagicMirror.Views
                 epcs.Add(epc.EpcCode);
             }
 
-            IList<SkuInfoBiz> SkuInfos = dataservice.GetSkusByEpcList(epcs);
+            IList<SkuInfoBiz> SkuInfos = Global.dataservice.GetSkusByEpcList(epcs);
             if (SkuInfos == null) return;
             for (int i = 0; i < SkuInfos.Count; i++)
             {
@@ -159,7 +165,6 @@ namespace MagicMirror.Views
                 }
                 Global.MainFrame.Navigated += MainFrame_Navigated;
             });
-            
         }
 
         #region ===商品初始化加载===
@@ -170,21 +175,21 @@ namespace MagicMirror.Views
             try
             {
                 //设置空间上的位置偏移
-                double[] xPositons = GetXPositons(ScenePicturesCount);
-                double[] yPositons = GetYPositons(ScenePicturesCount);
-                double[] zPositons = GetZPositons(ScenePicturesCount);
+                double[] xPositons = GetXPositons(Global.HomeAnimatePictureCount);
+                double[] yPositons = GetYPositons(Global.HomeAnimatePictureCount);
+                double[] zPositons = GetZPositons(Global.HomeAnimatePictureCount);
 
                 //目前使用示例图片
-                if (Global.ProductDemoImages.Count < ScenePicturesCount)
+                if (Global.ProductDemoImages.Count < Global.HomeAnimatePictureCount)
                 {
-                    MessageBox.Show("至少在目录\"Resources\"/Products中放入" + ScenePicturesCount + "张图片哦！");
+                    MessageBox.Show("至少在目录\"Resources\"/Products中放入" + Global.HomeAnimatePictureCount + "张图片哦！");
                     Window.GetWindow(this).Close();
                     return;
                 }
 
                 this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate()
                 {
-                    for (int index = 0; index < ScenePicturesCount; index++)
+                    for (int index = 0; index < Global.HomeAnimatePictureCount; index++)
                     {
                         products[index].ImageUrl = Global.ProductDemoImages[index];
 
@@ -261,8 +266,20 @@ namespace MagicMirror.Views
         {
             busyGrid.Visibility = Visibility.Collapsed;
             viewLoading.Visibility = Visibility.Collapsed;
-            (this.Resources["LoadedStoryboard"] as Storyboard).Begin(this);
-            for (int index = 0; index < ScenePicturesCount; index++)
+
+            Storyboard loadStoryboard = new Storyboard();
+            DoubleAnimation angleRotationAnimation = new DoubleAnimation();
+            angleRotationAnimation.From = 0;
+            angleRotationAnimation.To = 360;
+            angleRotationAnimation.AutoReverse = false;
+            angleRotationAnimation.RepeatBehavior = RepeatBehavior.Forever;
+            angleRotationAnimation.Duration = new Duration(TimeSpan.FromSeconds(Global.AnimateCircleDuration));
+            Storyboard.SetTargetName(angleRotationAnimation, "angleRotation");
+            Storyboard.SetTargetProperty(angleRotationAnimation, new PropertyPath(AxisAngleRotation3D.AngleProperty));
+            loadStoryboard.Children.Add(angleRotationAnimation);
+            loadStoryboard.Begin(this);
+
+            for (int index = 0; index < Global.HomeAnimatePictureCount; index++)
             {
                 string AxisAngleRot3DName = "axisAngleRotation" + index;
                 DoubleAnimation element = new DoubleAnimation();
@@ -331,12 +348,17 @@ namespace MagicMirror.Views
 
 
         /// <summary>
-        /// Y轴方向偏移
+        /// Z轴方向偏移
         /// </summary>
         /// <param name="ScenePicturesCount"></param>
         /// <returns></returns>
         private double[] GetZPositons(int ScenePicturesCount)
         {
+            this.Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (System.Threading.ThreadStart)delegate()
+            {
+                sceneTransform3d.OffsetZ = -10 - ScenePicturesCount * 0.5;
+            });
+           
             double[] zPositons = new double[ScenePicturesCount];
 
             for (int i = 0; i < ScenePicturesCount; i++)
@@ -389,7 +411,6 @@ namespace MagicMirror.Views
                                 ProductBiz selPruduct = HomeProductDic[selIndex];
                                 if (selPruduct != null)
                                 {
-                                    Global.tryingOnProductImage = Global.ProductDemoImages[selIndex];
                                     if (Global.UserInterface == UserInterface.FittingRoom)
                                     {
                                         Global.MainFrame.Navigate(new Uri("/Views/ProductTryingOnControl.xaml", UriKind.Relative), selPruduct);
@@ -408,7 +429,7 @@ namespace MagicMirror.Views
             }, pointparams);
         }
 
-        void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
         {
             if (e.ExtraData is ProductBiz)
             {
@@ -428,7 +449,7 @@ namespace MagicMirror.Views
 
         #region ===功能按钮菜单显示和隐藏===
 
-        private void RootGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void UserControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!isCompleted) return;
             Storyboard menuShowStoryboard;
@@ -449,7 +470,5 @@ namespace MagicMirror.Views
         }
 
         #endregion
-
-        
     }
 }

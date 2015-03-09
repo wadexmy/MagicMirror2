@@ -27,16 +27,6 @@ namespace MagicMirror
         public MainWindow()
         {
             InitializeComponent();
-            try
-            {
-                ImageBrush imgBrush = new ImageBrush();
-                imgBrush.ImageSource = new BitmapImage(new Uri(Global.BackgroundImage));
-                this.Background = imgBrush;
-            }
-            catch (Exception)
-            {
-                this.Background = TryFindResource("cloudBackground") as ImageBrush;
-            }
 
             NavigationFrame.Navigate(new Uri("/Views/ProductSlideGallery.xaml", UriKind.Relative));
 
@@ -45,14 +35,16 @@ namespace MagicMirror
             //后台执行系统空闲加载时进入商品动画页面
             RunSlideShowThread();
             //this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            this.WindowState = WindowState.Maximized;
+            this.Top = 650;
+            this.Left = 650;
+            //this.WindowState = WindowState.Maximized;
+
             SystemEvents.DisplaySettingsChanged += SystemEvents_DisplaySettingsChanged;
             SystemEvents_DisplaySettingsChanged(this, null);
-
         }
 
         //根据实际应用设置主屏宽高比例
-        void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
+        private void SystemEvents_DisplaySettingsChanged(object sender, EventArgs e)
         {
             //获取屏幕实际宽度、高度和比例
             double ScreenWidth = SystemParameters.PrimaryScreenWidth;
@@ -62,12 +54,12 @@ namespace MagicMirror
                 Global.FittingRoomRatio : Global.ShoppingAssistRatio;
             if (ratio >= reqRatio)
             {
-                this.Height = ScreenHeight;
+                this.Height = ScreenHeight * 0.6;
                 this.Width = this.Height * reqRatio;
             }
             else
             {
-                this.Width = ScreenWidth;
+                this.Width = ScreenWidth * 0.6;
                 this.Height = this.Width / reqRatio;
             }
         }
