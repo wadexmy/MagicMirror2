@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Windows.Controls;
 using MagicMirror.Models;
 using System.IO;
+using MagicMirror.Views;
 
 namespace MagicMirror
 {
@@ -37,9 +38,13 @@ namespace MagicMirror
         public static string BackgroundImage = Path.Combine(AssemblyPath, GetAppConfig("BackgroundImage"));
 
         /// <summary>
-        /// 系统导航主界面
+        /// 系统导航主体部分
         /// </summary>
         public static Frame MainFrame;
+        /// <summary>
+        /// 系统底部操作按钮组
+        /// </summary>
+        public static MainButtonMenuBar MenuButtonBar;
 
         /// <summary>
         /// 试衣间主界面
@@ -203,5 +208,7 @@ namespace MagicMirror
         }
 
         #endregion
+       
     }
+    
 }

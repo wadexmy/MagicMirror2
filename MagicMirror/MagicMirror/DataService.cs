@@ -217,24 +217,16 @@ namespace MagicMirror
             return response.Success ? response.Context.Data : null;
         }
 
-        public IList<ProductBiz> GetRecommendProducts(ProductBiz product)
+        public IList<ProductCollocationBiz> GetRecommendProducts(ProductBiz product)
         {
             var request = new ApiRequest()
             {
-                ApiPath = "api/product/list",
+                ApiPath = string.Format("api/product/{0}/collocation/list ", product.Code),
                 ServerAddress = Global.ServerAddressUrl,
                 Method = Method.Post,
                 AppKey = userKey,
-                Param = new
-                {
-                    isPageable = false,
-                    customPropertyValue04Id = product.CustomPropertyValue04Id,
-                    customPropertyValue05Id = product.CustomPropertyValue05Id,
-                    customPropertyValue06Id = product.CustomPropertyValue06Id,
-                    customPropertyValue08Id = product.CustomPropertyValue08Id
-                }
             };
-            var response = ApiHelper.Execute<ListResponse<ProductBiz>>(request, false).Result;
+            var response = ApiHelper.Execute<ListResponse<ProductCollocationBiz>>(request, false).Result;
             return response.Success ? response.Context.Data : null;
         }
 
@@ -323,6 +315,8 @@ namespace MagicMirror
         }
 
         #endregion
+
+
 
     }
 }

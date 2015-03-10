@@ -20,13 +20,13 @@ namespace MagicMirror.Views
             this.DataContext = Global.productViewModel.CurrentProduct;
 
             lbSelProducts.ItemsSource = Global.productViewModel.TryingOnProducts;
-            menuButtons.btnBuy.Visibility = Visibility.Visible;
+
+            Global.MenuButtonBar.btnBuy.Visibility = Visibility.Visible;
 
             Global.productViewModel.tryingOnProductsAdded += prodectViewModel_tryingOnProductsChanged;
             Global.productViewModel.tryingOnMutiProductsAdded += productViewModel_tryingOnMutiProductsAdded;
             Global.productViewModel.tryingOnProductsRemoved += productViewModel_tryingOnProductsRemoved;
         }
-
 
         private void btnRemoveProduct_Click(object sender, RoutedEventArgs e)
         {
@@ -104,13 +104,26 @@ namespace MagicMirror.Views
                 {
                     productColors = Global.dataservice.GetProductColors(selProductSkus);
                     productSizes = Global.dataservice.GetProductSizes(selProductSkus);
+                    //IList<ProductCollocationBiz> relatedProductBizs = Global.dataservice.GetRecommendProducts(selProduct);
+                    //if (relatedProductBizs != null && relatedProductBizs.Count == 0) {
+                    //    IList<ProductBiz> relShowProduct = new List<ProductBiz>();
+                    //    int maxNumber = relShowProduct.Count < Global.ProductDemoImages.Count ? relShowProduct.Count : Global.ProductDemoImages.Count;
+                    //    for (int i = 0; i < maxNumber; i++)
+                    //    {
+                    //        ProductBiz relProduct = ProductBiz.GetProductBiz(relatedProductBizs[i]);
+                    //        relProduct.ImagePath = Global.ProductDemoImages[i];
+                    //        relShowProduct.Add(relProduct);
+                    //    }
+                    //    relShowProducts = relShowProduct;
+                    //}
                     IList<ProductBiz> relatedProducts = Global.dataservice.GetRelatedProducts(selProduct);
                     if (relatedProducts != null && relatedProducts.Count > 0)
                     {
                         IList<ProductBiz> relShowProduct = relatedProducts.Skip(relatedProducts.Count - Global.ProductDemoImages.Count).ToList();
+                        
                         for (int i = 0; i < relShowProduct.Count; i++)
                         {
-                            relShowProduct[i].ImageUrl = Global.ProductDemoImages[i];
+                            relShowProduct[i].ImagePath = Global.ProductDemoImages[i];
                             relShowProducts = relShowProduct;
                         }
                     }

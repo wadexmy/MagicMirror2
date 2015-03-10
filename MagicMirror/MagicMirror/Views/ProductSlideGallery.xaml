@@ -8,34 +8,6 @@
              mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="1000"
              MouseDown="UserControl_MouseDown">
     
-    <UserControl.Resources>
-        <Storyboard x:Key="buttonMenuInStoryboard">
-            <DoubleAnimation Duration="0:0:0.5" From="100" To="0" Storyboard.TargetName="menuButtons"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="menuButtons">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-
-        <Storyboard x:Key="buttonMenuOutStoryboard">
-            <DoubleAnimation Duration="0:0:0.5" From="0" To="100" Storyboard.TargetName="menuButtons"
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
-                <DoubleAnimation.EasingFunction>
-                    <QuadraticEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="menuButtons">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-    </UserControl.Resources>
-
     <Grid x:Name="RootGrid">
         <Viewport3D x:Name="viewport3D" ClipToBounds="False" MouseLeftButtonDown="viewport3D_MouseLeftButtonDown"
                 Width="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}},Path=ActualWidth}"
@@ -78,12 +50,6 @@
                 </ModelVisual3D>
             </Viewport3D.Children>
         </Viewport3D>
-
-        <view:MainButtonMenuBar x:Name="menuButtons" VerticalAlignment="Bottom" HorizontalAlignment="Center" Visibility="Collapsed" Height="110">
-            <view:MainButtonMenuBar.RenderTransform>
-                <TranslateTransform></TranslateTransform>
-            </view:MainButtonMenuBar.RenderTransform>
-        </view:MainButtonMenuBar>
 
         <Grid x:Name="busyGrid" Background="#000" Opacity="0.25"></Grid>
         <view:LoadingWait x:Name="viewLoading"/>

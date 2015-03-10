@@ -29,7 +29,6 @@ namespace MagicMirror.Views
     /// </summary>
     public partial class ProductSlideGallery : UserControl
     {
-
         /// <summary>
         /// 当前屏幕显示的产品
         /// </summary>
@@ -38,10 +37,10 @@ namespace MagicMirror.Views
         private bool isCompleted = false;
 
         #region ===感应输入===
-        
-        private IRfidReaderControllerImpl _readerControllerImpler;
 
-        private IRfidReaderController _readerController = null;
+        private IRfidReaderControllerImpl readerControllerImpler = null;
+
+        private IRfidReaderController readerController = null;
 
         public string readerConfigPath = Global.readerConfigPath;
 
@@ -53,10 +52,12 @@ namespace MagicMirror.Views
 
             HomeProductDic = new Dictionary<int, ProductBiz>();
 
-            menuButtons.btnTrying.Visibility = Visibility.Collapsed;
-            menuButtons.btnBuy.Visibility = Visibility.Collapsed;
+            Grid.SetRowSpan(Global.MainFrame,2);
+            Global.MenuButtonBar.btnTrying.Visibility = Visibility.Collapsed;
+            Global.MenuButtonBar.btnBuy.Visibility = Visibility.Collapsed;
+            Global.MenuButtonBar.btnClose.Visibility = Visibility.Collapsed;
 
-            Thread thread = new Thread(() => 
+            Thread thread = new Thread(() =>
             {
                 IList<ProductBiz> homeProducts = Global.dataservice.GetFirstPageProducts(Global.HomeAnimatePictureCount);
                 PrepareProducts3DView(homeProducts);
@@ -77,6 +78,9 @@ namespace MagicMirror.Views
 
         private void ProductSlideGallery_Loaded(object sender, RoutedEventArgs e)
         {
+            //只有试衣间才支持加载初始屏时启动感应输入
+            if (Global.UserInterface == UserInterface.ShoppingAssistant)
+                return;
             if (!System.IO.File.Exists(readerConfigPath)) throw new Exception("找不到读写器配置文件！");
             var file = System.IO.File.ReadAllText(readerConfigPath);
             var localReaderSettings = JsonConvert.DeserializeObject<ReaderWithAntennaDto>(file);
@@ -84,19 +88,12 @@ namespace MagicMirror.Views
             if (localReaderSettings == null) throw new Exception("请先维护设备！");
             if (localReaderSettings.Reader.Model == "R500")
             {
-                _readerControllerImpler = new ImpinjR500ReaderControllerImpl();
-                _readerControllerImpler.ReaderTagsHandle += readerControllerImpler_ReaderTagsHandle;
+                readerControllerImpler = new ImpinjR500ReaderControllerImpl();
+                readerControllerImpler.ReaderTagsHandle += readerControllerImpler_ReaderTagsHandle;
                 try
                 {
-                    if (Global.UserInterface == UserInterface.FittingRoom)
-                    {
-                        //_readerControllerImpler.StopAndDisconnect();
-                        _readerControllerImpler.ConnectAndStart();
-                    }
-                    else
-                    {
-
-                    }
+                    //_readerControllerImpler.StopAndDisconnect();
+                    readerControllerImpler.ConnectAndStart();
                 }
                 catch (Exception ex)
                 {
@@ -121,11 +118,11 @@ namespace MagicMirror.Views
                         TxPowerInDbm = v.TxPowerInDbm
                     }).ToList()
                 };
-                _readerController = new MotorolaRfidReaderControllerImpl(reader);
-                _readerController.ReaderTagsHandle += readerControllerImpler_ReaderTagsHandle;
+                readerController = new MotorolaRfidReaderControllerImpl(reader);
+                readerController.ReaderTagsHandle += readerControllerImpler_ReaderTagsHandle;
                 try
                 {
-                    _readerController.ConnectAndStart();
+                    readerController.ConnectAndStart();
                 }
                 catch (Exception ex)
                 {
@@ -150,7 +147,7 @@ namespace MagicMirror.Views
             for (int i = 0; i < SkuInfos.Count; i++)
             {
                 ProductBiz product = ProductBiz.GetProductBySkuInfo(SkuInfos[i]);
-                product.ImageUrl = Global.ProductDemoImages[i];
+                product.ImagePath = Global.ProductDemoImages[i];
                 epcProducts.Add(product);
             }
             this.Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate()
@@ -191,7 +188,7 @@ namespace MagicMirror.Views
                 {
                     for (int index = 0; index < Global.HomeAnimatePictureCount; index++)
                     {
-                        products[index].ImageUrl = Global.ProductDemoImages[index];
+                        products[index].ImagePath = Global.ProductDemoImages[index];
 
                         ModelVisual3D modelVisual3D = new ModelVisual3D();
                         GeometryModel3D geometryModel3D = new GeometryModel3D();
@@ -411,6 +408,7 @@ namespace MagicMirror.Views
                                 ProductBiz selPruduct = HomeProductDic[selIndex];
                                 if (selPruduct != null)
                                 {
+                                    Grid.SetRowSpan(Global.MainFrame, 1);
                                     if (Global.UserInterface == UserInterface.FittingRoom)
                                     {
                                         Global.MainFrame.Navigate(new Uri("/Views/ProductTryingOnControl.xaml", UriKind.Relative), selPruduct);
@@ -440,7 +438,20 @@ namespace MagicMirror.Views
             {
                 Global.productViewModel.AddProducts(e.ExtraData as List<ProductBiz>);
             }
-            
+            Global.MenuButtonBar.Visibility = Visibility.Visible;
+
+            //界面切换后关闭感应输入
+            if (readerControllerImpler != null)
+            {
+                readerControllerImpler.ReaderTagsHandle -= readerControllerImpler_ReaderTagsHandle;
+                readerControllerImpler.StopAndDisconnect();
+            }
+
+            if (readerController != null)
+            {
+                readerController.ReaderTagsHandle -= readerControllerImpler_ReaderTagsHandle;
+                readerController.StopAndDisconnect();
+            }
             //导航结束后马上解除绑定事件
             Global.MainFrame.Navigated -= MainFrame_Navigated;
         }
@@ -453,20 +464,20 @@ namespace MagicMirror.Views
         {
             if (!isCompleted) return;
             Storyboard menuShowStoryboard;
-            if (menuButtons.Visibility == Visibility.Collapsed)
+            if (Global.MenuButtonBar.Visibility == Visibility.Hidden)
             {
-                menuButtons.Visibility = Visibility.Visible;
-                menuShowStoryboard = this.Resources["buttonMenuInStoryboard"] as Storyboard;
+                Global.MenuButtonBar.Visibility = Visibility.Visible;
+                menuShowStoryboard = App.Current.MainWindow.Resources["buttonMenuInStoryboard"] as Storyboard;
             }
             else
             {
-                menuShowStoryboard = this.Resources["buttonMenuOutStoryboard"] as Storyboard;
+                menuShowStoryboard = App.Current.MainWindow.Resources["buttonMenuOutStoryboard"] as Storyboard;
                 menuShowStoryboard.Completed += (ss, ee) =>
                 {
-                    menuButtons.Visibility = Visibility.Collapsed;
+                    Global.MenuButtonBar.Visibility = Visibility.Hidden;
                 };
             }
-            menuShowStoryboard.Begin(this);
+            menuShowStoryboard.Begin(App.Current.MainWindow);
         }
 
         #endregion

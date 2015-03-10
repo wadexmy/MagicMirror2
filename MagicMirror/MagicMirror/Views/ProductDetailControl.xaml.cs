@@ -15,8 +15,9 @@ namespace MagicMirror.Views
         public ProductDetailControl()
         {
             InitializeComponent();
-            menuButtons.btnTrying.Visibility = Visibility.Visible;
-            menuButtons.btnBuy.Visibility = Visibility.Visible;
+
+            Global.MenuButtonBar.btnTrying.Visibility = Visibility.Visible;
+            Global.MenuButtonBar.btnBuy.Visibility = Visibility.Visible;
 
             Global.productViewModel.tryingOnProductsAdded += prodectViewModel_tryingOnProductsChanged;
         }
@@ -54,7 +55,7 @@ namespace MagicMirror.Views
                                 IList<ProductBiz> relShowProduct = relatedProducts.Skip(relatedProducts.Count - Global.ProductDemoImages.Count).ToList();
                                 for (int j = 0; j < relShowProduct.Count; j++)
                                 {
-                                    relShowProduct[j].ImageUrl = Global.ProductDemoImages[j];
+                                    relShowProduct[j].ImagePath = Global.ProductDemoImages[j];
                                     relShowProducts = relShowProduct;
                                 }
                             }
@@ -94,6 +95,7 @@ namespace MagicMirror.Views
         {
             int selIndex = lbMatchedProoducts.SelectedIndex;
             if (selIndex < 0) return;
+
             ProductBiz selProduct = relShowProducts[selIndex];
 
             MessageBoxResult msgResult = WPFMessageBox.Show("是否将所选商品添加到试穿列表中?", "确认消息", MessageBoxButton.YesNo);

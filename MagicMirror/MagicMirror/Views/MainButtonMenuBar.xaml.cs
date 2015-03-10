@@ -22,6 +22,9 @@ namespace MagicMirror.Views
                 btnFocus.Visibility = Visibility.Collapsed;
             }
         }
+        public delegate void SenseReaderOpened();
+
+        public event SenseReaderOpened senseReaderOpened;
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -31,6 +34,8 @@ namespace MagicMirror.Views
 
         private void btnAllProducts_Click(object sender, RoutedEventArgs e)
         {
+            Grid.SetRowSpan(Global.MainFrame, 1);
+            Global.MenuButtonBar.Visibility = Visibility.Visible;
             Global.MainFrame.Navigate(new Uri("/Views/AllProductsControl.xaml", UriKind.Relative));
         }
 
@@ -62,7 +67,9 @@ namespace MagicMirror.Views
         /// <param name="e"></param>
         private void btnSearchProducts_Click(object sender, RoutedEventArgs e)
         {
-
+            if (senseReaderOpened != null) {
+                senseReaderOpened();
+            }
         }
     }
 }

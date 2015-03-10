@@ -27,6 +27,7 @@ namespace MagicMirror.Views
             InitializeComponent();
             viewModel = new PageViewModel();
             this.DataContext = viewModel;
+
             viewModel.currentPageChanged += new PageViewModel.CurrentPageChanged(viewModel_currentPageChanged);
             viewModel_currentPageChanged(0);
         }

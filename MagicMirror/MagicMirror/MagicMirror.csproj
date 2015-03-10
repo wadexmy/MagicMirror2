@@ -91,6 +91,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\CustomConverter.cs" />
+    <Compile Include="Models\ProductCollocationBiz.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="Models\ProductColorBiz.cs" />
     <Compile Include="Models\ProductSizeBiz.cs" />
@@ -243,6 +244,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Resource Include="Resources\Images\redEnvelope.jpg" />
     <Content Include="Resources\ReaderSettings2.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -43,7 +43,7 @@
                                         <!--<Grid  Width="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Converter={StaticResource indentParentConverter}}"
                                                Height="{Binding Width,RelativeSource={RelativeSource Self}, Converter={StaticResource heightDependWidthConverter}}">-->
                                         <Grid Width="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Converter={StaticResource indentParentConverter}}">
-                                            <Image x:Name="pImg" Source="{Binding Path=ImageUrl}" HorizontalAlignment="Center" Stretch="Uniform" RenderOptions.BitmapScalingMode="Unspecified"/>
+                                            <Image x:Name="pImg" Source="{Binding Path=ImagePath}" HorizontalAlignment="Center" Stretch="Uniform" RenderOptions.BitmapScalingMode="Unspecified"/>
                                             <Button x:Name="btnRemoveProduct" VerticalAlignment="Top" HorizontalAlignment="Right" Tag="{Binding Id}" 
                                                     Width="30" Height="30" Visibility="Hidden" Click="btnRemoveProduct_Click">
                                                 <Button.Template>
@@ -97,128 +97,15 @@
                 </Grid.ColumnDefinitions>
                 
                 <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
-                    <Image Source="{Binding ImageUrl}" Margin="10" RenderOptions.BitmapScalingMode="HighQuality"></Image>
-                </Grid>
-                
-                <!--User Options-->
-                <StackPanel Grid.Column="1" Background="White" Margin="2,0,0,0">
-                    <!--Basic information-->
-                    <StackPanel Margin="10">
-                        <TextBlock x:Name="tbName" FontSize="16" Foreground="Black" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
-                        <TextBlock x:Name="tbDesc" FontSize="14" Foreground="#444444"  TextWrapping="Wrap" Text="{Binding Description, Converter={StaticResource descriptionConverter}}" ></TextBlock>
-                    </StackPanel>
-                    
-                    <!--colors-->
-                    <StackPanel Orientation="Horizontal" Margin="10,0">
-                        <TextBlock FontSize="14" VerticalAlignment="Center"> 颜色：</TextBlock>
-                        <ListBox x:Name="lbProductColors" Margin="10,5" VerticalAlignment="Center" 
-                                 Background="Transparent" BorderThickness="0" Height="50" 
-                                 SelectionChanged="lbProductColorSize_SelectionChanged">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-                            <ListBox.Resources>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="Width" Value="50"></Setter>
-                                    <Setter Property="Height" Value="40"></Setter>
-                                    <Setter Property="BorderThickness" Value="1"></Setter>
-                                    <Setter Property="BorderBrush" Value="#CCCCCC"></Setter>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="ListBoxItem">
-                                                <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2" Margin="2">
-                                                    <TextBlock Text="{Binding Name,IsAsync=True}" ToolTip="{Binding Rgb}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-
-                                    <Style.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Trigger.Setters>
-                                                <Setter Property="BorderBrush" Value="Gold"></Setter>
-                                            </Trigger.Setters>
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Trigger.Setters>
-                                                <Setter Property="BorderBrush" Value="Goldenrod"></Setter>
-                                            </Trigger.Setters>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ListBox.Resources>
-                        </ListBox>
-                    </StackPanel>
-                    
-                    <!--Sizes-->
-                    <StackPanel Margin="10,0" Orientation="Horizontal">
-                        <TextBlock FontSize="14" VerticalAlignment="Center">尺码：</TextBlock>
-                        <ListBox x:Name="lbProductSizes" Margin="10,5"  VerticalAlignment="Center"  
-                                 Background="Transparent"  BorderThickness="0" Height="50"
-                                 SelectionChanged="lbProductColorSize_SelectionChanged">
-                            <ListBox.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
-                                </ItemsPanelTemplate>
-                            </ListBox.ItemsPanel>
-
-                            <ListBox.Resources>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="Width" Value="50"></Setter>
-                                    <Setter Property="Height" Value="40"></Setter>
-                                    <Setter Property="BorderThickness" Value="1"></Setter>
-                                    <Setter Property="BorderBrush" Value="#CCCCCC"></Setter>
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="ListBoxItem">
-                                                <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2" Margin="2">
-                                                    <TextBlock Text="{Binding Name,IsAsync=True}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-
-                                    <Style.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Trigger.Setters>
-                                                <Setter Property="BorderBrush" Value="Gold"></Setter>
-                                            </Trigger.Setters>
-                                        </Trigger>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Trigger.Setters>
-                                                <Setter Property="BorderBrush" Value="Goldenrod"></Setter>
-                                            </Trigger.Setters>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </ListBox.Resources>
-                        </ListBox>
-                    </StackPanel>
-                   
-                    <!--Price-->
-                    <StackPanel Orientation="Horizontal" Margin="10,5">
-                        <TextBlock FontSize="14" VerticalAlignment="Center">价格：</TextBlock>
-                        <TextBlock x:Name="tbProductPrice" Text="{Binding RetailPrice}" VerticalAlignment="Center"></TextBlock>
-                    </StackPanel>
-                    
-                    <!--Material-->
-                    <StackPanel Orientation="Horizontal" Margin="10,5">
-                        <TextBlock FontSize="14" VerticalAlignment="Center">材质：</TextBlock>
-                        <TextBlock x:Name="tbProductMaterial" Text="{Binding CustomPropertyValue05Name}"></TextBlock>
-                    </StackPanel>
-                    
-                    <!--Thickness-->
-                    <StackPanel Orientation="Horizontal" Margin="10,5">
-                        <TextBlock FontSize="14" VerticalAlignment="Center">薄厚：</TextBlock>
-                        <TextBlock x:Name="tbProductThickness" Text="{Binding CustomPropertyValue08Name}"></TextBlock>
-                    </StackPanel>
-                    
-                    <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image Source="{Binding ImagePath}" Margin="10" RenderOptions.BitmapScalingMode="HighQuality"></Image>
+                    <Grid Grid.Row="1">
                         <!--User Comments-->
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                            <Button x:Name="btnLike" Width="80" Height="80" Margin="10,0,0,10" Click="btnLike_Click">
+                            <Button x:Name="btnLike" Width="80" Height="80" Margin="10,0,10,10" Click="btnLike_Click">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Border BorderThickness="1" Background="#F8FFEB" BorderBrush="#CCC" Cursor="Hand" CornerRadius="2">
@@ -231,11 +118,149 @@
                                 </Button.Template>
                             </Button>
 
-                            <Image VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10,0,10,10"
+                            <Image Margin="10,0,10,10"
                                Width="80" Height="80" Source="{Binding Name,Converter={StaticResource qrCodeConverter}}"></Image>
                         </StackPanel>
                     </Grid>
-                </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.6*"></RowDefinition>
+                        <RowDefinition Height="0.4*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--User Options-->
+                    <StackPanel Background="White" Margin="2,0,0,0">
+                        <!--Basic information-->
+                        <StackPanel Margin="10">
+                            <TextBlock x:Name="tbName" FontSize="16" Foreground="Black" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
+                            <TextBlock x:Name="tbDesc" FontSize="14" Foreground="#444444"  TextWrapping="Wrap" Text="{Binding Description, Converter={StaticResource descriptionConverter}}" ></TextBlock>
+                        </StackPanel>
+
+                        <!--Price-->
+                        <StackPanel Orientation="Horizontal" Margin="10,5">
+                            <TextBlock FontSize="14" VerticalAlignment="Center">价格：</TextBlock>
+                            <TextBlock Foreground="#F40" Margin="7,0,5,0" VerticalAlignment="Center">￥</TextBlock>
+                            <TextBlock x:Name="tbProductPrice" Text="{Binding RetailPrice}" Foreground="#F40" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <!--colors-->
+                        <StackPanel Orientation="Horizontal" Margin="10,0">
+                            <TextBlock FontSize="14" VerticalAlignment="Center"> 颜色：</TextBlock>
+                            <ListBox x:Name="lbProductColors" Margin="5" VerticalAlignment="Center" 
+                                 Background="Transparent" BorderThickness="0" Height="50" 
+                                 SelectionChanged="lbProductColorSize_SelectionChanged">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.Resources>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Width" Value="50"></Setter>
+                                        <Setter Property="Height" Value="40"></Setter>
+                                        <Setter Property="BorderThickness" Value="1"></Setter>
+                                        <Setter Property="BorderBrush" Value="#CCCCCC"></Setter>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2" Margin="2">
+                                                        <TextBlock Text="{Binding Name,IsAsync=True}" ToolTip="{Binding Rgb}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Trigger.Setters>
+                                                    <Setter Property="BorderBrush" Value="Gold"></Setter>
+                                                </Trigger.Setters>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Trigger.Setters>
+                                                    <Setter Property="BorderBrush" Value="Goldenrod"></Setter>
+                                                </Trigger.Setters>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListBox.Resources>
+                            </ListBox>
+                        </StackPanel>
+
+                        <!--Sizes-->
+                        <StackPanel Margin="10,0" Orientation="Horizontal">
+                            <TextBlock FontSize="14" VerticalAlignment="Center">尺码：</TextBlock>
+                            <ListBox x:Name="lbProductSizes" Margin="5"  VerticalAlignment="Center"  
+                                 Background="Transparent"  BorderThickness="0" Height="50"
+                                 SelectionChanged="lbProductColorSize_SelectionChanged">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+
+                                <ListBox.Resources>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Width" Value="50"></Setter>
+                                        <Setter Property="Height" Value="40"></Setter>
+                                        <Setter Property="BorderThickness" Value="1"></Setter>
+                                        <Setter Property="BorderBrush" Value="#CCCCCC"></Setter>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="2" Margin="2">
+                                                        <TextBlock Text="{Binding Name,IsAsync=True}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Trigger.Setters>
+                                                    <Setter Property="BorderBrush" Value="Gold"></Setter>
+                                                </Trigger.Setters>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Trigger.Setters>
+                                                    <Setter Property="BorderBrush" Value="Goldenrod"></Setter>
+                                                </Trigger.Setters>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListBox.Resources>
+                            </ListBox>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Grid Grid.Row="1" Margin="2,2,0,0" Background="White">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                                <TextBlock Text="&#xf063;" FontFamily="{StaticResource IconFont}" Foreground="Red" FontSize="15">
+                                    <TextBlock.RenderTransform>
+                                        <TranslateTransform Y="0" X="0"></TranslateTransform>
+                                    </TextBlock.RenderTransform>
+                                    <TextBlock.Triggers>
+                                        <EventTrigger RoutedEvent="Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                     <DoubleAnimation Duration="0:0:0.5" From="6" To="20" AutoReverse="True"  RepeatBehavior="Forever"
+                                                                      Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)">
+                                                     </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </TextBlock.Triggers>
+                                </TextBlock>
+                                
+                                <TextBlock Foreground="Red" FontSize="18" Margin="5,0,0,0">加我送红包</TextBlock>
+                            </StackPanel>
+                            
+                            <Image Margin="10" Width="140" Height="140" Source="{Binding Name,Converter={StaticResource qrCodeConverter}}"></Image>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
             </Grid>
 
             <!--Product Suggestions-->
@@ -250,7 +275,7 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
                                     <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Margin="2">
-                                        <Image x:Name="pImg" Source="{Binding Path=ImageUrl}" HorizontalAlignment="Center" Stretch="Fill"
+                                        <Image x:Name="pImg" Source="{Binding Path=ImagePath}" HorizontalAlignment="Center" Stretch="Fill"
                                                Width="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Converter={StaticResource indentParentConverter}}"/>
                                     </Border>
                                 </ControlTemplate>
@@ -272,11 +297,5 @@
                 </ListBox.Resources>
             </ListBox>
         </Grid>
-
-        <view:MainButtonMenuBar x:Name="menuButtons" Grid.Row="1" HorizontalAlignment="Center" Height="110">
-            <view:MainButtonMenuBar.RenderTransform>
-                <TranslateTransform></TranslateTransform>
-            </view:MainButtonMenuBar.RenderTransform>
-        </view:MainButtonMenuBar>
     </Grid>
 </UserControl>

@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace MagicMirror.Models
 {
-    public class ProductBiz : EntityBase
+    public class ProductCollocationBiz : EntityBase
     {
         private string code;
         [JsonProperty("code", NullValueHandling = NullValueHandling.Ignore)]
@@ -188,22 +188,7 @@ namespace MagicMirror.Models
                 OnPropertyChanged("ImagePath");
             }
         }
-
-        private string imageThumbnailPath;
-        [JsonProperty("imageThumbnailPath", NullValueHandling = NullValueHandling.Ignore)]
-        public string ImageThumbnailPath
-        {
-            get
-            {
-                return imageThumbnailPath;
-            }
-            set
-            {
-                imageThumbnailPath = value;
-                OnPropertyChanged("ImageThumbnailPath");
-            }
-        }
-
+        
         private string customPropertyValue01Id;
         [JsonProperty("customPropertyValue01Id", NullValueHandling = NullValueHandling.Ignore)]
         public string CustomPropertyValue01Id
@@ -714,51 +699,21 @@ namespace MagicMirror.Models
             }
         }
 
-        public static ProductBiz GetProductBySkuInfo(SkuInfoBiz skuInfo) {
-            if (skuInfo == null || string.IsNullOrEmpty(skuInfo.ProductId)) return null;
-           
-            return new ProductBiz()
-            {
-                Id=skuInfo.ProductId,
-                Code = skuInfo.ProductCode,
-                Name = skuInfo.ProductName,
-                Disable = skuInfo.ProductDisable,
-                UseProductColor=skuInfo.UseProductColor,
-                UseProductSize=skuInfo.UseProductColor,
-                isHot=skuInfo.IsHot,
-                isPromote=skuInfo.IsPromote,
-                LikeCount=skuInfo.LikeCount,
-                OnlineSalesUrl01=skuInfo.OnlineSalesUrl01,
-                OnlineSalesUrl02=skuInfo.OnlineSalesUrl02,
-                ImagePath=skuInfo.ImagePath,
-                ProductSizeGroupId=skuInfo.ProductSizeGroupId,
-                ProductSizeGroupCode=skuInfo.ProductSizeGroupCode,
-                RetailPrice=skuInfo.ProductRetailPrice
-            };
-        }
-
-        public static ProductBiz GetProductBiz(ProductCollocationBiz productCollocationBiz)
+        private string sortIndex;
+        [JsonProperty("sortIndex", NullValueHandling = NullValueHandling.Ignore)]
+        public string SortIndex
         {
-            if (productCollocationBiz == null || string.IsNullOrEmpty(productCollocationBiz.Id)) return null;
-
-            return new ProductBiz()
+            get
             {
-                Id = productCollocationBiz.Id,
-                Code = productCollocationBiz.Code,
-                Name = productCollocationBiz.Name,
-                Disable = productCollocationBiz.Disable,
-                UseProductColor = productCollocationBiz.UseProductColor,
-                UseProductSize = productCollocationBiz.UseProductColor,
-                isHot = productCollocationBiz.IsHot,
-                isPromote = productCollocationBiz.IsPromote,
-                LikeCount = productCollocationBiz.LikeCount,
-                OnlineSalesUrl01 = productCollocationBiz.OnlineSalesUrl01,
-                OnlineSalesUrl02 = productCollocationBiz.OnlineSalesUrl02,
-                ImagePath = productCollocationBiz.ImagePath,
-                ProductSizeGroupId = productCollocationBiz.ProductSizeGroupId,
-                ProductSizeGroupCode = productCollocationBiz.ProductSizeGroupCode,
-                RetailPrice = productCollocationBiz.RetailPrice
-            };
+                return sortIndex;
+            }
+            set
+            {
+                sortIndex = value;
+                OnPropertyChanged("SortIndex");
+            }
         }
+
+
     }
 }

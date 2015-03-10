@@ -41,7 +41,7 @@
                         <RowDefinition Height="auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Image Source="{Binding ImageUrl}" Stretch="Fill"></Image>
+                    <Image Source="{Binding ImagePath}" Stretch="Fill"></Image>
                     
                     <StackPanel Grid.Row="1" Margin="10">
                         <TextBlock x:Name="tbName" FontSize="16" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
@@ -195,7 +195,7 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
                                     <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Margin="2">
-                                        <Image x:Name="pImg" Source="{Binding Path=ImageUrl}" HorizontalAlignment="Center" Stretch="Fill"
+                                        <Image x:Name="pImg" Source="{Binding Path=ImagePath}" HorizontalAlignment="Center" Stretch="Fill"
                                                Width="{Binding ActualWidth,RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBox}, Converter={StaticResource indentParentConverter}}"
                                                Height="{Binding Width,RelativeSource={RelativeSource Self}, Converter={StaticResource heightDependWidthConverter}}"/>
                                     </Border>
@@ -220,12 +220,5 @@
                 </ListBox.Resources>
             </ListBox>
         </Grid>
-        
-        <view:MainButtonMenuBar x:Name="menuButtons" Grid.Row="1" HorizontalAlignment="Center" 
-                                Height="110" VerticalAlignment="Bottom">
-            <view:MainButtonMenuBar.RenderTransform>
-                <TranslateTransform></TranslateTransform>
-            </view:MainButtonMenuBar.RenderTransform>
-        </view:MainButtonMenuBar>
     </Grid>
 </UserControl>
